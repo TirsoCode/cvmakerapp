@@ -1,5 +1,49 @@
+"use client";
 import Link from "next/link";
 import { TEMPLATES } from "@/lib/types";
+import { useState, useEffect } from "react";
+
+const PHRASES = [
+  "El CV que tu próxima oportunidad merece",
+  "Tu curriculum como developer, sin complicaciones",
+  "CVs que impresionan a empresas de tech",
+  "Tu carta de presentación como developer",
+  "Un CV outstanding en 10 minutos",
+];
+
+function TypewriterHero() {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = PHRASES[phraseIndex];
+    const timeout = setTimeout(() => {
+      if (!deleting) {
+        if (charIndex < current.length) {
+          setCharIndex(charIndex + 1);
+        } else {
+          setTimeout(() => setDeleting(true), 2000);
+        }
+      } else {
+        if (charIndex > 0) {
+          setCharIndex(charIndex - 1);
+        } else {
+          setDeleting(false);
+          setPhraseIndex((phraseIndex + 1) % PHRASES.length);
+        }
+      }
+    }, deleting ? 50 : 100);
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, phraseIndex]);
+
+  return (
+    <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif", minHeight: "2.3em" }}>
+      {PHRASES[phraseIndex].slice(0, charIndex)}
+      <span style={{ borderRight: "2px solid #C0392B", marginLeft: 2, paddingRight: 1, animation: "blink 1s step-end infinite" }} />
+    </h1>
+  );
+}
 
 export default function Home() {
   return (
@@ -45,9 +89,7 @@ export default function Home() {
             20 plantillas premium
           </span>
         </div>
-        <h1 style={{ fontSize: "clamp(36px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-          Tu próximo trabajo<br />empieza con un buen CV
-        </h1>
+        <TypewriterHero />
         <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 32px", fontFamily: "'Instrument Sans', sans-serif" }}>
           20 plantillas premium, exportación a PDF y Markdown, personalización total. Sin registro.
         </p>
