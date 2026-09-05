@@ -53,7 +53,7 @@ function TypewriterHero() {
   }, [charIndex, deleting, phraseIndex]);
 
   return (
-    <div style={{ marginBottom: 20, textAlign: "left" }}>
+    <div style={{ marginBottom: 20, textAlign: "center" }}>
       <p style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 2px", color: "#9C9890", fontFamily: "'Playfair Display', serif" }}>
         CV para
       </p>
