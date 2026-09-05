@@ -75,22 +75,7 @@ export default function Home() {
               createCV
             </span>
           </div>
-          <Link
-            href="/editor"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "9px 20px",
-              background: "#1A1918",
-              color: "#fff",
-              borderRadius: 8,
-              fontSize: 13,
-              fontWeight: 600,
-              textDecoration: "none",
-              fontFamily: "'Instrument Sans', sans-serif",
-            }}
-          >
+          <Link className="boton-neobrutalista" href="/editor" style={{ padding: "8px 18px", fontSize: 13 }}>
             Crear mi CV
           </Link>
         </div>
@@ -108,23 +93,7 @@ export default function Home() {
         <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 32px", fontFamily: "'Instrument Sans', sans-serif" }}>
           20 plantillas premium, exportación a PDF y Markdown, personalización total. Sin registro.
         </p>
-        <Link
-          href="/editor"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            padding: "15px 36px",
-            background: "#C0392B",
-            color: "#fff",
-            borderRadius: 10,
-            fontSize: 15,
-            fontWeight: 600,
-            textDecoration: "none",
-            fontFamily: "'Instrument Sans', sans-serif",
-            boxShadow: "0 4px 14px rgba(192,57,43,0.25)",
-          }}
-        >
+        <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" />
           </svg>
@@ -240,22 +209,7 @@ export default function Home() {
         </div>
 
         <div style={{ textAlign: "center", marginTop: 44 }}>
-          <Link
-            href="/editor"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "13px 28px",
-              background: "#1A1918",
-              color: "#fff",
-              borderRadius: 10,
-              fontSize: 14,
-              fontWeight: 600,
-              textDecoration: "none",
-              fontFamily: "'Instrument Sans', sans-serif",
-            }}
-          >
+          <Link className="boton-neobrutalista" href="/editor">
             Probar ahora — gratis
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
@@ -383,23 +337,7 @@ export default function Home() {
           <p style={{ fontSize: 16, color: "#9C9890", margin: "0 0 32px", fontFamily: "'Instrument Sans', sans-serif", lineHeight: 1.6 }}>
             Crea un CV que cuente tu historia. Profesional, memorable y listo para impresionar. Empieza ahora y tenlo listo en 10 minutos.
           </p>
-          <Link
-            href="/editor"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "15px 36px",
-              background: "#C0392B",
-              color: "#fff",
-              borderRadius: 10,
-              fontSize: 15,
-              fontWeight: 600,
-              textDecoration: "none",
-              fontFamily: "'Instrument Sans', sans-serif",
-              boxShadow: "0 4px 14px rgba(192,57,43,0.35)",
-            }}
-          >
+          <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
             Crear mi CV ahora
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
