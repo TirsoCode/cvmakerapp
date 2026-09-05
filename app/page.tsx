@@ -87,23 +87,34 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section style={{ maxWidth: 860, margin: "0 auto", padding: "88px 24px 72px", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
-          <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
-            20 plantillas premium
-          </span>
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+        {/* Left: text */}
+        <div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+              20 plantillas premium
+            </span>
+          </div>
+          <TypewriterHero />
+          <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "'Instrument Sans', sans-serif" }}>
+            20 plantillas premium · PDF · Markdown · Sin registro
+          </p>
+          <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" />
+            </svg>
+            Empezar ahora — es gratis
+          </Link>
         </div>
-        <TypewriterHero />
-        <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 28px", fontFamily: "'Instrument Sans', sans-serif" }}>
-          20 plantillas premium · PDF · Markdown · Sin registro
-        </p>
-        <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" />
-          </svg>
-          Empezar ahora — es gratis
-        </Link>
+        {/* Right: image */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src="https://raw.githubusercontent.com/TirsoCode/resumecraft/main/foto.webp"
+            alt="createCV preview"
+            style={{ maxWidth: "100%", height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
+          />
+        </div>
       </section>
 
       {/* How it works */}
