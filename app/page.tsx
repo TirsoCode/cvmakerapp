@@ -87,7 +87,7 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+      <section style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px", display: "grid", gridTemplateColumns: "5fr 7fr", gap: 48, alignItems: "center" }}>
         {/* Left: text */}
         <div style={{ paddingLeft: 0 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
@@ -108,11 +108,11 @@ export default function Home() {
           </Link>
         </div>
         {/* Right: image */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <img
             src="https://raw.githubusercontent.com/TirsoCode/resumecraft/main/foto.webp"
             alt="createCV preview"
-            style={{ width: "100%", maxWidth: 700, height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
+            style={{ width: "100%", maxWidth: 900, height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
           />
         </div>
       </section>
