@@ -42,14 +42,14 @@ export default function Home() {
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
           <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
           <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
-            20 plantillas premium disponibles
+            20 plantillas premium
           </span>
         </div>
-        <h1 style={{ fontSize: "clamp(38px, 6vw, 60px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, margin: "0 0 24px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-          Tu curriculum merece<br />ser extraordinario
+        <h1 style={{ fontSize: "clamp(36px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+          Tu próximo trabajo<br />empieza con un buen CV
         </h1>
-        <p style={{ fontSize: 19, lineHeight: 1.7, color: "#6B6860", maxWidth: 560, margin: "0 auto 40px", fontFamily: "'Instrument Sans', sans-serif" }}>
-          Crea un CV profesional y memorable en minutos. Elige entre 20 plantillas diseÃ±adas por expertos, personaliza cada detalle y descÃ¡rgalo en PDF o Markdown listo para enviar a cualquier empresa.
+        <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 32px", fontFamily: "'Instrument Sans', sans-serif" }}>
+          20 plantillas premium, exportación a PDF y Markdown, personalización total. Sin registro.
         </p>
         <Link
           href="/editor"
@@ -73,9 +73,6 @@ export default function Home() {
           </svg>
           Empezar ahora — es gratis
         </Link>
-        <p style={{ fontSize: 12, color: "#9C9890", marginTop: 14, fontFamily: "'Instrument Sans', sans-serif" }}>
-          No necesitas registrarte · Sin límite de uso
-        </p>
       </section>
 
       {/* How it works */}
@@ -148,15 +145,15 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 44 }}>
           <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-            20 plantillas diseñadas para destacar
+            Diseñadas para impresionar
           </h2>
           <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
-            Cada plantilla tiene personalidad propia. Elige la que mejor encaje con tu sector y tu estilo
+            Y 16 más disponibles en el editor
           </p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 18 }}>
-          {TEMPLATES.map((t) => (
+          {TEMPLATES.slice(0, 4).map((t) => (
             <div
               key={t.id}
               style={{
@@ -224,7 +221,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 36 }}>
             {[
               {
-                title: "20 plantillas premium",
+                title: "20 plantillas disponibles",
                 desc: "Diseños cuidados hasta el último píxel. Desde el minimalista más limpio hasta el editorial más atrevido.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
               },
