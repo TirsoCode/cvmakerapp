@@ -9,6 +9,21 @@ const PHRASES = [
   "CVs que impresionan a empresas de tech",
   "Tu carta de presentación como developer",
   "Un CV outstanding en 10 minutos",
+  "Destaca entre cientos de candidatos",
+  "Tu curriculum, tu marca personal",
+  "Diseñado para recruiters de tech",
+  "El CV perfecto no existe, pero este ayuda",
+  "Tu código habla, tu CV también",
+  "Crea, personaliza, descarga,envía",
+  "CVs para developers que buscan成長",
+  "Tu próxima entrevista empieza aquí",
+  "Muestra lo que sabes hacer",
+  "CVs con personalidad técnica",
+  "De junior a senior, un CV a la vez",
+  "Sin filtro, sin BS, solo resultados",
+  "Tu curriculum en tiempo récord",
+  "El CV que los hiring managers recuerdan",
+  "Tu siguiente paso en tech empieza aquí",
 ];
 
 function TypewriterHero() {
