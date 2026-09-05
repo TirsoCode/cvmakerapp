@@ -27,7 +27,7 @@ const PHRASES = [
 ];
 
 function TypewriterHero() {
-  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [phraseIndex, setPhraseIndex] = useState(() => Math.floor(Math.random() * PHRASES.length));
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
@@ -45,7 +45,7 @@ function TypewriterHero() {
           setCharIndex(charIndex - 1);
         } else {
           setDeleting(false);
-          setPhraseIndex((phraseIndex + 1) % PHRASES.length);
+          setPhraseIndex(Math.floor(Math.random() * PHRASES.length));
         }
       }
     }, deleting ? 40 : 80);
