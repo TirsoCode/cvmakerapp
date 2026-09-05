@@ -112,7 +112,7 @@ export default function Home() {
           <img
             src="https://raw.githubusercontent.com/TirsoCode/resumecraft/main/foto.webp"
             alt="createCV preview"
-            style={{ maxWidth: "100%", height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
+            style={{ width: "100%", maxWidth: 700, height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
           />
         </div>
       </section>
