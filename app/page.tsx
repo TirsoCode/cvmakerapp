@@ -53,11 +53,11 @@ function TypewriterHero() {
   }, [charIndex, deleting, phraseIndex]);
 
   return (
-    <div style={{ marginBottom: 20, textAlign: "center" }}>
+    <div style={{ marginBottom: 20 }}>
       <p style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 2px", color: "#9C9890", fontFamily: "'Playfair Display', serif" }}>
         CV para
       </p>
-      <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: 0, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+      <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: 0, padding: 0, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
         {PHRASES[phraseIndex].slice(0, charIndex)}
         <span style={{ display: "inline-block", width: 3, height: "1em", background: "#C0392B", marginLeft: 3, verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />
       </h1>
