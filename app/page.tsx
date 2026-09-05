@@ -4,26 +4,26 @@ import { TEMPLATES } from "@/lib/types";
 import { useState, useEffect } from "react";
 
 const PHRASES = [
-  "El CV que tu próxima oportunidad merece",
-  "Tu curriculum como developer, sin complicaciones",
-  "CVs que impresionan a empresas de tech",
-  "Tu carta de presentación como developer",
-  "Un CV outstanding en 10 minutos",
-  "Destaca entre cientos de candidatos",
-  "Tu curriculum, tu marca personal",
-  "Diseñado para recruiters de tech",
-  "El CV perfecto no existe, pero este ayuda",
-  "Tu código habla, tu CV también",
-  "Crea, personaliza, descarga,envía",
-  "CVs para developers que buscan成長",
-  "Tu próxima entrevista empieza aquí",
-  "Muestra lo que sabes hacer",
-  "CVs con personalidad técnica",
-  "De junior a senior, un CV a la vez",
-  "Sin filtro, sin BS, solo resultados",
-  "Tu curriculum en tiempo récord",
-  "El CV que los hiring managers recuerdan",
-  "Tu siguiente paso en tech empieza aquí",
+  "Full Stack Developer",
+  "Frontend Engineer",
+  "Backend Developer",
+  "DevOps Engineer",
+  "Data Engineer",
+  "Mobile Developer",
+  "UX Engineer",
+  "Site Reliability Engineer",
+  "Cloud Architect",
+  "Security Engineer",
+  "Machine Learning Engineer",
+  "Product Engineer",
+  "Software Architect",
+  "Platform Engineer",
+  "Systems Designer",
+  "Tech Lead",
+  "Engineering Manager",
+  "Solutions Architect",
+  "Release Engineer",
+  "Infrastructure Engineer",
 ];
 
 function TypewriterHero() {
@@ -38,7 +38,7 @@ function TypewriterHero() {
         if (charIndex < current.length) {
           setCharIndex(charIndex + 1);
         } else {
-          setTimeout(() => setDeleting(true), 2000);
+          setTimeout(() => setDeleting(true), 2500);
         }
       } else {
         if (charIndex > 0) {
@@ -48,14 +48,14 @@ function TypewriterHero() {
           setPhraseIndex((phraseIndex + 1) % PHRASES.length);
         }
       }
-    }, deleting ? 50 : 100);
+    }, deleting ? 40 : 80);
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, phraseIndex]);
 
   return (
-    <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif", minHeight: "2.3em" }}>
+    <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif", minHeight: "1.4em" }}>
       {PHRASES[phraseIndex].slice(0, charIndex)}
-      <span style={{ borderRight: "2px solid #C0392B", marginLeft: 2, paddingRight: 1, animation: "blink 1s step-end infinite" }} />
+      <span style={{ display: "inline-block", width: 3, height: "1em", background: "#C0392B", marginLeft: 3, verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />
     </h1>
   );
 }
@@ -91,7 +91,7 @@ export default function Home() {
         </div>
         <TypewriterHero />
         <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 32px", fontFamily: "'Instrument Sans', sans-serif" }}>
-          20 plantillas premium, exportación a PDF y Markdown, personalización total. Sin registro.
+          20 plantillas premium · PDF · Markdown · Sin registro
         </p>
         <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
