@@ -87,9 +87,9 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+      <section style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
         {/* Left: text */}
-        <div>
+        <div style={{ paddingLeft: 0 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
             <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
