@@ -74,7 +74,7 @@ export default function Home() {
           Empezar ahora — es gratis
         </Link>
         <p style={{ fontSize: 12, color: "#9C9890", marginTop: 14, fontFamily: "'Instrument Sans', sans-serif" }}>
-          No necesitas registrarte · Sin lÃ­mite de uso
+          No necesitas registrarte · Sin límite de uso
         </p>
       </section>
 
@@ -83,7 +83,7 @@ export default function Home() {
         <div style={{ maxWidth: 900, margin: "0 auto", padding: "72px 24px" }}>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
             <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-              Crear tu CV nunca fue tan fÃ¡cil
+              Crear tu CV nunca fue tan fácil
             </h2>
             <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
               Tres pasos para un resultado profesional
@@ -94,7 +94,7 @@ export default function Home() {
               {
                 step: "01",
                 title: "Elige tu plantilla",
-                desc: "Explora 20 diseÃ±os Ãºnicos pensados para diferentes sectores y estilos. Minimalista, corporativo, creativo â�� hay una para cada perfil.",
+                desc: "Explora 20 diseños únicos pensados para diferentes sectores y estilos. Minimalista, corporativo, creativo — hay una para cada perfil.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
                     <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -105,7 +105,7 @@ export default function Home() {
               {
                 step: "02",
                 title: "Rellena tus datos",
-                desc: "Completa tu informaciÃ³n de forma intuitiva. AÃ±ade tu experiencia, educaciÃ³n, habilidades, idiomas y proyectos. Sube tu foto si lo deseas.",
+                desc: "Completa tu información de forma intuitiva. Añade tu experiencia, educación, habilidades, idiomas y proyectos. Sube tu foto si lo deseas.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
@@ -114,7 +114,7 @@ export default function Home() {
               },
               {
                 step: "03",
-                title: "Descarga y envÃ­alo",
+                title: "Descarga y envíalo",
                 desc: "Exporta tu CV en PDF de alta calidad para enviar por email, o en Markdown si trabajas con herramientas como Notion o GitHub.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
@@ -148,7 +148,7 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 44 }}>
           <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-            20 plantillas diseÃ±adas para destacar
+            20 plantillas diseñadas para destacar
           </h2>
           <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
             Cada plantilla tiene personalidad propia. Elige la que mejor encaje con tu sector y tu estilo
@@ -225,17 +225,17 @@ export default function Home() {
             {[
               {
                 title: "20 plantillas premium",
-                desc: "DiseÃ±os cuidados hasta el Ãºltimo pÃ­xel. Desde el minimalista mÃ¡s limpio hasta el editorial mÃ¡s atrevido.",
+                desc: "Diseños cuidados hasta el último píxel. Desde el minimalista más limpio hasta el editorial más atrevido.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
               },
               {
-                title: "PersonalizaciÃ³n total",
+                title: "Personalización total",
                 desc: "Cambia colores, fuentes, espaciado y muestra u oculta las secciones que necesites. Tu CV, tus reglas.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>,
               },
               {
                 title: "Exporta a PDF",
-                desc: "Genera un PDF de alta calidad listo para enviar a cualquier empresa. Formato A4 estÃ¡ndar internacional.",
+                desc: "Genera un PDF de alta calidad listo para enviar a cualquier empresa. Formato A4 estándar internacional.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>,
               },
               {
@@ -244,23 +244,23 @@ export default function Home() {
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M4 4l1.8 1.8M4 4v5.2M4 4h5.2"/><path d="M20 4l-1.8 1.8M20 4v5.2M20 4h-5.2"/><path d="M4 20l1.8-1.8M4 20v-5.2M4 20h5.2"/><path d="M20 20l-1.8-1.8M20 20v-5.2M20 20h-5.2"/></svg>,
               },
               {
-                title: "AÃ±ade tu foto",
-                desc: "Sube una foto de perfil directamente desde tu ordenador. Se ajusta automÃ¡ticamente al formato ideal.",
+                title: "Añade tu foto",
+                desc: "Sube una foto de perfil directamente desde tu ordenador. Se ajusta automáticamente al formato ideal.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>,
               },
               {
                 title: "Vista previa en tiempo real",
-                desc: "VerÃ¡s los cambios al instante mientras escribes. Sin esperas, sin recargas. Todo fluye.",
+                desc: "Verás los cambios al instante mientras escribes. Sin esperas, sin recargas. Todo fluye.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
               },
               {
                 title: "Sin registro",
-                desc: "Abre la pÃ¡gina y empieza. No necesitas cuenta, email ni contraseÃ±a. Tu privacidad, respetada.",
+                desc: "Abre la página y empieza. No necesitas cuenta, email ni contraseña. Tu privacidad, respetada.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
               },
               {
                 title: "Funciona en cualquier dispositivo",
-                desc: "EdiciÃ³n optimizada para escritorio. Vista previa adaptable. Trabaja donde prefieras.",
+                desc: "Edición optimizada para escritorio. Vista previa adaptable. Trabaja donde prefieras.",
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>,
               },
             ].map((f) => (
@@ -286,17 +286,17 @@ export default function Home() {
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-            Â¿Para quiÃ©n es createCV?
+            ¿Para quién es createCV?
           </h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
           {[
             {
               title: "Para developers",
-              desc: "Muestra tu cÃ³digo, proyectos en GitHub y stack tÃ©cnico con una plantilla que entiende tu mundo.",
+              desc: "Muestra tu código, proyectos en GitHub y stack técnico con una plantilla que entiende tu mundo.",
             },
             {
-              title: "Para diseÃ±adores",
+              title: "Para diseñadores",
               desc: "Tu portfolio empieza con un CV que ya dice mucho de tu gusto. Creatividad aplicada desde el primer folio.",
             },
             {
@@ -305,7 +305,7 @@ export default function Home() {
             },
             {
               title: "Para graduates",
-              desc: "Destaca lo que sabes hacer aunque no tengas mucha experiencia. Cada secciÃ³n cuenta.",
+              desc: "Destaca lo que sabes hacer aunque no tengas mucha experiencia. Cada sección cuenta.",
             },
           ].map((item) => (
             <div key={item.title} style={{ background: "#fff", border: "1px solid #E4E2DC", borderRadius: 14, padding: "24px 28px" }}>
@@ -324,7 +324,7 @@ export default function Home() {
       <section style={{ background: "#1A1918", textAlign: "center" }}>
         <div style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px" }}>
           <h2 style={{ fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#fff", fontFamily: "'Playfair Display', serif" }}>
-            Tu prÃ³xima oportunidad no espera
+            Tu próxima oportunidad no espera
           </h2>
           <p style={{ fontSize: 16, color: "#9C9890", margin: "0 0 32px", fontFamily: "'Instrument Sans', sans-serif", lineHeight: 1.6 }}>
             Crea un CV que cuente tu historia. Profesional, memorable y listo para impresionar. Empieza ahora y tenlo listo en 10 minutos.
@@ -357,7 +357,7 @@ export default function Home() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
-          Â© {new Date().getFullYear()} createCV — Crea currÃ­culums profesionales en minutos
+          © {new Date().getFullYear()} createCV — Crea currículums profesionales en minutos
         </p>
       </footer>
     </main>
