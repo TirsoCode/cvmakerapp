@@ -5,15 +5,15 @@ export default function Home() {
   return (
     <main style={{ background: "#FAFAF8", minHeight: "100vh" }}>
       {/* Header */}
-      <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff", position: "sticky", top: 0, zIndex: 100 }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <svg width="28" height="28" viewBox="0 0 32 32">
               <rect width="32" height="32" rx="7" fill="#1A1918"/>
               <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
             </svg>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-              ResumeCraft
+              createCV
             </span>
           </div>
           <Link
@@ -38,12 +38,18 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section style={{ maxWidth: 900, margin: "0 auto", padding: "80px 24px 64px", textAlign: "center" }}>
-        <h1 style={{ fontSize: "clamp(36px, 6vw, 58px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-          Tu curriculum,<br />diseñado para impresionar
+      <section style={{ maxWidth: 860, margin: "0 auto", padding: "88px 24px 72px", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
+          <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            20 plantillas premium disponibles
+          </span>
+        </div>
+        <h1 style={{ fontSize: "clamp(38px, 6vw, 60px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, margin: "0 0 24px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+          Tu curriculum merece<br />ser extraordinario
         </h1>
-        <p style={{ fontSize: 18, lineHeight: 1.65, color: "#6B6860", maxWidth: 520, margin: "0 auto 36px", fontFamily: "'Instrument Sans', sans-serif" }}>
-          Elige una plantilla, completa tus datos y descarga un PDF profesional en minutos. Sin registro, sin tracking.
+        <p style={{ fontSize: 19, lineHeight: 1.7, color: "#6B6860", maxWidth: 560, margin: "0 auto 40px", fontFamily: "'Instrument Sans', sans-serif" }}>
+          Crea un CV profesional y memorable en minutos. Elige entre 20 plantillas diseÃ±adas por expertos, personaliza cada detalle y descÃ¡rgalo en PDF o Markdown listo para enviar a cualquier empresa.
         </p>
         <Link
           href="/editor"
@@ -51,7 +57,7 @@ export default function Home() {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            padding: "14px 32px",
+            padding: "15px 36px",
             background: "#C0392B",
             color: "#fff",
             borderRadius: 10,
@@ -62,25 +68,94 @@ export default function Home() {
             boxShadow: "0 4px 14px rgba(192,57,43,0.25)",
           }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" />
           </svg>
           Empezar ahora — es gratis
         </Link>
+        <p style={{ fontSize: 12, color: "#9C9890", marginTop: 14, fontFamily: "'Instrument Sans', sans-serif" }}>
+          No necesitas registrarte · Sin lÃ­mite de uso
+        </p>
       </section>
 
-      {/* Templates */}
-      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 80px" }}>
-        <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <h2 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 8px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-            4 plantillas exclusivas
+      {/* How it works */}
+      <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", padding: "72px 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: 52 }}>
+            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+              Crear tu CV nunca fue tan fÃ¡cil
+            </h2>
+            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+              Tres pasos para un resultado profesional
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 40 }}>
+            {[
+              {
+                step: "01",
+                title: "Elige tu plantilla",
+                desc: "Explora 20 diseÃ±os Ãºnicos pensados para diferentes sectores y estilos. Minimalista, corporativo, creativo â�� hay una para cada perfil.",
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+                  </svg>
+                ),
+              },
+              {
+                step: "02",
+                title: "Rellena tus datos",
+                desc: "Completa tu informaciÃ³n de forma intuitiva. AÃ±ade tu experiencia, educaciÃ³n, habilidades, idiomas y proyectos. Sube tu foto si lo deseas.",
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                ),
+              },
+              {
+                step: "03",
+                title: "Descarga y envÃ­alo",
+                desc: "Exporta tu CV en PDF de alta calidad para enviar por email, o en Markdown si trabajas con herramientas como Notion o GitHub.",
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                ),
+              },
+            ].map((item) => (
+              <div key={item.step} style={{ textAlign: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 18 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {item.icon}
+                  </div>
+                  <span style={{ fontSize: 36, fontWeight: 800, color: "#E4E2DC", fontFamily: "'Playfair Display', serif", letterSpacing: "-0.03em" }}>
+                    {item.step}
+                  </span>
+                </div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                  {item.title}
+                </h3>
+                <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Templates showcase */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: 44 }}>
+          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+            20 plantillas diseÃ±adas para destacar
           </h2>
-          <p style={{ fontSize: 15, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
-            Cada una con personalidad propia, diseñada para diferentes industrias
+          <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            Cada plantilla tiene personalidad propia. Elige la que mejor encaje con tu sector y tu estilo
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 18 }}>
           {TEMPLATES.map((t) => (
             <div
               key={t.id}
@@ -89,112 +164,200 @@ export default function Home() {
                 border: "1px solid #E4E2DC",
                 borderRadius: 14,
                 overflow: "hidden",
+                transition: "transform 150ms ease, box-shadow 150ms ease",
               }}
             >
-              {/* Preview */}
-              <div style={{ height: 200, background: "#FAFAF8", padding: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ height: 180, background: t.bg, padding: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <TemplateThumbnail id={t.id} accent={t.accent} />
               </div>
-              {/* Info */}
-              <div style={{ padding: "16px 20px", borderTop: "1px solid #E4E2DC" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <div style={{ padding: "14px 18px", borderTop: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: t.accent, display: "inline-block" }} />
-                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                  <h3 style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
                     {t.name}
                   </h3>
                 </div>
-                <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
+                <p style={{ fontSize: 11, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
                   {t.description}
                 </p>
               </div>
             </div>
           ))}
         </div>
+
+        <div style={{ textAlign: "center", marginTop: 44 }}>
+          <Link
+            href="/editor"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "13px 28px",
+              background: "#1A1918",
+              color: "#fff",
+              borderRadius: 10,
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: "none",
+              fontFamily: "'Instrument Sans', sans-serif",
+            }}
+          >
+            Probar ahora — gratis
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </Link>
+        </div>
       </section>
 
       {/* Features */}
       <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", padding: "64px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 40 }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "72px 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: 52 }}>
+            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+              Todo lo que necesitas para un CV perfecto
+            </h2>
+            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+              Herramientas profesionales sin complejidad innecesaria
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 36 }}>
+            {[
+              {
+                title: "20 plantillas premium",
+                desc: "DiseÃ±os cuidados hasta el Ãºltimo pÃ­xel. Desde el minimalista mÃ¡s limpio hasta el editorial mÃ¡s atrevido.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
+              },
+              {
+                title: "PersonalizaciÃ³n total",
+                desc: "Cambia colores, fuentes, espaciado y muestra u oculta las secciones que necesites. Tu CV, tus reglas.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>,
+              },
+              {
+                title: "Exporta a PDF",
+                desc: "Genera un PDF de alta calidad listo para enviar a cualquier empresa. Formato A4 estÃ¡ndar internacional.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>,
+              },
+              {
+                title: "Exporta a Markdown",
+                desc: "Descarga tu CV en formato Markdown para usarlo en Notion, GitHub, o cualquier herramienta que prefieras.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M4 4l1.8 1.8M4 4v5.2M4 4h5.2"/><path d="M20 4l-1.8 1.8M20 4v5.2M20 4h-5.2"/><path d="M4 20l1.8-1.8M4 20v-5.2M4 20h5.2"/><path d="M20 20l-1.8-1.8M20 20v-5.2M20 20h-5.2"/></svg>,
+              },
+              {
+                title: "AÃ±ade tu foto",
+                desc: "Sube una foto de perfil directamente desde tu ordenador. Se ajusta automÃ¡ticamente al formato ideal.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>,
+              },
+              {
+                title: "Vista previa en tiempo real",
+                desc: "VerÃ¡s los cambios al instante mientras escribes. Sin esperas, sin recargas. Todo fluye.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
+              },
+              {
+                title: "Sin registro",
+                desc: "Abre la pÃ¡gina y empieza. No necesitas cuenta, email ni contraseÃ±a. Tu privacidad, respetada.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
+              },
+              {
+                title: "Funciona en cualquier dispositivo",
+                desc: "EdiciÃ³n optimizada para escritorio. Vista previa adaptable. Trabaja donde prefieras.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>,
+              },
+            ].map((f) => (
+              <div key={f.title} style={{ display: "flex", gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {f.icon}
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                    {f.title}
+                  </h3>
+                  <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+                    {f.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who is it for */}
+      <section style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+            Â¿Para quiÃ©n es createCV?
+          </h2>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
           {[
             {
-              icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              ),
-              title: "Sin registro",
-              desc: "Abre la página y empieza. No necesitas cuenta ni email.",
+              title: "Para developers",
+              desc: "Muestra tu cÃ³digo, proyectos en GitHub y stack tÃ©cnico con una plantilla que entiende tu mundo.",
             },
             {
-              icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7,10 12,15 17,10" /><line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              ),
-              title: "Exporta a PDF",
-              desc: "Descarga tu CV en PDF listo para enviar a cualquier empresa.",
+              title: "Para diseÃ±adores",
+              desc: "Tu portfolio empieza con un CV que ya dice mucho de tu gusto. Creatividad aplicada desde el primer folio.",
             },
             {
-              icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              ),
-              title: "Tus datos son tuyos",
-              desc: "Todo se guarda en tu navegador. No hay servidores, no hay tracking.",
+              title: "Para directivos",
+              desc: "Plantillas sobrias y elegantes que transmiten autoridad y experiencia sin gritarlo.",
             },
-          ].map((f) => (
-            <div key={f.title} style={{ textAlign: "center" }}>
-              <div style={{ width: 48, height: 48, borderRadius: 12, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px" }}>
-                {f.icon}
-              </div>
-              <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
-                {f.title}
+            {
+              title: "Para graduates",
+              desc: "Destaca lo que sabes hacer aunque no tengas mucha experiencia. Cada secciÃ³n cuenta.",
+            },
+          ].map((item) => (
+            <div key={item.title} style={{ background: "#fff", border: "1px solid #E4E2DC", borderRadius: 14, padding: "24px 28px" }}>
+              <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 8px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                {item.title}
               </h3>
-              <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.55, fontFamily: "'Instrument Sans', sans-serif" }}>
-                {f.desc}
+              <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+                {item.desc}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
-        <h2 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
-          Tu próxima oportunidad empieza aquí
-        </h2>
-        <p style={{ fontSize: 15, color: "#6B6860", margin: "0 0 28px", fontFamily: "'Instrument Sans', sans-serif" }}>
-          No esperes a tener el CV perfecto. Empieza con lo que tienes.
-        </p>
-        <Link
-          href="/editor"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            padding: "14px 32px",
-            background: "#1A1918",
-            color: "#fff",
-            borderRadius: 10,
-            fontSize: 15,
-            fontWeight: 600,
-            textDecoration: "none",
-            fontFamily: "'Instrument Sans', sans-serif",
-          }}
-        >
-          Ir al editor
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12,5 19,12 12,19" />
-          </svg>
-        </Link>
+      {/* Final CTA */}
+      <section style={{ background: "#1A1918", textAlign: "center" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px" }}>
+          <h2 style={{ fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#fff", fontFamily: "'Playfair Display', serif" }}>
+            Tu prÃ³xima oportunidad no espera
+          </h2>
+          <p style={{ fontSize: 16, color: "#9C9890", margin: "0 0 32px", fontFamily: "'Instrument Sans', sans-serif", lineHeight: 1.6 }}>
+            Crea un CV que cuente tu historia. Profesional, memorable y listo para impresionar. Empieza ahora y tenlo listo en 10 minutos.
+          </p>
+          <Link
+            href="/editor"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "15px 36px",
+              background: "#C0392B",
+              color: "#fff",
+              borderRadius: 10,
+              fontSize: 15,
+              fontWeight: 600,
+              textDecoration: "none",
+              fontFamily: "'Instrument Sans', sans-serif",
+              boxShadow: "0 4px 14px rgba(192,57,43,0.35)",
+            }}
+          >
+            Crear mi CV ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </Link>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
+      <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
-          © {new Date().getFullYear()} ResumeCraft — Sin backend, sin tracking
+          Â© {new Date().getFullYear()} createCV — Crea currÃ­culums profesionales en minutos
         </p>
       </footer>
     </main>
@@ -202,7 +365,7 @@ export default function Home() {
 }
 
 function TemplateThumbnail({ id, accent }: { id: string; accent: string }) {
-  const scale = 0.38;
+  const scale = 0.36;
   const w = Math.round(210 * scale);
   const h = Math.round(297 * scale);
 
@@ -242,6 +405,21 @@ function TemplateThumbnail({ id, accent }: { id: string; accent: string }) {
         </div>
         <div style={{ padding: `${Math.round(10 * scale)}px ${Math.round(14 * scale)}px` }}>
           <div style={{ width: "90%", height: 2, background: accent, borderRadius: 2, marginBottom: 5 }} />
+          <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
+          <div style={{ width: "75%", height: 2, background: "#E4E2DC" }} />
+        </div>
+      </div>
+    );
+  }
+  if (id === "prussian") {
+    return (
+      <div style={{ width: w, height: h, background: "#fff", fontFamily: "Georgia, serif", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", transform: `scale(${scale})`, transformOrigin: "center", overflow: "hidden" }}>
+        <div style={{ background: "#1E3A5F", padding: `${Math.round(12 * scale)}px ${Math.round(14 * scale)}px` }}>
+          <div style={{ width: "55%", height: 5, background: "#fff", borderRadius: 2, marginBottom: 3 }} />
+          <div style={{ width: "35%", height: 2, background: accent, borderRadius: 2 }} />
+        </div>
+        <div style={{ padding: `${Math.round(10 * scale)}px ${Math.round(14 * scale)}px` }}>
+          <div style={{ width: "90%", height: 2, background: "#1E3A5F", borderRadius: 2, marginBottom: 5 }} />
           <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
           <div style={{ width: "75%", height: 2, background: "#E4E2DC" }} />
         </div>

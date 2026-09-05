@@ -58,6 +58,15 @@ export interface ResumeData {
   settings: {
     template: TemplateId;
     accentColor: string;
+    spacing: "compact" | "normal" | "relaxed";
+    sections: {
+      summary: boolean;
+      experience: boolean;
+      education: boolean;
+      skills: boolean;
+      languages: boolean;
+      projects: boolean;
+    };
   };
 }
 
@@ -128,12 +137,27 @@ export const DEFAULT_RESUME: ResumeData = {
   settings: {
     template: "minimal",
     accentColor: "#C0392B",
+    spacing: "normal" as const,
+    sections: {
+      summary: true,
+      experience: true,
+      education: true,
+      skills: true,
+      languages: true,
+      projects: true,
+    },
   },
 };
 
-export const TEMPLATES: { id: TemplateId; name: string; description: string; accent: string }[] = [
-  { id: "minimal", name: "Minimal", description: "Blanco puro, tipografía limpia", accent: "#1A1918" },
-  { id: "editorial", name: "Editorial", description: "Dos columnas, serif elegante", accent: "#C0392B" },
-  { id: "modern", name: "Modern", description: "Header bold, diseño funcional", accent: "#2563EB" },
-  { id: "classic", name: "Classic", description: "Template tradicional profesional", accent: "#374151" },
+export const SPACING_MAP: Record<string, number> = {
+  compact: 0.85,
+  normal: 1,
+  relaxed: 1.15,
+};
+
+export const TEMPLATES: { id: TemplateId; name: string; description: string; accent: string; bg: string }[] = [
+  { id: "minimal", name: "Minimal", description: "Blanco puro, tipografía limpia", accent: "#1A1918", bg: "#FFFFFF" },
+  { id: "editorial", name: "Editorial", description: "Dos columnas, serif elegante", accent: "#C0392B", bg: "#FAFAFA" },
+  { id: "modern", name: "Modern", description: "Header bold, diseño funcional", accent: "#2563EB", bg: "#F8FAFC" },
+  { id: "classic", name: "Classic", description: "Template tradicional profesional", accent: "#374151", bg: "#FFFFFF" },
 ];

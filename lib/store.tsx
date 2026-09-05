@@ -1,8 +1,6 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 import { type ResumeData, DEFAULT_RESUME, type TemplateId } from "./types";
-
-const STORE_KEY = "resumaker_data";
 
 interface ResumeContextValue {
   data: ResumeData;
@@ -15,6 +13,10 @@ interface ResumeContextValue {
   updateProjects: (projects: ResumeData["projects"]) => void;
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
+  updateFontPairing: (f: ResumeData["settings"]["fontPairing"]) => void;
+  updateSpacing: (s: ResumeData["settings"]["spacing"]) => void;
+  updateShowPhoto: (v: boolean) => void;
+  updateSections: (s: Partial<ResumeData["settings"]["sections"]>) => void;
   resetData: () => void;
 }
 
@@ -22,25 +24,6 @@ const ResumeContext = createContext<ResumeContextValue | null>(null);
 
 export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<ResumeData>(DEFAULT_RESUME);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as ResumeData;
-        setData({ ...DEFAULT_RESUME, ...parsed, settings: { ...DEFAULT_RESUME.settings, ...parsed.settings } });
-      }
-    } catch {}
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
-    try {
-      localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    } catch {}
-  }, [data, hydrated]);
 
   const updatePersonal = useCallback((p: Partial<ResumeData["personal"]>) => {
     setData((d) => ({ ...d, personal: { ...d.personal, ...p } }));
@@ -78,6 +61,22 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, accentColor } }));
   }, []);
 
+  const updateFontPairing = useCallback((fontPairing: ResumeData["settings"]["fontPairing"]) => {
+    setData((d) => ({ ...d, settings: { ...d.settings, fontPairing } }));
+  }, []);
+
+  const updateSpacing = useCallback((spacing: ResumeData["settings"]["spacing"]) => {
+    setData((d) => ({ ...d, settings: { ...d.settings, spacing } }));
+  }, []);
+
+  const updateShowPhoto = useCallback((showPhoto: boolean) => {
+    setData((d) => ({ ...d, settings: { ...d.settings, showPhoto } }));
+  }, []);
+
+  const updateSections = useCallback((sections: Partial<ResumeData["settings"]["sections"]>) => {
+    setData((d) => ({ ...d, settings: { ...d.settings, sections: { ...d.settings.sections, ...sections } } }));
+  }, []);
+
   const resetData = useCallback(() => {
     setData(DEFAULT_RESUME);
   }, []);
@@ -85,7 +84,8 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   return (
     <ResumeContext.Provider value={{
       data, updatePersonal, updateSummary, updateExperience, updateEducation,
-      updateSkills, updateLanguages, updateProjects, updateTemplate, updateAccentColor, resetData,
+      updateSkills, updateLanguages, updateProjects, updateTemplate, updateAccentColor,
+      updateFontPairing, updateSpacing, updateShowPhoto, updateSections, resetData,
     }}>
       {children}
     </ResumeContext.Provider>
