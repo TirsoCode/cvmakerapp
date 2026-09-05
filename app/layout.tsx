@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ResumeCraft — Crea CVs profesionales en minutos",
-  description: "Generador de currículums vitae con plantillas premium, exporta a PDF. Sin registro, sin tracking, tus datos son tuyos.",
+  title: "createCV — Crea currículums profesionales en minutos",
+  description: "Generador de currículums con 20 plantillas premium, exporta a PDF y Markdown. Sin registro, sin límite, en minutos.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
