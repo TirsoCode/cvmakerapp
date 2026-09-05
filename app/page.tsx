@@ -364,9 +364,17 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
+        <p style={{ fontSize: 12, color: "#9C9890", margin: "0 0 8px", fontFamily: "'Instrument Sans', sans-serif" }}>
           © {new Date().getFullYear()} createCV — Crea currículums profesionales en minutos
         </p>
+        <div style={{ display: "flex", justifyContent: "center", gap: 20 }}>
+          <Link href="/politica-privacidad" style={{ fontSize: 11, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif", textDecoration: "none" }}>
+            Política de Privacidad
+          </Link>
+          <Link href="/politica-cookies" style={{ fontSize: 11, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif", textDecoration: "none" }}>
+            Política de Cookies
+          </Link>
+        </div>
       </footer>
     </main>
   );
