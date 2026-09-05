@@ -10,20 +10,20 @@ const PHRASES = [
   "DevOps Engineer",
   "Data Engineer",
   "Mobile Developer",
-  "UX Engineer",
-  "Site Reliability Engineer",
+  "UX Designer",
+  "Product Manager",
+  "Data Scientist",
   "Cloud Architect",
   "Security Engineer",
-  "Machine Learning Engineer",
-  "Product Engineer",
-  "Software Architect",
-  "Platform Engineer",
-  "Systems Designer",
   "Tech Lead",
   "Engineering Manager",
+  "QA Engineer",
+  "Scrum Master",
   "Solutions Architect",
-  "Release Engineer",
-  "Infrastructure Engineer",
+  "Machine Learning Engineer",
+  "Game Developer",
+  "Blockchain Developer",
+  "Growth Manager",
 ];
 
 function TypewriterHero() {
@@ -53,10 +53,15 @@ function TypewriterHero() {
   }, [charIndex, deleting, phraseIndex]);
 
   return (
-    <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#1A1918", fontFamily: "'Playfair Display', serif", minHeight: "1.4em" }}>
-      {PHRASES[phraseIndex].slice(0, charIndex)}
-      <span style={{ display: "inline-block", width: 3, height: "1em", background: "#C0392B", marginLeft: 3, verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />
-    </h1>
+    <div style={{ marginBottom: 20 }}>
+      <p style={{ fontSize: "clamp(14px, 2vw, 18px)", fontWeight: 600, letterSpacing: "0.02em", color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif", margin: "0 0 6px" }}>
+        CV para
+      </p>
+      <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: 0, color: "#1A1918", fontFamily: "'Playfair Display', serif", minHeight: "1.2em" }}>
+        {PHRASES[phraseIndex].slice(0, charIndex)}
+        <span style={{ display: "inline-block", width: 3, height: "1em", background: "#C0392B", marginLeft: 3, verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />
+      </h1>
+    </div>
   );
 }
 
@@ -90,7 +95,7 @@ export default function Home() {
           </span>
         </div>
         <TypewriterHero />
-        <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 32px", fontFamily: "'Instrument Sans', sans-serif" }}>
+        <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 auto 28px", fontFamily: "'Instrument Sans', sans-serif" }}>
           20 plantillas premium · PDF · Markdown · Sin registro
         </p>
         <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
