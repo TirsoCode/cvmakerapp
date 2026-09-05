@@ -84,8 +84,10 @@ function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChan
 function EditorInner() {
   const {
     data, updatePersonal, updateSummary, updateExperience, updateEducation,
-    updateSkills, updateLanguages, updateProjects, updateTemplate, updateAccentColor,
-    updateFontPairing, updateSpacing, updateShowPhoto, updateSections, resetData,
+    updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
+    updateLicenses, updateReferences, updateAffiliations,
+    updateTemplate, updateAccentColor, updateFontPairing, updateSpacing, updateShowPhoto,
+    updateSections, resetData,
   } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
@@ -139,11 +141,11 @@ function EditorInner() {
   }, [data]);
 
   const handleExportMd = useCallback(() => {
-    const { personal, summary, experience, education, skills, languages, projects } = data;
+    const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
     let md = `# ${personal.name || "Mi CV"}\n\n`;
     if (personal.title) md += `**${personal.title}**\n\n`;
     if (personal.email || personal.phone || personal.location) md += `${[personal.email, personal.phone, personal.location].filter(Boolean).join(" · ")}\n\n`;
-    if (personal.linkedin || personal.github) md += `${[personal.linkedin, personal.github].filter(Boolean).join(" · ")}\n\n`;
+    if (personal.linkedin || personal.github || personal.portfolio) md += `${[personal.linkedin, personal.github, personal.portfolio].filter(Boolean).join(" · ")}\n\n`;
     if (summary) md += `## Resumen\n\n${summary}\n\n`;
     if (experience.length > 0) {
       md += `## Experiencia\n\n`;
@@ -163,6 +165,35 @@ function EditorInner() {
     if (languages.length > 0) {
       md += `## Idiomas\n\n`;
       languages.forEach((l) => { md += `- ${l.language}: ${l.level}\n`; });
+      md += `\n`;
+    }
+    if (certifications.length > 0) {
+      md += `## Certificaciones\n\n`;
+      certifications.forEach((c) => { md += `- **${c.name}** — ${c.issuer}${c.date ? ` (${c.date})` : ""}\n`; });
+      md += `\n`;
+    }
+    if (awards.length > 0) {
+      md += `## Premios y Honores\n\n`;
+      awards.forEach((a) => { md += `- **${a.name}** — ${a.issuer}${a.date ? ` (${a.date})` : ""}\n`; });
+      md += `\n`;
+    }
+    if (licenses.length > 0) {
+      md += `## Licencias y Carnets\n\n`;
+      licenses.forEach((l) => { md += `- **${l.name}** — ${l.issuer}${l.licenseNumber ? ` · Nº ${l.licenseNumber}` : ""}${l.date ? ` (${l.date})` : ""}\n`; });
+      md += `\n`;
+    }
+    if (references.length > 0) {
+      md += `## Referencias\n\n`;
+      references.forEach((r) => {
+        md += `**${r.name}** — ${r.relationship}${r.company ? `, ${r.company}` : ""}\n`;
+        if (r.email) md += `  Email: ${r.email}\n`;
+        if (r.phone) md += `  Tel: ${r.phone}\n`;
+        md += `\n`;
+      });
+    }
+    if (affiliations.length > 0) {
+      md += `## Afiliaciones y Colegios\n\n`;
+      affiliations.forEach((a) => { md += `- **${a.organization}**${a.role ? ` · ${a.role}` : ""}${a.startDate ? ` · ${a.startDate}` : ""}${a.endDate ? ` — ${a.endDate}` : ""}\n`; });
       md += `\n`;
     }
     if (projects.length > 0) {
@@ -204,6 +235,18 @@ function EditorInner() {
   const removeProject = (id: string) => updateProjects(data.projects.filter((p) => p.id !== id));
   const updateProj = (id: string, field: string, value: string) => updateProjects(data.projects.map((p) => p.id === id ? { ...p, [field]: value } : p));
 
+  const addLicense = () => updateLicenses([...data.licenses, { id: uid(), name: "", issuer: "", date: "", licenseNumber: "" }]);
+  const removeLicense = (id: string) => updateLicenses(data.licenses.filter((l) => l.id !== id));
+  const updateLic = (id: string, field: string, value: string) => updateLicenses(data.licenses.map((l) => l.id === id ? { ...l, [field]: value } : l));
+
+  const addReference = () => updateReferences([...data.references, { id: uid(), name: "", company: "", phone: "", email: "", relationship: "" }]);
+  const removeReference = (id: string) => updateReferences(data.references.filter((r) => r.id !== id));
+  const updateRef = (id: string, field: string, value: string) => updateReferences(data.references.map((r) => r.id === id ? { ...r, [field]: value } : r));
+
+  const addAffiliation = () => updateAffiliations([...data.affiliations, { id: uid(), organization: "", role: "", startDate: "", endDate: "" }]);
+  const removeAffiliation = (id: string) => updateAffiliations(data.affiliations.filter((a) => a.id !== id));
+  const updateAff = (id: string, field: string, value: string) => updateAffiliations(data.affiliations.map((a) => a.id === id ? { ...a, [field]: value } : a));
+
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#F3F2EE" }}>
       {/* LEFT PANEL */}
@@ -233,6 +276,7 @@ function EditorInner() {
             <FormField label="Ubicación" value={data.personal.location} onChange={(v) => updatePersonal({ location: v })} placeholder="Madrid, España" />
             <FormField label="LinkedIn" value={data.personal.linkedin} onChange={(v) => updatePersonal({ linkedin: v })} placeholder="linkedin.com/in/tu-perfil" />
             <FormField label="GitHub" value={data.personal.github} onChange={(v) => updatePersonal({ github: v })} placeholder="github.com/tu-usuario" />
+            <FormField label="Portfolio" value={data.personal.portfolio || ""} onChange={(v) => updatePersonal({ portfolio: v })} placeholder="tuportfolio.com" />
             <div style={{ marginTop: 8 }}>
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>
                 Foto de perfil
@@ -349,6 +393,102 @@ function EditorInner() {
             ))}
             <button onClick={addProject} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
               + Añadir proyecto
+            </button>
+          </SectionAccordion>
+
+          {/* Certifications */}
+          <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0}>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{cert.name || "Nueva certificación"}</span>
+                  <button onClick={() => updateCertifications(data.certifications.filter((c) => c.id !== cert.id))} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                </div>
+                <FormField label="Nombre" value={cert.name} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, name: v } : c))} placeholder="AWS Solutions Architect" />
+                <FormField label="Organismo" value={cert.issuer} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, issuer: v } : c))} placeholder="Amazon Web Services" />
+                <FormField label="Fecha" value={cert.date} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, date: v } : c))} placeholder="2024" />
+              </div>
+            ))}
+            <button onClick={() => updateCertifications([...data.certifications, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+              + Añadir certificación
+            </button>
+          </SectionAccordion>
+
+          {/* Awards */}
+          <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0}>
+            {data.awards.map((award) => (
+              <div key={award.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{award.name || "Nuevo premio"}</span>
+                  <button onClick={() => updateAwards(data.awards.filter((a) => a.id !== award.id))} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                </div>
+                <FormField label="Nombre" value={award.name} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, name: v } : a))} placeholder="Mejor Diseñador del Año" />
+                <FormField label="Organismo" value={award.issuer} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, issuer: v } : a))} placeholder="Awwwards" />
+                <FormField label="Fecha" value={award.date} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, date: v } : a))} placeholder="2024" />
+              </div>
+            ))}
+            <button onClick={() => updateAwards([...data.awards, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+              + Añadir premio
+            </button>
+          </SectionAccordion>
+
+          {/* Licencias y Carnets */}
+          <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0}>
+            {data.licenses.map((lic) => (
+              <div key={lic.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{lic.name || "Nueva licencia"}</span>
+                  <button onClick={() => removeLicense(lic.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                </div>
+                <FormField label="Licencia / Carnet" value={lic.name} onChange={(v) => updateLic(lic.id, "name", v)} placeholder="Carnet de Conducir B, PVP Electricista..." />
+                <FormField label="Organismo emissor" value={lic.issuer} onChange={(v) => updateLic(lic.id, "issuer", v)} placeholder="DGT, Colegio Oficial..." />
+                <FormField label="Número de licencia" value={lic.licenseNumber || ""} onChange={(v) => updateLic(lic.id, "licenseNumber", v)} placeholder="123456789" />
+                <FormField label="Fecha" value={lic.date} onChange={(v) => updateLic(lic.id, "date", v)} placeholder="2020" />
+              </div>
+            ))}
+            <button onClick={addLicense} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+              + Añadir licencia
+            </button>
+          </SectionAccordion>
+
+          {/* Referencias */}
+          <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0}>
+            {data.references.map((ref) => (
+              <div key={ref.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{ref.name || "Nueva referencia"}</span>
+                  <button onClick={() => removeReference(ref.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                </div>
+                <FormField label="Nombre completo" value={ref.name} onChange={(v) => updateRef(ref.id, "name", v)} placeholder="Juan Pérez García" />
+                <FormField label="Empresa / Organismo" value={ref.company} onChange={(v) => updateRef(ref.id, "company", v)} placeholder="Banco Santander" />
+                <FormField label="Relación" value={ref.relationship} onChange={(v) => updateRef(ref.id, "relationship", v)} placeholder="Jefe directo, Cliente..." />
+                <FormField label="Email" value={ref.email} onChange={(v) => updateRef(ref.id, "email", v)} placeholder="juan.perez@email.com" type="email" />
+                <FormField label="Teléfono" value={ref.phone} onChange={(v) => updateRef(ref.id, "phone", v)} placeholder="+34 600 000 000" type="tel" />
+              </div>
+            ))}
+            <button onClick={addReference} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+              + Añadir referencia
+            </button>
+          </SectionAccordion>
+
+          {/* Afiliaciones */}
+          <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0}>
+            {data.affiliations.map((aff) => (
+              <div key={aff.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{aff.organization || "Nueva afiliación"}</span>
+                  <button onClick={() => removeAffiliation(aff.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                </div>
+                <FormField label="Organismo / Colegio" value={aff.organization} onChange={(v) => updateAff(aff.id, "organization", v)} placeholder="Ilustre Colegio de Abogados de Madrid" />
+                <FormField label="Número de colegiado" value={aff.role} onChange={(v) => updateAff(aff.id, "role", v)} placeholder="Nº 45.678" />
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  <FormField label="Desde" value={aff.startDate} onChange={(v) => updateAff(aff.id, "startDate", v)} placeholder="2015" />
+                  <FormField label="Hasta" value={aff.endDate} onChange={(v) => updateAff(aff.id, "endDate", v)} placeholder="Presente" />
+                </div>
+              </div>
+            ))}
+            <button onClick={addAffiliation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+              + Añadir afiliación
             </button>
           </SectionAccordion>
 

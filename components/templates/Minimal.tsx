@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function MinimalTemplate({ data, style }: Props) {
-  const { personal, summary, experience, education, skills, languages, projects } = data;
+  const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
   const { accentColor } = data.settings;
 
   return (
@@ -108,21 +108,97 @@ export default function MinimalTemplate({ data, style }: Props) {
         </section>
       )}
 
-      {/* Projects */}
-      {projects.length > 0 && (
-        <section>
-          <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
-            Proyectos
-          </h2>
-          {projects.map((p) => (
-            <div key={p.id} style={{ marginBottom: 10 }}>
-              <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{p.name}</h3>
-              <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{p.description}</p>
-              {p.url && <p style={{ fontSize: 11, color: accentColor, margin: 0 }}>{p.url}</p>}
-            </div>
-          ))}
-        </section>
-      )}
+        {/* Projects */}
+        {projects.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              Proyectos
+            </h2>
+            {projects.map((p) => (
+              <div key={p.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{p.name}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{p.description}</p>
+                {p.url && <p style={{ fontSize: 11, color: accentColor, margin: 0 }}>{p.url}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Certifications */}
+        {certifications.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              Certifications
+            </h2>
+            {certifications.map((item) => (
+              <div key={item.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{item.name}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{item.issuer} {item.date && `• ${item.date}`}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Awards */}
+        {awards.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              Awards
+            </h2>
+            {awards.map((item) => (
+              <div key={item.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{item.name}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{item.issuer} {item.date && `• ${item.date}`}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Licenses */}
+        {licenses.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              Licenses
+            </h2>
+            {licenses.map((item) => (
+              <div key={item.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{item.name}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{item.issuer} {item.licenseNumber && `• ${item.licenseNumber}`} {item.date && `• ${item.date}`}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* References */}
+        {references.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              References
+            </h2>
+            {references.map((item) => (
+              <div key={item.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{item.name}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{item.company} {item.relationship && `• ${item.relationship}`}</p>
+                <p style={{ fontSize: 11, color: "#6B6860", margin: 0 }}>{item.phone} {item.email && `• ${item.email}`}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Affiliations */}
+        {affiliations.length > 0 && (
+          <section style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px" }}>
+              Affiliations
+            </h2>
+            {affiliations.map((item) => (
+              <div key={item.id} style={{ marginBottom: 10 }}>
+                <h3 style={{ fontSize: 12, fontWeight: 600, margin: "0 0 2px" }}>{item.organization}</h3>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: "0 0 2px" }}>{item.role} {item.startDate && `• ${item.startDate}`} {item.endDate && ` - ${item.endDate}`}</p>
+              </div>
+            ))}
+          </section>
+        )}
     </div>
   );
 }

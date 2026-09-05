@@ -2,7 +2,7 @@ import { type ResumeData, SPACING_MAP } from "@/lib/types";
 interface Props { data: ResumeData; }
 export default function EmberTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
-  const { personal, summary, experience, education, skills, languages, projects } = data;
+  const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
   const { accentColor } = data.settings;
 
   const p3644 = `${Math.round(36*s)}px ${Math.round(44*s)}px`;
@@ -24,7 +24,7 @@ export default function EmberTemplate({ data }: Props) {
         <h1 style={{ fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: `0 0 ${4*s}px`, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: `0 0 ${12*s}px` }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p416, fontSize: 11*s, color: "#6B6860" }}>
-          {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}
+          {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{personal.portfolio && <span>{personal.portfolio}</span>}
         </div>
       </header>
       {data.settings.sections.summary && summary && <section style={{ marginBottom: p24, background: "#FFF7F5", padding: `${14*s}px ${p16}`, borderRadius: 8*s, borderLeft: `4px solid ${accentColor}` }}><p style={{ fontSize: 12*s, lineHeight: 1.75, color: "#4A4843", margin: 0 }}>{summary}</p></section>}
@@ -45,6 +45,26 @@ export default function EmberTemplate({ data }: Props) {
         <div>{data.settings.sections.languages && languages.length > 0 && <section style={{ marginBottom: `${20*s}px` }}><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Idiomas</h2>{languages.map((l) => <div key={l.id} style={{ fontSize: 11*s, marginBottom: p4 }}><span style={{ fontWeight: 600 }}>{l.language}</span> <span style={{ color: "#9C9890" }}>{l.level}</span></div>)}</section>}
           {data.settings.sections.projects && projects.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Proyectos</h2>{projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: `0 0 ${2*s}px` }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{p.description}</p></div>)}</section>}</div>
       </div>
+      {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Certificaciones</h2>
+        {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {c.issuer} ({c.date})</span></div>)}
+      </section>}
+      {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Premios</h2>
+        {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.issuer} ({a.date})</span></div>)}
+      </section>}
+      {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Licencias</h2>
+        {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {l.issuer} ({l.licenseNumber})</span></div>)}
+      </section>}
+      {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Referencias</h2>
+        {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {r.company} ({r.relationship})</span><br /><span style={{ fontSize: 10*s, color: "#9C9890" }}>{r.email} | {r.phone}</span></div>)}
+      </section>}
+      {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Afiliaciones</h2>
+        {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.role} ({a.startDate} — {a.endDate})</span></div>)}
+      </section>}
     </div>
   );
 }

@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function ClassicTemplate({ data, style }: Props) {
-  const { personal, summary, experience, education, skills, languages, projects } = data;
+  const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
   const { accentColor } = data.settings;
 
   const SectionTitle = ({ children }: { children: React.ReactNode }) => (
@@ -117,13 +117,74 @@ export default function ClassicTemplate({ data, style }: Props) {
           )}
 
           {projects.length > 0 && (
-            <section>
+            <section style={{ marginBottom: 20 }}>
               <SectionTitle>Proyectos</SectionTitle>
               {projects.map((p) => (
                 <div key={p.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{p.name}</h3>
                   <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{p.description}</p>
                   {p.url && <p style={{ fontSize: 10, color: accentColor, margin: 0 }}>{p.url}</p>}
+                </div>
+              ))}
+            </section>
+          )}
+
+          {certifications.length > 0 && (
+            <section style={{ marginBottom: 20 }}>
+              <SectionTitle>Certifications</SectionTitle>
+              {certifications.map((item) => (
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
+                  <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{item.issuer} {item.date && `• ${item.date}`}</p>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {awards.length > 0 && (
+            <section style={{ marginBottom: 20 }}>
+              <SectionTitle>Awards</SectionTitle>
+              {awards.map((item) => (
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
+                  <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{item.issuer} {item.date && `• ${item.date}`}</p>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {licenses.length > 0 && (
+            <section style={{ marginBottom: 20 }}>
+              <SectionTitle>Licenses</SectionTitle>
+              {licenses.map((item) => (
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
+                  <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{item.issuer} {item.licenseNumber && `• ${item.licenseNumber}`} {item.date && `• ${item.date}`}</p>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {references.length > 0 && (
+            <section style={{ marginBottom: 20 }}>
+              <SectionTitle>References</SectionTitle>
+              {references.map((item) => (
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
+                  <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{item.company} {item.relationship && `• ${item.relationship}`}</p>
+                  <p style={{ fontSize: 10, color: "#6B6860", margin: 0 }}>{item.phone} {item.email && `• ${item.email}`}</p>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {affiliations.length > 0 && (
+            <section style={{ marginBottom: 20 }}>
+              <SectionTitle>Affiliations</SectionTitle>
+              {affiliations.map((item) => (
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.organization}</h3>
+                  <p style={{ fontSize: 10, color: "#4A4843", margin: "0 0 1px", lineHeight: 1.5 }}>{item.role} {item.startDate && `• ${item.startDate}`} {item.endDate && ` - ${item.endDate}`}</p>
                 </div>
               ))}
             </section>

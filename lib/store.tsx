@@ -11,6 +11,11 @@ interface ResumeContextValue {
   updateSkills: (skills: ResumeData["skills"]) => void;
   updateLanguages: (langs: ResumeData["languages"]) => void;
   updateProjects: (projects: ResumeData["projects"]) => void;
+  updateCertifications: (certifications: ResumeData["certifications"]) => void;
+  updateAwards: (awards: ResumeData["awards"]) => void;
+  updateLicenses: (licenses: ResumeData["licenses"]) => void;
+  updateReferences: (references: ResumeData["references"]) => void;
+  updateAffiliations: (affiliations: ResumeData["affiliations"]) => void;
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
   updateFontPairing: (f: ResumeData["settings"]["fontPairing"]) => void;
@@ -53,6 +58,26 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, projects }));
   }, []);
 
+  const updateCertifications = useCallback((certifications: ResumeData["certifications"]) => {
+    setData((d) => ({ ...d, certifications }));
+  }, []);
+
+  const updateAwards = useCallback((awards: ResumeData["awards"]) => {
+    setData((d) => ({ ...d, awards }));
+  }, []);
+
+  const updateLicenses = useCallback((licenses: ResumeData["licenses"]) => {
+    setData((d) => ({ ...d, licenses }));
+  }, []);
+
+  const updateReferences = useCallback((references: ResumeData["references"]) => {
+    setData((d) => ({ ...d, references }));
+  }, []);
+
+  const updateAffiliations = useCallback((affiliations: ResumeData["affiliations"]) => {
+    setData((d) => ({ ...d, affiliations }));
+  }, []);
+
   const updateTemplate = useCallback((template: TemplateId) => {
     setData((d) => ({ ...d, settings: { ...d.settings, template } }));
   }, []);
@@ -84,8 +109,10 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   return (
     <ResumeContext.Provider value={{
       data, updatePersonal, updateSummary, updateExperience, updateEducation,
-      updateSkills, updateLanguages, updateProjects, updateTemplate, updateAccentColor,
-      updateFontPairing, updateSpacing, updateShowPhoto, updateSections, resetData,
+      updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
+      updateLicenses, updateReferences, updateAffiliations,
+      updateTemplate, updateAccentColor, updateFontPairing, updateSpacing, updateShowPhoto,
+      updateSections, resetData,
     }}>
       {children}
     </ResumeContext.Provider>

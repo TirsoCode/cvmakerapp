@@ -4,7 +4,7 @@ interface Props { data: ResumeData; }
 
 export default function PrussianTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
-  const { personal, summary, experience, education, skills, languages, projects } = data;
+  const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
   const { accentColor } = data.settings;
 
   const p3644 = `${Math.round(36*s)}px ${Math.round(44*s)}px`;
@@ -90,6 +90,26 @@ export default function PrussianTemplate({ data }: Props) {
         {data.settings.sections.projects && projects.length > 0 && <section>
           <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Proyectos</h2>
           {projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{p.description}</p>{p.url && <p style={{ fontSize: 10*s, color: accentColor, margin: p20_0_0 }}>{p.url}</p>}</div>)}
+        </section>}
+        {certifications.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Certifications</h2>
+          {certifications.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.date && `• ${item.date}`}</p></div>)}
+        </section>}
+        {awards.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Awards</h2>
+          {awards.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.date && `• ${item.date}`}</p></div>)}
+        </section>}
+        {licenses.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Licenses</h2>
+          {licenses.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.licenseNumber && `• ${item.licenseNumber}`} {item.date && `• ${item.date}`}</p></div>)}
+        </section>}
+        {references.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>References</h2>
+          {references.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.company} {item.relationship && `• ${item.relationship}`}</p><p style={{ fontSize: 10*s, color: "#6B6860", margin: p20_0_0 }}>{item.phone} {item.email && `• ${item.email}`}</p></div>)}
+        </section>}
+        {affiliations.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Affiliations</h2>
+          {affiliations.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.organization}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.role} {item.startDate && `• ${item.startDate}`} {item.endDate && ` - ${item.endDate}`}</p></div>)}
         </section>}
       </div>
     </div>

@@ -15,6 +15,52 @@ export interface PersonalInfo {
   linkedin: string;
   github: string;
   photo?: string;
+  portfolio?: string;
+}
+
+export interface CertificationItem {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+}
+
+export interface AwardItem {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+}
+
+export interface LicenseItem {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+  licenseNumber?: string;
+}
+
+export interface ReferenceItem {
+  id: string;
+  name: string;
+  company: string;
+  phone: string;
+  email: string;
+  relationship: string;
+}
+
+export interface InstrumentItem {
+  id: string;
+  instrument: string;
+  level: string;
+}
+
+export interface AffiliationItem {
+  id: string;
+  organization: string;
+  role: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface ExperienceItem {
@@ -63,6 +109,11 @@ export interface SectionVisibility {
   skills: boolean;
   languages: boolean;
   projects: boolean;
+  certifications: boolean;
+  awards: boolean;
+  licenses: boolean;
+  references: boolean;
+  affiliations: boolean;
 }
 
 export interface ResumeSettings {
@@ -83,6 +134,11 @@ export interface ResumeData {
   skills: SkillCategory[];
   languages: LanguageItem[];
   projects: ProjectItem[];
+  certifications: CertificationItem[];
+  awards: AwardItem[];
+  licenses: LicenseItem[];
+  references: ReferenceItem[];
+  affiliations: AffiliationItem[];
   settings: ResumeSettings;
 }
 
@@ -127,6 +183,15 @@ export const DEFAULT_RESUME: ResumeData = {
   projects: [
     { id: "1", name: "Sistema de Diseño A11Y", description: "Biblioteca de componentes accesibles para React.", url: "github.com/mariagarcia/a11y" },
   ],
+  certifications: [
+    { id: "1", name: "Google UX Design Certificate", issuer: "Google / Coursera", date: "2023" },
+  ],
+  awards: [
+    { id: "1", name: "Best Mobile Experience Award", issuer: "Awwwards", date: "2024" },
+  ],
+  licenses: [],
+  references: [],
+  affiliations: [],
   settings: {
     template: "minimal",
     accentColor: "#1A1918",
@@ -137,6 +202,8 @@ export const DEFAULT_RESUME: ResumeData = {
     sections: {
       summary: true, experience: true, education: true,
       skills: true, languages: true, projects: true,
+      certifications: true, awards: true, licenses: true,
+      references: true, affiliations: true,
     },
   },
 };
