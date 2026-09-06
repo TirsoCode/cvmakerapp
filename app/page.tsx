@@ -267,6 +267,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Ad banner */}
+      <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC", padding: "28px 24px", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: 300, textAlign: "center" }}>
+          <iframe src="https://ad-swap.web.app/frame.html?site=7GbIwKkjgIh1tNz2oErL" style={{ border: 0, width: 300, height: 130, maxWidth: "100%" }} loading="lazy" sandbox="allow-scripts allow-popups" title="Ad" />
+        </div>
+      </section>
+
       {/* Features */}
       <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "72px 24px" }}>
