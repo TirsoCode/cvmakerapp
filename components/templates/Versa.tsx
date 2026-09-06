@@ -36,7 +36,7 @@ export default function VersaTemplate({ data }: Props) {
             <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: p0014 }}>{personal.title}</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: p4, fontSize: 11*s, color: "#6B6860" }}>
-            {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}
+            {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{personal.portfolio && <span>{personal.portfolio}</span>}
           </div>
         </div>
       </header>
@@ -52,6 +52,26 @@ export default function VersaTemplate({ data }: Props) {
       {data.settings.sections.education && education.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Educación</h2>
         {education.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.degree}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span></div><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.institution}</p></div>)}
+      </section>}
+      {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Certificaciones</h2>
+        {certifications.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.name}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.date}</span></div><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.issuer}</p></div>)}
+      </section>}
+      {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Premios</h2>
+        {awards.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.name}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.date}</span></div><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.issuer}</p></div>)}
+      </section>}
+      {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Licencias</h2>
+        {licenses.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.name}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.date}</span></div><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.issuer}{item.licenseNumber && ` • ${item.licenseNumber}`}</p></div>)}
+      </section>}
+      {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Referencias</h2>
+        {references.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.name}</h3><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_4 }}>{item.company}{item.relationship && ` • ${item.relationship}`}</p><p style={{ fontSize: 10*s, color: "#9C9890", margin: p20_0_0 }}>{item.email}{item.phone && ` • ${item.phone}`}</p></div>)}
+      </section>}
+      {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p24 }}>
+        <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Afiliaciones</h2>
+        {affiliations.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.organization}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.startDate}{item.endDate && ` — ${item.endDate}`}</span></div><p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.role}</p></div>)}
       </section>}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: p0_32 }}>
         {data.settings.sections.skills && skills.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: p0012 }}>Habilidades</h2>{skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#6B6860" }}>{cat.category}: </span><span style={{ fontSize: 11*s, color: "#4A4843" }}>{cat.items.join(", ")}</span></div>)}</section>}

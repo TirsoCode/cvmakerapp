@@ -22,7 +22,6 @@ const PHRASES = [
   "Farmacólogo",
   "Director de Ventas",
   "Piloto Comercial",
-  "Chef Pastelero",
   "Community Manager",
   "Dentista",
   "Veterinario",
