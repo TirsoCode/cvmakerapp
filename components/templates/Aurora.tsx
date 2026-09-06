@@ -2,7 +2,7 @@ import { type ResumeData, SPACING_MAP } from "@/lib/types";
 interface Props { data: ResumeData; }
 export default function AuroraTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
-  const { personal, summary, experience, education, skills, languages, projects } = data;
+  const { personal, summary, experience, education, skills, languages, projects, certifications, awards, licenses, references, affiliations } = data;
   const { accentColor } = data.settings;
 
   const p3644 = `${Math.round(36*s)}px ${Math.round(44*s)}px`;

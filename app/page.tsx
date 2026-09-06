@@ -9,7 +9,7 @@ const PHRASES = [
   "Abogado",
   "Enfermero",
   "Arquitecto",
-  "Chef",
+  "Chef Ejecutivo",
   "Contador",
   "Médico",
   "Profesor",
@@ -24,6 +24,27 @@ const PHRASES = [
   "Piloto Comercial",
   "Chef Pastelero",
   "Community Manager",
+  "Dentista",
+  "Veterinario",
+  "Electricista",
+  "Fontanero",
+  "Mecánico",
+  "Peluquero",
+  "Bombero",
+  "Cocinero",
+  "Carpintero",
+  "Policía",
+  "Conductor",
+  "Astrónomo",
+  "Biólogo",
+  "Químico",
+  "Traductor",
+  "Actor",
+  "Músico",
+  "Albañil",
+  "Jardinero",
+  "Camarero",
+  "Panadero",
 ];
 
 function TypewriterHero() {
@@ -45,7 +66,7 @@ function TypewriterHero() {
           setCharIndex(charIndex - 1);
         } else {
           setDeleting(false);
-          setPhraseIndex(Math.floor(Math.random() * PHRASES.length));
+          setPhraseIndex((i) => (i + 1) % PHRASES.length);
         }
       }
     }, deleting ? 40 : 80);
