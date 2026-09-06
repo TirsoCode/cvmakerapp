@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# youtube pipeline
+videos/uploaded
+.reel-tmp
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
