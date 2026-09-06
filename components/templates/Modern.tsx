@@ -10,7 +10,7 @@ export default function ModernTemplate({ data, style }: Props) {
   const { accentColor } = data.settings;
 
   return (
-    <div style={{ fontFamily: "'Instrument Sans', system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "0", ...style }}>
+    <div style={{ fontFamily: "var(--font-instrument), system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "0", ...style }}>
       {/* Header bar */}
       <div style={{ background: "#1A1918", padding: "36px 52px 32px" }}>
         <h1 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.03em", margin: "0 0 6px", color: "#FFFFFF" }}>
@@ -53,7 +53,7 @@ export default function ModernTemplate({ data, style }: Props) {
                     <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: "#1A1918" }}>{item.position}</h3>
                     <p style={{ fontSize: 12, color: accentColor, fontWeight: 600, margin: "2px 0 0" }}>{item.company}</p>
                   </div>
-                  <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", marginLeft: 16, marginTop: 2 }}>
+                  <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", whiteSpace: "nowrap", marginLeft: 16, marginTop: 2 }}>
                     {item.startDate} — {item.endDate}
                   </span>
                 </div>
@@ -75,7 +75,7 @@ export default function ModernTemplate({ data, style }: Props) {
                 <div key={item.id} style={{ marginBottom: 12 }}>
                   <h3 style={{ fontSize: 12, fontWeight: 700, margin: 0, color: "#1A1918" }}>{item.degree}</h3>
                   <p style={{ fontSize: 11, color: "#6B6860", margin: "1px 0 0" }}>{item.institution}</p>
-                  <p style={{ fontSize: 10, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", margin: "2px 0 0" }}>
+                  <p style={{ fontSize: 10, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", margin: "2px 0 0" }}>
                     {item.startDate} — {item.endDate}
                   </p>
                 </div>

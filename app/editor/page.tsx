@@ -258,10 +258,10 @@ function EditorInner() {
                 <rect width="32" height="32" rx="7" fill="#1A1918"/>
                 <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
               </svg>
-              <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>CVMakerApp</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
             </a>
           </div>
-          <button onClick={resetData} style={{ fontSize: 11, color: "#9C9890", background: "none", border: "none", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }} title="Borrar todo">
+          <button onClick={resetData} style={{ fontSize: 11, color: "#9C9890", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-instrument), sans-serif" }} title="Borrar todo">
             Reset
           </button>
         </div>
@@ -283,7 +283,7 @@ function EditorInner() {
               </label>
               <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} style={{ display: "none" }} />
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <button onClick={() => fileInputRef.current?.click()} style={{ padding: "7px 14px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+                <button onClick={() => fileInputRef.current?.click()} style={{ padding: "7px 14px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
                   {data.personal.photo ? "Cambiar foto" : "Subir foto"}
                 </button>
                 {data.personal.photo && (
@@ -318,7 +318,7 @@ function EditorInner() {
                 <FormField label="Descripción" value={exp.description} onChange={(v) => updateExp(exp.id, "description", v)} placeholder="Logros y responsabilidades…" type="textarea" />
               </div>
             ))}
-            <button onClick={addExperience} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addExperience} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir experiencia
             </button>
           </SectionAccordion>
@@ -339,7 +339,7 @@ function EditorInner() {
                 </div>
               </div>
             ))}
-            <button onClick={addEducation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addEducation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir formación
             </button>
           </SectionAccordion>
@@ -356,7 +356,7 @@ function EditorInner() {
                 <FormField label="Habilidades (separadas por coma)" value={sk.items.join(", ")} onChange={(v) => handleSkillItemsChange(sk.id, v)} placeholder="Figma, React, CSS" />
               </div>
             ))}
-            <button onClick={addSkill} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addSkill} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir categoría
             </button>
           </SectionAccordion>
@@ -373,7 +373,7 @@ function EditorInner() {
                 <FormField label="Nivel" value={lang.level} onChange={(v) => updateLang(lang.id, "level", v)} placeholder="C2 — Fluido" />
               </div>
             ))}
-            <button onClick={addLanguage} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addLanguage} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir idioma
             </button>
           </SectionAccordion>
@@ -391,7 +391,7 @@ function EditorInner() {
                 <FormField label="URL" value={proj.url} onChange={(v) => updateProj(proj.id, "url", v)} placeholder="github.com/tu/proyecto" />
               </div>
             ))}
-            <button onClick={addProject} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addProject} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir proyecto
             </button>
           </SectionAccordion>
@@ -409,7 +409,7 @@ function EditorInner() {
                 <FormField label="Fecha" value={cert.date} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, date: v } : c))} placeholder="2024" />
               </div>
             ))}
-            <button onClick={() => updateCertifications([...data.certifications, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={() => updateCertifications([...data.certifications, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir certificación
             </button>
           </SectionAccordion>
@@ -427,7 +427,7 @@ function EditorInner() {
                 <FormField label="Fecha" value={award.date} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, date: v } : a))} placeholder="2024" />
               </div>
             ))}
-            <button onClick={() => updateAwards([...data.awards, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={() => updateAwards([...data.awards, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir premio
             </button>
           </SectionAccordion>
@@ -446,7 +446,7 @@ function EditorInner() {
                 <FormField label="Fecha" value={lic.date} onChange={(v) => updateLic(lic.id, "date", v)} placeholder="2020" />
               </div>
             ))}
-            <button onClick={addLicense} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addLicense} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir licencia
             </button>
           </SectionAccordion>
@@ -466,7 +466,7 @@ function EditorInner() {
                 <FormField label="Teléfono" value={ref.phone} onChange={(v) => updateRef(ref.id, "phone", v)} placeholder="+34 600 000 000" type="tel" />
               </div>
             ))}
-            <button onClick={addReference} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addReference} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir referencia
             </button>
           </SectionAccordion>
@@ -487,7 +487,7 @@ function EditorInner() {
                 </div>
               </div>
             ))}
-            <button onClick={addAffiliation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <button onClick={addAffiliation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>
               + Añadir afiliación
             </button>
           </SectionAccordion>
@@ -524,7 +524,7 @@ function EditorInner() {
               <select
                 value={data.settings.fontPairing}
                 onChange={(e) => updateFontPairing(e.target.value as any)}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #E4E2DC", borderRadius: 8, fontSize: 12, fontFamily: "'Instrument Sans', sans-serif", background: "#fff", color: "#1A1918", cursor: "pointer" }}
+                style={{ width: "100%", padding: "8px 10px", border: "1px solid #E4E2DC", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-instrument), sans-serif", background: "#fff", color: "#1A1918", cursor: "pointer" }}
               >
                 <option value="default">Modern (Instrument Sans)</option>
                 <option value="serif">Classic (Playfair + Source Serif)</option>
@@ -539,7 +539,7 @@ function EditorInner() {
               <select
                 value={data.settings.spacing}
                 onChange={(e) => updateSpacing(e.target.value as any)}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #E4E2DC", borderRadius: 8, fontSize: 12, fontFamily: "'Instrument Sans', sans-serif", background: "#fff", color: "#1A1918", cursor: "pointer" }}
+                style={{ width: "100%", padding: "8px 10px", border: "1px solid #E4E2DC", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-instrument), sans-serif", background: "#fff", color: "#1A1918", cursor: "pointer" }}
               >
                 <option value="compact">Compacto</option>
                 <option value="normal">Normal</option>
@@ -547,7 +547,7 @@ function EditorInner() {
               </select>
             </div>
             <div>
-              <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#1A1918", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#1A1918", cursor: "pointer", fontFamily: "var(--font-instrument), sans-serif" }}>
                 <input type="checkbox" checked={data.settings.showPhoto} onChange={(e) => updateShowPhoto(e.target.checked)} style={{ width: 16, height: 16, cursor: "pointer" }} />
                 Mostrar foto de perfil
               </label>
@@ -561,7 +561,7 @@ function EditorInner() {
         <div style={{ display: "flex", gap: 10, marginBottom: 24, width: "100%", maxWidth: 720, justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: accentColor, display: "inline-block" }} />
-            <span style={{ fontSize: 13, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <span style={{ fontSize: 13, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
               {TEMPLATES.find((t) => t.id === data.settings.template)?.name} · A4
             </span>
           </div>

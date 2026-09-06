@@ -9,7 +9,7 @@ interface Props {
 export default function TemplateSelector({ selected, onChange }: Props) {
   return (
     <div>
-      <p style={{ fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "'Instrument Sans', sans-serif" }}>
+      <p style={{ fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-instrument), sans-serif" }}>
         Plantilla
       </p>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
@@ -34,10 +34,10 @@ export default function TemplateSelector({ selected, onChange }: Props) {
               <TemplatePreview id={t.id} accent={t.accent} />
             </div>
             <div style={{ padding: "8px 10px", background: selected === t.id ? `${t.accent}10` : "#fff" }}>
-              <p style={{ fontSize: 11, fontWeight: 700, color: "#1A1918", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: "#1A1918", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
                 {t.name}
               </p>
-              <p style={{ fontSize: 9, color: "#9C9890", margin: "2px 0 0", fontFamily: "'Instrument Sans', sans-serif" }}>
+              <p style={{ fontSize: 9, color: "#9C9890", margin: "2px 0 0", fontFamily: "var(--font-instrument), sans-serif" }}>
                 {t.description}
               </p>
             </div>

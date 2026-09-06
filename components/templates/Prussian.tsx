@@ -32,7 +32,7 @@ export default function PrussianTemplate({ data }: Props) {
   );
 
   return (
-    <div style={{ fontFamily: "'Instrument Sans', system-ui", color: "#1A1918", background: "#fff", padding: p3644 }}>
+    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#fff", padding: p3644 }}>
       <header style={{ marginBottom: p28, paddingBottom: p20, borderBottom: `2px solid ${accentColor}` }}>
         <h1 style={{ fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918", textTransform: "uppercase" }}>{personal.name || "Nombre"}</h1>
         <p style={{ fontSize: 12*s, color: accentColor, fontWeight: 600, margin: p0012, letterSpacing: "0.06em", textTransform: "uppercase" }}>{personal.title}</p>
@@ -54,7 +54,7 @@ export default function PrussianTemplate({ data }: Props) {
           <div key={item.id} style={{ marginBottom: p16 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: p2 }}>
               <h3 style={{ fontSize: 13*s, fontWeight: 700, margin: 0 }}>{item.position}</h3>
-              <span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
+              <span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
             </div>
             <p style={{ fontSize: 11*s, color: accentColor, fontWeight: 600, margin: p004 }}>{item.company}</p>
             <p style={{ fontSize: 11*s, lineHeight: 1.6, color: "#4A4843", margin: 0 }}>{item.description}</p>
@@ -67,7 +67,7 @@ export default function PrussianTemplate({ data }: Props) {
           <div key={item.id} style={{ marginBottom: p10 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.degree}</h3>
-              <span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
+              <span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
             </div>
             <p style={{ fontSize: 11*s, color: "#6B6860", margin: p20_0_0 }}>{item.institution}</p>
           </div>

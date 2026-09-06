@@ -241,10 +241,10 @@ export const TEMPLATES: TemplateInfo[] = [
 ];
 
 export const FONT_PAIRINGS: { id: FontPairing; name: string; heading: string; body: string }[] = [
-  { id: "default",  name: "Modern",    heading: "'Instrument Sans', system-ui",    body: "'Instrument Sans', system-ui" },
-  { id: "serif",   name: "Classic",   heading: "'Playfair Display', Georgia, serif", body: "'Source Serif 4', Georgia, serif" },
-  { id: "mono",    name: "Tech",      heading: "'Space Grotesk', system-ui",      body: "'JetBrains Mono', monospace" },
-  { id: "display", name: "Display",   heading: "'Fraunces', Georgia, serif",       body: "'DM Sans', system-ui" },
+  { id: "default",  name: "Modern",    heading: "var(--font-instrument), system-ui",    body: "var(--font-instrument), system-ui" },
+  { id: "serif",   name: "Classic",   heading: "var(--font-playfair), Georgia, serif", body: "var(--font-source), Georgia, serif" },
+  { id: "mono",    name: "Tech",      heading: "var(--font-space), system-ui",      body: "var(--font-jetbrains), monospace" },
+  { id: "display", name: "Display",   heading: "var(--font-fraunces), Georgia, serif",       body: "var(--font-dm), system-ui" },
 ];
 
 export const SPACING_MAP: Record<Spacing, number> = {

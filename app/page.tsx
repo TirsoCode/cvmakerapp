@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { TEMPLATES } from "@/lib/types";
 import { useState, useEffect } from "react";
 
@@ -74,10 +75,10 @@ function TypewriterHero() {
 
   return (
     <div style={{ marginBottom: 20 }}>
-      <p style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 2px", color: "#9C9890", fontFamily: "'Playfair Display', serif" }}>
+      <p style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 2px", color: "#9C9890", fontFamily: "var(--font-playfair), serif" }}>
         CV para
       </p>
-      <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: 0, padding: 0, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+      <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, margin: 0, padding: 0, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
         {PHRASES[phraseIndex].slice(0, charIndex)}
         <span style={{ display: "inline-block", width: 3, height: "1em", background: "#C0392B", marginLeft: 3, verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />
       </h1>
@@ -96,7 +97,7 @@ export default function Home() {
               <rect width="32" height="32" rx="7" fill="#1A1918"/>
               <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
             </svg>
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
               CVMakerApp
             </span>
           </div>
@@ -112,12 +113,12 @@ export default function Home() {
         <div style={{ paddingLeft: 0 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0392B", display: "inline-block" }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
               20 plantillas premium
             </span>
           </div>
           <TypewriterHero />
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "'Instrument Sans', sans-serif" }}>
+          <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "var(--font-instrument), sans-serif" }}>
             20 plantillas premium · PDF · Markdown · Sin registro
           </p>
           <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
@@ -129,10 +130,22 @@ export default function Home() {
         </div>
         {/* Right: image */}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <img
-            src="https://raw.githubusercontent.com/TirsoCode/resumecraft/main/foto.webp"
+          <Image
+            src="/foto.webp"
             alt="CVMakerApp preview"
-            style={{ width: "100%", maxWidth: 900, height: "auto", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
+            width={1600}
+            height={831}
+            priority
+            quality={80}
+            sizes="(min-width: 1280px) 50vw, (min-width: 768px) 60vw, 100vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              maxWidth: 900,
+              borderRadius: 12,
+              boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+              display: "block",
+            }}
           />
         </div>
       </section>
@@ -141,10 +154,10 @@ export default function Home() {
       <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", padding: "72px 24px" }}>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
               Crear tu CV nunca fue tan fácil
             </h2>
-            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
               Tres pasos para un resultado profesional
             </p>
           </div>
@@ -187,14 +200,14 @@ export default function Home() {
                   <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     {item.icon}
                   </div>
-                  <span style={{ fontSize: 36, fontWeight: 800, color: "#E4E2DC", fontFamily: "'Playfair Display', serif", letterSpacing: "-0.03em" }}>
+                  <span style={{ fontSize: 36, fontWeight: 800, color: "#E4E2DC", fontFamily: "var(--font-playfair), serif", letterSpacing: "-0.03em" }}>
                     {item.step}
                   </span>
                 </div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
                   {item.title}
                 </h3>
-                <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+                <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
                   {item.desc}
                 </p>
               </div>
@@ -206,10 +219,10 @@ export default function Home() {
       {/* Templates showcase */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 44 }}>
-          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
             Diseñadas para impresionar
           </h2>
-          <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+          <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
             Y 16 más disponibles en el editor
           </p>
         </div>
@@ -232,11 +245,11 @@ export default function Home() {
               <div style={{ padding: "14px 18px", borderTop: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: t.accent, display: "inline-block" }} />
-                  <h3 style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                  <h3 style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
                     {t.name}
                   </h3>
                 </div>
-                <p style={{ fontSize: 11, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
+                <p style={{ fontSize: 11, color: "#9C9890", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
                   {t.description}
                 </p>
               </div>
@@ -258,10 +271,10 @@ export default function Home() {
       <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "72px 24px" }}>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+            <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
               Todo lo que necesitas para un CV perfecto
             </h2>
-            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "'Instrument Sans', sans-serif" }}>
+            <p style={{ fontSize: 16, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
               Herramientas profesionales sin complejidad innecesaria
             </p>
           </div>
@@ -313,10 +326,10 @@ export default function Home() {
                   {f.icon}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
                     {f.title}
                   </h3>
-                  <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+                  <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
                     {f.desc}
                   </p>
                 </div>
@@ -329,7 +342,7 @@ export default function Home() {
       {/* Who is it for */}
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>
+          <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
             ¿Para quién es CVMakerApp?
           </h2>
         </div>
@@ -353,10 +366,10 @@ export default function Home() {
             },
           ].map((item) => (
             <div key={item.title} style={{ background: "#fff", border: "1px solid #E4E2DC", borderRadius: 14, padding: "24px 28px" }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 8px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>
+              <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 8px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
                 {item.title}
               </h3>
-              <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "'Instrument Sans', sans-serif" }}>
+              <p style={{ fontSize: 13, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
                 {item.desc}
               </p>
             </div>
@@ -367,10 +380,10 @@ export default function Home() {
       {/* Final CTA */}
       <section style={{ background: "#1A1918", textAlign: "center" }}>
         <div style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px" }}>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#fff", fontFamily: "'Playfair Display', serif" }}>
+          <h2 style={{ fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#fff", fontFamily: "var(--font-playfair), serif" }}>
             Tu próxima oportunidad no espera
           </h2>
-          <p style={{ fontSize: 16, color: "#9C9890", margin: "0 0 32px", fontFamily: "'Instrument Sans', sans-serif", lineHeight: 1.6 }}>
+          <p style={{ fontSize: 16, color: "#9C9890", margin: "0 0 32px", fontFamily: "var(--font-instrument), sans-serif", lineHeight: 1.6 }}>
             Crea un CV que cuente tu historia. Profesional, memorable y listo para impresionar. Empieza ahora y tenlo listo en 10 minutos.
           </p>
           <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
@@ -384,14 +397,14 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 12, color: "#9C9890", margin: "0 0 8px", fontFamily: "'Instrument Sans', sans-serif" }}>
+        <p style={{ fontSize: 12, color: "#9C9890", margin: "0 0 8px", fontFamily: "var(--font-instrument), sans-serif" }}>
           © {new Date().getFullYear()} CVMakerApp — Crea currículums profesionales en minutos
         </p>
         <div style={{ display: "flex", justifyContent: "center", gap: 20 }}>
-          <Link href="/politica-privacidad" style={{ fontSize: 11, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif", textDecoration: "none" }}>
+          <Link href="/politica-privacidad" style={{ fontSize: 11, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif", textDecoration: "none" }}>
             Política de Privacidad
           </Link>
-          <Link href="/politica-cookies" style={{ fontSize: 11, color: "#9C9890", fontFamily: "'Instrument Sans', sans-serif", textDecoration: "none" }}>
+          <Link href="/politica-cookies" style={{ fontSize: 11, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif", textDecoration: "none" }}>
             Política de Cookies
           </Link>
         </div>

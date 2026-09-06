@@ -14,7 +14,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
 
   return (
     <div style={{ marginBottom: 12 }}>
-      <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "'Instrument Sans', sans-serif" }}>
+      <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-instrument), sans-serif" }}>
         {label}
       </label>
       {isTextarea ? (
@@ -27,7 +27,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
             width: "100%",
             padding: "10px 12px",
             fontSize: 13,
-            fontFamily: "'Instrument Sans', sans-serif",
+            fontFamily: "var(--font-instrument), sans-serif",
             color: "#1A1918",
             background: "#F3F2EE",
             border: "1px solid #E4E2DC",
@@ -50,7 +50,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
             width: "100%",
             padding: "10px 12px",
             fontSize: 13,
-            fontFamily: "'Instrument Sans', sans-serif",
+            fontFamily: "var(--font-instrument), sans-serif",
             color: "#1A1918",
             background: "#F3F2EE",
             border: "1px solid #E4E2DC",
@@ -62,7 +62,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
           onBlur={(e) => { e.currentTarget.style.borderColor = "#E4E2DC"; e.currentTarget.style.boxShadow = "none"; }}
         />
       )}
-      {hint && <p style={{ fontSize: 10, color: "#9C9890", margin: "4px 0 0", fontFamily: "'Instrument Sans', sans-serif" }}>{hint}</p>}
+      {hint && <p style={{ fontSize: 10, color: "#9C9890", margin: "4px 0 0", fontFamily: "var(--font-instrument), sans-serif" }}>{hint}</p>}
     </div>
   );
 }

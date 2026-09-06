@@ -8,14 +8,14 @@ export default function PrivacyPolicy() {
               <rect width="32" height="32" rx="7" fill="#1A1918"/>
               <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
             </svg>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>CVMakerApp</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
           </a>
         </div>
       </header>
 
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 24px" }}>
-        <h1 style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 8px", color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>Política de Privacidad</h1>
-        <p style={{ fontSize: 13, color: "#9C9890", margin: "0 0 32px", fontFamily: "'Instrument Sans', sans-serif" }}>Última actualización: Septiembre 2026</p>
+        <h1 style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 8px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>Política de Privacidad</h1>
+        <p style={{ fontSize: 13, color: "#9C9890", margin: "0 0 32px", fontFamily: "var(--font-instrument), sans-serif" }}>Última actualización: Septiembre 2026</p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           {[
@@ -53,15 +53,15 @@ export default function PrivacyPolicy() {
             }
           ].map((section) => (
             <div key={section.title}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 8px", color: "#1A1918", fontFamily: "'Instrument Sans', sans-serif" }}>{section.title}</h2>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#4A4843", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>{section.content}</p>
+              <h2 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 8px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>{section.title}</h2>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#4A4843", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>{section.content}</p>
             </div>
           ))}
         </div>
       </div>
 
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
-        <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
+        <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
           © {new Date().getFullYear()} CVMakerApp
         </p>
       </footer>

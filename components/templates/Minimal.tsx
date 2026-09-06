@@ -10,7 +10,7 @@ export default function MinimalTemplate({ data, style }: Props) {
   const { accentColor } = data.settings;
 
   return (
-    <div style={{ fontFamily: "'Instrument Sans', system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "48px 56px", ...style }}>
+    <div style={{ fontFamily: "var(--font-instrument), system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "48px 56px", ...style }}>
       {/* Header */}
       <header style={{ marginBottom: 40 }}>
         <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 6px", color: "#1A1918" }}>
@@ -45,7 +45,7 @@ export default function MinimalTemplate({ data, style }: Props) {
             <div key={item.id} style={{ marginBottom: 20 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 4 }}>
                 <h3 style={{ fontSize: 14, fontWeight: 600, margin: 0 }}>{item.position}</h3>
-                <span style={{ fontSize: 11, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
+                <span style={{ fontSize: 11, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
                   {item.startDate} — {item.endDate}
                 </span>
               </div>
@@ -66,7 +66,7 @@ export default function MinimalTemplate({ data, style }: Props) {
             <div key={item.id} style={{ marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <h3 style={{ fontSize: 13, fontWeight: 600, margin: 0 }}>{item.degree}</h3>
-                <span style={{ fontSize: 11, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
+                <span style={{ fontSize: 11, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
                   {item.startDate} — {item.endDate}
                 </span>
               </div>

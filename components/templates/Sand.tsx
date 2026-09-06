@@ -28,7 +28,7 @@ export default function SandTemplate({ data }: Props) {
   const p0_32 = `0px ${p32}`;
 
   return (
-    <div style={{ fontFamily: "'Instrument Sans', system-ui", color: "#1A1918", background: "#FBF9F4", padding: p4048 }}>
+    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#FBF9F4", padding: p4048 }}>
       <header style={{ marginBottom: p32 }}>
         <h1 style={{ fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: p0014 }}>{personal.title}</p>
@@ -40,14 +40,14 @@ export default function SandTemplate({ data }: Props) {
       {data.settings.sections.experience && experience.length > 0 && <section style={{ marginBottom: p26 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Experiencia</h2>
         {experience.map((item) => <div key={item.id} style={{ marginBottom: p18 }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 14*s, fontWeight: 700, margin: 0 }}>{item.position}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#B45309" }}>{item.startDate} — {item.endDate}</span></div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 14*s, fontWeight: 700, margin: 0 }}>{item.position}</h3><span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#B45309" }}>{item.startDate} — {item.endDate}</span></div>
           <p style={{ fontSize: 11*s, color: accentColor, fontWeight: 600, margin: p300_5 }}>{item.company}</p>
           <p style={{ fontSize: 11*s, lineHeight: 1.7, color: "#78350F", margin: 0 }}>{item.description}</p>
         </div>)}
       </section>}
       {data.settings.sections.education && education.length > 0 && <section style={{ marginBottom: p26 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Educación</h2>
-        {education.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.degree}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#B45309" }}>{item.startDate} — {item.endDate}</span></div><p style={{ fontSize: 11*s, color: "#92400E", margin: p20_0_0 }}>{item.institution}</p></div>)}
+        {education.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.degree}</h3><span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#B45309" }}>{item.startDate} — {item.endDate}</span></div><p style={{ fontSize: 11*s, color: "#92400E", margin: p20_0_0 }}>{item.institution}</p></div>)}
       </section>}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: p0_32 }}>
         {data.settings.sections.skills && skills.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: p0012 }}>Habilidades</h2>{skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#92400E" }}>{cat.category}: </span><span style={{ fontSize: 11*s, color: "#78350F" }}>{cat.items.join(", ")}</span></div>)}</section>}

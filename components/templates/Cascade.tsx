@@ -24,7 +24,7 @@ export default function CascadeTemplate({ data }: Props) {
   const p420 = `${Math.round(4*s)}px ${Math.round(20*s)}px`;
 
   return (
-    <div style={{ fontFamily: "'Instrument Sans', system-ui", color: "#1A1918", background: "#fff", padding: "0" }}>
+    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#fff", padding: "0" }}>
       <div style={{ background: `linear-gradient(135deg, ${accentColor} 0%, ${accentColor}88 100%)`, padding: p3228 }}>
         <h1 style={{ fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: `0 0 ${4*s}px`, color: "#fff" }}>{personal.name || "Nombre"}</h1>
         <p style={{ fontSize: 13*s, color: "rgba(255,255,255,0.85)", margin: `0 0 ${14*s}px`, fontWeight: 500 }}>{personal.title}</p>
@@ -48,7 +48,7 @@ export default function CascadeTemplate({ data }: Props) {
             <div key={item.id} style={{ marginBottom: p16 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: p2 }}>
                 <div><h3 style={{ fontSize: 14*s, fontWeight: 700, margin: 0 }}>{item.position}</h3><p style={{ fontSize: 12*s, color: accentColor, fontWeight: 600, margin: `${2*s}px 0 0` }}>{item.company}</p></div>
-                <span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890", whiteSpace: "nowrap", marginLeft: 12*s }}>{item.startDate} — {item.endDate}</span>
+                <span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#9C9890", whiteSpace: "nowrap", marginLeft: 12*s }}>{item.startDate} — {item.endDate}</span>
               </div>
               <p style={{ fontSize: 11*s, lineHeight: 1.65, color: "#4A4843", margin: 0 }}>{item.description}</p>
             </div>
@@ -60,7 +60,7 @@ export default function CascadeTemplate({ data }: Props) {
             <div key={item.id} style={{ marginBottom: p10 }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0 }}>{item.degree}</h3>
-                <span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
+                <span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#9C9890" }}>{item.startDate} — {item.endDate}</span>
               </div>
               <p style={{ fontSize: 11*s, color: "#6B6860", margin: `${2*s}px 0 0` }}>{item.institution}</p>
             </div>

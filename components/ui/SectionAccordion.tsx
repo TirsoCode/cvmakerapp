@@ -49,7 +49,7 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
         </svg>
         <span style={{ fontSize: 13, fontWeight: 600, color: "#1A1918", flex: 1 }}>{title}</span>
         {count !== undefined && count > 0 && (
-          <span style={{ fontSize: 10, fontWeight: 600, color: accentColor, background: `${accentColor}15`, padding: "2px 8px", borderRadius: 999, fontFamily: "'Instrument Sans', sans-serif" }}>
+          <span style={{ fontSize: 10, fontWeight: 600, color: accentColor, background: `${accentColor}15`, padding: "2px 8px", borderRadius: 999, fontFamily: "var(--font-instrument), sans-serif" }}>
             {count}
           </span>
         )}

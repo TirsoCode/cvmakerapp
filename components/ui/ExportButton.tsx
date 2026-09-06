@@ -36,7 +36,7 @@ export default function ExportButton({ onExport }: Props) {
         borderRadius: 10,
         fontSize: 13,
         fontWeight: 600,
-        fontFamily: "'Instrument Sans', sans-serif",
+        fontFamily: "var(--font-instrument), sans-serif",
         cursor: state === "idle" ? "pointer" : "not-allowed",
         opacity: state === "loading" ? 0.7 : 1,
         transition: "all 200ms ease",

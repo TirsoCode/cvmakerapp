@@ -57,7 +57,7 @@ export default function ClassicTemplate({ data, style }: Props) {
                   <h3 style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "#1A1918" }}>{item.position}</h3>
                   <p style={{ fontSize: 11, color: accentColor, margin: "1px 0 0", fontWeight: 600 }}>{item.company}</p>
                 </div>
-                <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
+                <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
                   {item.startDate} — {item.endDate}
                 </span>
               </div>
@@ -75,7 +75,7 @@ export default function ClassicTemplate({ data, style }: Props) {
             <div key={item.id} style={{ marginBottom: 12 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", borderBottom: "1px solid #E4E2DC", paddingBottom: 4, marginBottom: 4 }}>
                 <h3 style={{ fontSize: 12, fontWeight: 700, margin: 0, color: "#1A1918" }}>{item.degree}</h3>
-                <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
+                <span style={{ fontSize: 10, color: "#9C9890", fontFamily: "var(--font-jetbrains), monospace", whiteSpace: "nowrap", marginLeft: 12 }}>
                   {item.startDate} — {item.endDate}
                 </span>
               </div>

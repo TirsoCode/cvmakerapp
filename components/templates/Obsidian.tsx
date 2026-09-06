@@ -19,7 +19,7 @@ export default function ObsidianTemplate({ data }: Props) {
   const p416 = `${Math.round(4*s)}px ${Math.round(16*s)}px`;
 
   return (
-    <div style={{ fontFamily: "'Space Grotesk', system-ui", color: "#FAFAFA", background: "#18181B", padding: p3644 }}>
+    <div style={{ fontFamily: "var(--font-space), system-ui", color: "#FAFAFA", background: "#18181B", padding: p3644 }}>
       <header style={{ marginBottom: p28, paddingBottom: p20, borderBottom: `1px solid #3F3F46` }}>
         <h1 style={{ fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: `0 0 ${4*s}px`, color: "#FAFAFA" }}>{personal.name || "Nombre"}</h1>
         <p style={{ fontSize: 12*s, color: accentColor, fontWeight: 600, margin: `0 0 ${12*s}px` }}>{personal.title}</p>
@@ -31,14 +31,14 @@ export default function ObsidianTemplate({ data }: Props) {
       {data.settings.sections.experience && experience.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Experiencia</h2>
         {experience.map((item) => <div key={item.id} style={{ marginBottom: p16 }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 13*s, fontWeight: 700, margin: 0, color: "#FAFAFA" }}>{item.position}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#71717A" }}>{item.startDate} — {item.endDate}</span></div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 13*s, fontWeight: 700, margin: 0, color: "#FAFAFA" }}>{item.position}</h3><span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#71717A" }}>{item.startDate} — {item.endDate}</span></div>
           <p style={{ fontSize: 11*s, color: accentColor, fontWeight: 600, margin: `${2*s}px 0 ${4*s}px` }}>{item.company}</p>
           <p style={{ fontSize: 11*s, lineHeight: 1.65, color: "#A1A1AA", margin: 0 }}>{item.description}</p>
         </div>)}
       </section>}
       {data.settings.sections.education && education.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p14}` }}>Educación</h2>
-        {education.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0, color: "#FAFAFA" }}>{item.degree}</h3><span style={{ fontSize: 10*s, fontFamily: "'JetBrains Mono', monospace", color: "#71717A" }}>{item.startDate} — {item.endDate}</span></div><p style={{ fontSize: 11*s, color: "#71717A", margin: `${2*s}px 0 0` }}>{item.institution}</p></div>)}
+        {education.map((item) => <div key={item.id} style={{ marginBottom: p10 }}><div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 700, margin: 0, color: "#FAFAFA" }}>{item.degree}</h3><span style={{ fontSize: 10*s, fontFamily: "var(--font-jetbrains), monospace", color: "#71717A" }}>{item.startDate} — {item.endDate}</span></div><p style={{ fontSize: 11*s, color: "#71717A", margin: `${2*s}px 0 0` }}>{item.institution}</p></div>)}
       </section>}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: `0px ${32*s}px` }}>
         {data.settings.sections.skills && skills.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Habilidades</h2>{skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 700, color: "#71717A" }}>{cat.category}: </span><span style={{ fontSize: 11*s, color: "#D4D4D8" }}>{cat.items.join(", ")}</span></div>)}</section>}
