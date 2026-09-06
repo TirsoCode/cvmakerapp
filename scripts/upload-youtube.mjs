@@ -22,6 +22,10 @@ const CLIENT_SECRET = process.env.YT_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YT_REFRESH_TOKEN;
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+  if (process.env.CI) {
+    console.error("Faltan credenciales YT (YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN). Ejecuta en local o configura los secretos en GitHub → Settings → Secrets and variables → Actions.");
+    process.exit(0);
+  }
   console.error("Faltan credenciales: YT_CLIENT_ID, YT_CLIENT_SECRET y YT_REFRESH_TOKEN");
   process.exit(1);
 }

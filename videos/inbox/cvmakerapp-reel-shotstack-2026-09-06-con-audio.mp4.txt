@@ -1,0 +1,4 @@
+title=CVMakerApp — Crea tu CV en minutos (gratis)
+description=Crea un CV profesional en menos de 2 minutos con CVMakerApp. 20 plantillas premium, diseño moderno y exportación a PDF desde tu móvil. Empieza gratis en cvmakerapp.vercel.app
+tags=cv, curriculum, empleo, trabajo, plantillas cv, crear cv, cvmakerapp, buscar trabajo
+privacy=private

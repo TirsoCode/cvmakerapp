@@ -43,3 +43,6 @@ videos/uploaded
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local secrets
+.env.local
