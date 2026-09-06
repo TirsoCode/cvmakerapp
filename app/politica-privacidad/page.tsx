@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
               <rect width="32" height="32" rx="7" fill="#1A1918"/>
               <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
             </svg>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>createCV</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>CVMakerApp</span>
           </a>
         </div>
       </header>
@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
           {[
             {
               title: "Responsable del tratamiento",
-              content: "createCV (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
+              content: "CVMakerApp (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
             },
             {
               title: "Datos que no recopilamos",
@@ -62,7 +62,7 @@ export default function PrivacyPolicy() {
 
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "'Instrument Sans', sans-serif" }}>
-          © {new Date().getFullYear()} createCV
+          © {new Date().getFullYear()} CVMakerApp
         </p>
       </footer>
     </main>

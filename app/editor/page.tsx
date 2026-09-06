@@ -258,7 +258,7 @@ function EditorInner() {
                 <rect width="32" height="32" rx="7" fill="#1A1918"/>
                 <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
               </svg>
-              <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>createCV</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "'Playfair Display', serif" }}>CVMakerApp</span>
             </a>
           </div>
           <button onClick={resetData} style={{ fontSize: 11, color: "#9C9890", background: "none", border: "none", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }} title="Borrar todo">

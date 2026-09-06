@@ -1,4 +1,4 @@
-# createCV
+# CVMakerApp
 
 Generador de currículums profesionales con 20 plantillas premium. Crea, personaliza y descarga tu CV en minutos.
 

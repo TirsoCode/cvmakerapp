@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "createCV — Crea currículums profesionales en minutos",
+  title: "CVMakerApp — Crea currículums profesionales en minutos",
   description: "Generador de currículums con 20 plantillas premium, exporta a PDF y Markdown. Sin registro, sin límite, en minutos.",
 };
 
