@@ -1,4 +1,5 @@
 import { type ResumeData, SPACING_MAP } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 interface Props { data: ResumeData; }
 export default function SandTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
@@ -28,9 +29,10 @@ export default function SandTemplate({ data }: Props) {
   const p0_32 = `0px ${p32}`;
 
   return (
-    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#FBF9F4", padding: p4048 }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#1A1918", background: "#FBF9F4", padding: p4048 }}>
       <header style={{ marginBottom: p32 }}>
-        <h1 style={{ fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
+        <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
+        {<PhotoBadge data={data} size={64} />}
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: p0014 }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p416, fontSize: 11*s, color: "#92400E" }}>
           {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{personal.portfolio && <span>{personal.portfolio}</span>}
@@ -61,6 +63,7 @@ export default function SandTemplate({ data }: Props) {
           {data.settings.sections.affiliations && affiliations.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: p0012 }}>Afiliaciones</h2>{affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: `0 0 ${p2}` }}>{a.organization}</h3><p style={{ fontSize: 10*s, color: "#78350F", margin: 0 }}>{a.role} — {a.startDate} — {a.endDate}</p></div>)}</section>}
         </div>
       </div>
+      {renderCustomSections(data)}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { type ResumeData, SPACING_MAP } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 interface Props { data: ResumeData; }
 export default function MeridianTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
@@ -29,9 +30,10 @@ export default function MeridianTemplate({ data }: Props) {
   const p12_s = `12*s`;
 
   return (
-    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#fff", padding: p3644 }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: p3644 }}>
       <header style={{ marginBottom: p28, background: "#F1F5F9", padding: p20_16, borderRadius: 12*s }}>
-        <h1 style={{ fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#0F172A" }}>{personal.name || "Nombre"}</h1>
+        <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#0F172A" }}>{personal.name || "Nombre"}</h1>
+        {<PhotoBadge data={data} size={64} />}
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: p0014 }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p416, fontSize: 11*s, color: "#475569" }}>
           {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}{personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{personal.portfolio && <span>{personal.portfolio}</span>}
@@ -77,6 +79,7 @@ export default function MeridianTemplate({ data }: Props) {
           {data.settings.sections.projects && projects.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: p0012 }}>Proyectos</h2>{projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: `0 0 ${p2}` }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#334155", margin: 0 }}>{p.description}</p></div>)}</section>}
         </div>
       </div>
+      {renderCustomSections(data)}
     </div>
   );
 }

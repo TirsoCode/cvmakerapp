@@ -1,4 +1,5 @@
 import { type ResumeData, SPACING_MAP } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 
 interface Props { data: ResumeData; }
 
@@ -24,9 +25,10 @@ export default function CascadeTemplate({ data }: Props) {
   const p420 = `${Math.round(4*s)}px ${Math.round(20*s)}px`;
 
   return (
-    <div style={{ fontFamily: "var(--font-instrument), system-ui", color: "#1A1918", background: "#fff", padding: "0" }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: "0" }}>
       <div style={{ background: `linear-gradient(135deg, ${accentColor} 0%, ${accentColor}88 100%)`, padding: p3228 }}>
-        <h1 style={{ fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: `0 0 ${4*s}px`, color: "#fff" }}>{personal.name || "Nombre"}</h1>
+        <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 28*s, fontWeight: 800, letterSpacing: "-0.03em", margin: `0 0 ${4*s}px`, color: "#fff" }}>{personal.name || "Nombre"}</h1>
+        {<PhotoBadge data={data} size={64} />}
         <p style={{ fontSize: 13*s, color: "rgba(255,255,255,0.85)", margin: `0 0 ${14*s}px`, fontWeight: 500 }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p420, fontSize: 11*s, color: "rgba(255,255,255,0.7)" }}>
           {personal.email && <span>{personal.email}</span>}
@@ -84,30 +86,31 @@ export default function CascadeTemplate({ data }: Props) {
         </div>
         {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Certificaciones</h2>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Certificaciones</h2>
           {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {c.issuer} ({c.date})</span></div>)}
         </section>}
         {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Premios</h2>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Premios</h2>
           {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.issuer} ({a.date})</span></div>)}
         </section>}
         {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Licencias</h2>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Licencias</h2>
           {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {l.issuer} ({l.licenseNumber})</span></div>)}
         </section>}
         {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Referencias</h2>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Referencias</h2>
           {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {r.company} ({r.relationship})</span><br /><span style={{ fontSize: 10*s, color: "#9C9890" }}>{r.email} | {r.phone}</span></div>)}
         </section>}
         {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Afiliaciones</h2>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B6860", margin: `0 0 ${p12}` }}>Afiliaciones</h2>
           {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.role} ({a.startDate} — {a.endDate})</span></div>)}
         </section>}
       </div>
+      {renderCustomSections(data)}
     </div>
   );
 }

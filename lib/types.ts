@@ -116,6 +116,45 @@ export interface SectionVisibility {
   affiliations: boolean;
 }
 
+export interface CustomSection {
+  id: string;
+  title: string;
+  content: string;
+  order: number;
+}
+
+export type SectionKey =
+  | "summary" | "experience" | "education" | "skills" | "languages"
+  | "projects" | "certifications" | "awards" | "licenses" | "references"
+  | "affiliations";
+
+export const SECTION_LABELS: Record<SectionKey, string> = {
+  summary: "Resumen",
+  experience: "Experiencia",
+  education: "Educación",
+  skills: "Habilidades",
+  languages: "Idiomas",
+  projects: "Proyectos",
+  certifications: "Certificaciones",
+  awards: "Premios",
+  licenses: "Licencias",
+  references: "Referencias",
+  affiliations: "Afiliaciones",
+};
+
+export const DEFAULT_SECTION_ORDER: SectionKey[] = [
+  "summary", "experience", "education", "skills", "languages",
+  "projects", "certifications", "awards", "licenses", "references", "affiliations",
+];
+
+export type ValidationSeverity = "error" | "warning";
+
+export interface ValidationIssue {
+  field: string;
+  message: string;
+  severity: ValidationSeverity;
+}
+
 export interface ResumeSettings {
   template: TemplateId;
   accentColor: string;
@@ -124,6 +163,7 @@ export interface ResumeSettings {
   showPhoto: boolean;
   headerLayout: "centered" | "left" | "sidebar";
   sections: SectionVisibility;
+  sectionOrder: SectionKey[];
 }
 
 export interface ResumeData {
@@ -139,6 +179,7 @@ export interface ResumeData {
   licenses: LicenseItem[];
   references: ReferenceItem[];
   affiliations: AffiliationItem[];
+  customSections: CustomSection[];
   settings: ResumeSettings;
 }
 
@@ -192,6 +233,7 @@ export const DEFAULT_RESUME: ResumeData = {
   licenses: [],
   references: [],
   affiliations: [],
+  customSections: [],
   settings: {
     template: "minimal",
     accentColor: "#1A1918",
@@ -205,6 +247,7 @@ export const DEFAULT_RESUME: ResumeData = {
       certifications: true, awards: true, licenses: true,
       references: true, affiliations: true,
     },
+    sectionOrder: [...DEFAULT_SECTION_ORDER],
   },
 };
 
