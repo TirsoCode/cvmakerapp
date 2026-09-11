@@ -141,7 +141,6 @@ function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1A1918"/><text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text></svg>
             <div>
               <h1 style={{ fontSize: 22, fontWeight: 700, color: "#1A1918", margin: 0, fontFamily: "var(--font-playfair), serif" }}>Mis Currículums</h1>
               <p style={{ fontSize: 13, color: "#6B6860", margin: 0 }}>{cvList.length} CV{cvList.length !== 1 ? "s" : ""}</p>
@@ -175,10 +174,10 @@ function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
                   {TEMPLATES.find((t) => t.id === cv.data.settings.template)?.name} · {new Date(cv.updatedAt).toLocaleDateString("es-ES")}
                 </p>
               </div>
-              <div style={{ display: "flex", gap: 4 }} onClick={(e) => e.stopPropagation()}>
-                <button onClick={() => { setEditingId(cv.id); setEditName(cv.name); }} style={{ padding: 6, border: "none", background: "none", cursor: "pointer", color: "#9C9890", fontSize: 14 }} title="Renombrar">✏️</button>
-                <button onClick={() => duplicateCv(cv.id)} style={{ padding: 6, border: "none", background: "none", cursor: "pointer", color: "#9C9890", fontSize: 14 }} title="Duplicar">📋</button>
-                {cvList.length > 1 && <button onClick={() => deleteCv(cv.id)} style={{ padding: 6, border: "none", background: "none", cursor: "pointer", color: "#C0392B", fontSize: 14 }} title="Eliminar">🗑️</button>}
+              <div style={{ display: "flex", gap: 6 }} onClick={(e) => e.stopPropagation()}>
+                <button onClick={() => { setEditingId(cv.id); setEditName(cv.name); }} className="boton-neobrutalista-sm" style={{ padding: "5px 10px" }}>Renombrar</button>
+                <button onClick={() => duplicateCv(cv.id)} className="boton-neobrutalista-sm" style={{ padding: "5px 10px" }}>Duplicar</button>
+                {cvList.length > 1 && <button onClick={() => deleteCv(cv.id)} className="boton-neobrutalista-sm boton-neobrutalista-primario" style={{ padding: "5px 10px" }}>Eliminar</button>}
               </div>
             </div>
           ))}
@@ -390,33 +389,29 @@ function EditorInner() {
       <aside style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", maxHeight: "100vh", position: "sticky", top: 0 }}>
         <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <button onClick={() => setShowDashboard(true)} style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", padding: 4 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9C9890" strokeWidth="2"><polyline points="15,18 9,12 15,6"/></svg>
-              <span style={{ fontSize: 12, color: "#9C9890" }}>CVs</span>
-            </button>
+            <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CVs</button>
             <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
-              <svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1A1918"/><text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text></svg>
               <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
             </a>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <button onClick={resetData} style={{ fontSize: 10, color: "#9C9890", background: "none", border: "none", cursor: "pointer", padding: "4px 6px" }} title="Borrar todo">Reset</button>
+            <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Reset</button>
           </div>
         </div>
 
         {/* Validation bar */}
         {(errorCount > 0 || warnCount > 0) && (
           <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", gap: 8, cursor: "pointer", background: errorCount > 0 ? "#FEF2F2" : "#FFFBEB" }} onClick={() => setShowErrors(!showErrors)}>
-            {errorCount > 0 && <span style={{ fontSize: 11, color: "#DC2626", fontWeight: 600 }}>⚠ {errorCount} error{errorCount !== 1 ? "es" : ""}</span>}
-            {warnCount > 0 && <span style={{ fontSize: 11, color: "#D97706", fontWeight: 600 }}>⚡ {warnCount} advertencia{warnCount !== 1 ? "s" : ""}</span>}
-            <span style={{ fontSize: 10, color: "#9C9890", marginLeft: "auto" }}>{showErrors ? "▲" : "▼"}</span>
+            {errorCount > 0 && <span style={{ fontSize: 11, color: "#DC2626", fontWeight: 700 }}>{errorCount} error{errorCount !== 1 ? "es" : ""}</span>}
+            {warnCount > 0 && <span style={{ fontSize: 11, color: "#D97706", fontWeight: 700 }}>{warnCount} advertencia{warnCount !== 1 ? "s" : ""}</span>}
+            <span style={{ fontSize: 10, color: "#9C9890", marginLeft: "auto", fontWeight: 600 }}>{showErrors ? "Ocultar" : "Ver detalles"}</span>
           </div>
         )}
         {showErrors && (
           <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", background: "#FAFAF8", maxHeight: 150, overflowY: "auto" }}>
             {validationIssues.map((issue, i) => (
               <div key={i} style={{ fontSize: 11, padding: "3px 0", color: issue.severity === "error" ? "#DC2626" : "#D97706" }}>
-                {issue.severity === "error" ? "✕" : "○"} {issue.message}
+                {issue.message}
               </div>
             ))}
           </div>
@@ -437,10 +432,10 @@ function EditorInner() {
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>Foto de perfil</label>
               <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} style={{ display: "none" }} />
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <button onClick={() => fileInputRef.current?.click()} style={{ padding: "7px 14px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#6B6860" }}>
+                <button onClick={() => fileInputRef.current?.click()} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>
                   {data.personal.photo ? "Cambiar foto" : "Subir foto"}
                 </button>
-                {data.personal.photo && <button onClick={() => updatePersonal({ photo: undefined })} style={{ fontSize: 11, color: "#C0392B", background: "none", border: "none", cursor: "pointer" }}>Quitar</button>}
+                {data.personal.photo && <button onClick={() => updatePersonal({ photo: undefined })} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>Quitar</button>}
               </div>
               {data.personal.photo && <img src={data.personal.photo} alt="Preview" style={{ width: 60, height: 60, borderRadius: 8, objectFit: "cover", marginTop: 8 }} />}
             </div>
@@ -457,7 +452,7 @@ function EditorInner() {
               <div key={exp.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{exp.position || "Nuevo puesto"}</span>
-                  <button onClick={() => removeExperience(exp.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeExperience(exp.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Empresa" value={exp.company} onChange={(v) => updateExp(exp.id, "company", v)} placeholder="Stripe" />
                 <FormField label="Puesto" value={exp.position} onChange={(v) => updateExp(exp.id, "position", v)} placeholder="Senior Product Designer" />
@@ -468,7 +463,7 @@ function EditorInner() {
                 <FormField label="Descripción" value={exp.description} onChange={(v) => updateExp(exp.id, "description", v)} placeholder="Logros y responsabilidades…" type="textarea" />
               </div>
             ))}
-            <button onClick={addExperience} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir experiencia</button>
+            <button onClick={addExperience} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir experiencia</button>
           </SectionAccordion>
 
           {/* Education */}
@@ -477,7 +472,7 @@ function EditorInner() {
               <div key={edu.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{edu.degree || "Nueva formación"}</span>
-                  <button onClick={() => removeEducation(edu.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeEducation(edu.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Institución" value={edu.institution} onChange={(v) => updateEdu(edu.id, "institution", v)} placeholder="ESADE" />
                 <FormField label="Título" value={edu.degree} onChange={(v) => updateEdu(edu.id, "degree", v)} placeholder="Máster en Diseño Digital" />
@@ -487,7 +482,7 @@ function EditorInner() {
                 </div>
               </div>
             ))}
-            <button onClick={addEducation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir formación</button>
+            <button onClick={addEducation} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir formación</button>
           </SectionAccordion>
 
           {/* Skills */}
@@ -496,13 +491,13 @@ function EditorInner() {
               <div key={sk.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{sk.category || "Nueva categoría"}</span>
-                  <button onClick={() => removeSkill(sk.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeSkill(sk.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Categoría" value={sk.category} onChange={(v) => updateSkillCat(sk.id, v)} placeholder="Diseño, Frontend, etc." />
                 <FormField label="Habilidades (separadas por coma)" value={sk.items.join(", ")} onChange={(v) => handleSkillItemsChange(sk.id, v)} placeholder="Figma, React, CSS" />
               </div>
             ))}
-            <button onClick={addSkill} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir categoría</button>
+            <button onClick={addSkill} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir categoría</button>
           </SectionAccordion>
 
           {/* Languages */}
@@ -511,13 +506,13 @@ function EditorInner() {
               <div key={lang.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{lang.language || "Nuevo idioma"}</span>
-                  <button onClick={() => removeLanguage(lang.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeLanguage(lang.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Idioma" value={lang.language} onChange={(v) => updateLang(lang.id, "language", v)} placeholder="Inglés" />
                 <FormField label="Nivel" value={lang.level} onChange={(v) => updateLang(lang.id, "level", v)} placeholder="C2 — Fluido" />
               </div>
             ))}
-            <button onClick={addLanguage} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir idioma</button>
+            <button onClick={addLanguage} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir idioma</button>
           </SectionAccordion>
 
           {/* Projects */}
@@ -526,14 +521,14 @@ function EditorInner() {
               <div key={proj.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{proj.name || "Nuevo proyecto"}</span>
-                  <button onClick={() => removeProject(proj.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeProject(proj.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Nombre" value={proj.name} onChange={(v) => updateProj(proj.id, "name", v)} placeholder="Mi proyecto" />
                 <FormField label="Descripción" value={proj.description} onChange={(v) => updateProj(proj.id, "description", v)} placeholder="Descripción del proyecto" type="textarea" />
                 <FormField label="URL" value={proj.url} onChange={(v) => updateProj(proj.id, "url", v)} placeholder="github.com/tu/proyecto" />
               </div>
             ))}
-            <button onClick={addProject} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir proyecto</button>
+            <button onClick={addProject} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir proyecto</button>
           </SectionAccordion>
 
           {/* Certifications */}
@@ -542,14 +537,14 @@ function EditorInner() {
               <div key={cert.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{cert.name || "Nueva certificación"}</span>
-                  <button onClick={() => updateCertifications(data.certifications.filter((c) => c.id !== cert.id))} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => updateCertifications(data.certifications.filter((c) => c.id !== cert.id))} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Nombre" value={cert.name} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, name: v } : c))} placeholder="AWS Solutions Architect" />
                 <FormField label="Organismo" value={cert.issuer} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, issuer: v } : c))} placeholder="Amazon Web Services" />
                 <FormField label="Fecha" value={cert.date} onChange={(v) => updateCertifications(data.certifications.map((c) => c.id === cert.id ? { ...c, date: v } : c))} placeholder="2024" />
               </div>
             ))}
-            <button onClick={() => updateCertifications([...data.certifications, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir certificación</button>
+            <button onClick={() => updateCertifications([...data.certifications, { id: uid(), name: "", issuer: "", date: "" }])} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir certificación</button>
           </SectionAccordion>
 
           {/* Awards */}
@@ -558,14 +553,14 @@ function EditorInner() {
               <div key={award.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{award.name || "Nuevo premio"}</span>
-                  <button onClick={() => updateAwards(data.awards.filter((a) => a.id !== award.id))} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => updateAwards(data.awards.filter((a) => a.id !== award.id))} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Nombre" value={award.name} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, name: v } : a))} placeholder="Mejor Diseñador del Año" />
                 <FormField label="Organismo" value={award.issuer} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, issuer: v } : a))} placeholder="Awwwards" />
                 <FormField label="Fecha" value={award.date} onChange={(v) => updateAwards(data.awards.map((a) => a.id === award.id ? { ...a, date: v } : a))} placeholder="2024" />
               </div>
             ))}
-            <button onClick={() => updateAwards([...data.awards, { id: uid(), name: "", issuer: "", date: "" }])} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir premio</button>
+            <button onClick={() => updateAwards([...data.awards, { id: uid(), name: "", issuer: "", date: "" }])} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir premio</button>
           </SectionAccordion>
 
           {/* Licenses */}
@@ -574,7 +569,7 @@ function EditorInner() {
               <div key={lic.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{lic.name || "Nueva licencia"}</span>
-                  <button onClick={() => removeLicense(lic.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeLicense(lic.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Licencia / Carnet" value={lic.name} onChange={(v) => updateLic(lic.id, "name", v)} placeholder="Carnet de Conducir B" />
                 <FormField label="Organismo emissor" value={lic.issuer} onChange={(v) => updateLic(lic.id, "issuer", v)} placeholder="DGT" />
@@ -582,7 +577,7 @@ function EditorInner() {
                 <FormField label="Fecha" value={lic.date} onChange={(v) => updateLic(lic.id, "date", v)} placeholder="2020" />
               </div>
             ))}
-            <button onClick={addLicense} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir licencia</button>
+            <button onClick={addLicense} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir licencia</button>
           </SectionAccordion>
 
           {/* References */}
@@ -591,7 +586,7 @@ function EditorInner() {
               <div key={ref.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{ref.name || "Nueva referencia"}</span>
-                  <button onClick={() => removeReference(ref.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeReference(ref.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Nombre completo" value={ref.name} onChange={(v) => updateRef(ref.id, "name", v)} placeholder="Juan Pérez García" />
                 <FormField label="Empresa / Organismo" value={ref.company} onChange={(v) => updateRef(ref.id, "company", v)} placeholder="Banco Santander" />
@@ -600,7 +595,7 @@ function EditorInner() {
                 <FormField label="Teléfono" value={ref.phone} onChange={(v) => updateRef(ref.id, "phone", v)} placeholder="+34 600 000 000" type="tel" />
               </div>
             ))}
-            <button onClick={addReference} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir referencia</button>
+            <button onClick={addReference} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir referencia</button>
           </SectionAccordion>
 
           {/* Affiliations */}
@@ -609,7 +604,7 @@ function EditorInner() {
               <div key={aff.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{aff.organization || "Nueva afiliación"}</span>
-                  <button onClick={() => removeAffiliation(aff.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeAffiliation(aff.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Organismo / Colegio" value={aff.organization} onChange={(v) => updateAff(aff.id, "organization", v)} placeholder="Ilustre Colegio de Abogados de Madrid" />
                 <FormField label="Número de colegiado" value={aff.role} onChange={(v) => updateAff(aff.id, "role", v)} placeholder="Nº 45.678" />
@@ -619,7 +614,7 @@ function EditorInner() {
                 </div>
               </div>
             ))}
-            <button onClick={addAffiliation} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir afiliación</button>
+            <button onClick={addAffiliation} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir afiliación</button>
           </SectionAccordion>
 
           {/* Custom Sections */}
@@ -628,27 +623,27 @@ function EditorInner() {
               <div key={cs.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <input value={cs.title} onChange={(e) => updateCustomSection(cs.id, { title: e.target.value })} style={{ fontSize: 12, fontWeight: 700, color: "#1A1918", border: "none", background: "none", padding: 0, width: "80%" }} />
-                  <button onClick={() => removeCustomSection(cs.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9C9890", fontSize: 14, padding: "2px 6px" }}>✕</button>
+                  <button onClick={() => removeCustomSection(cs.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
                 </div>
                 <FormField label="Contenido" value={cs.content} onChange={(v) => updateCustomSection(cs.id, { content: v })} placeholder="Escribe el contenido de esta sección..." type="textarea" />
               </div>
             ))}
-            <button onClick={() => addCustomSection("Nueva sección")} style={{ width: "100%", padding: "9px", border: "1px dashed #E4E2DC", borderRadius: 8, background: "none", cursor: "pointer", fontSize: 12, color: "#9C9890" }}>+ Añadir sección personalizada</button>
+            <button onClick={() => addCustomSection("Nueva sección")} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir sección personalizada</button>
           </SectionAccordion>
 
           {/* Section Order */}
           <SectionAccordion title="Orden de Secciones" defaultOpen={false}>
-            <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Arrastra o usa las flechas para reordenar</p>
+            <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Usa los botones para reordenar</p>
             {sectionOrder.map((key, idx) => (
-              <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FAFAF8", borderRadius: 6, marginBottom: 4, border: "1px solid #E4E2DC" }}>
-                <span style={{ fontSize: 10, color: "#9C9890", width: 16 }}>{idx + 1}</span>
+              <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FAFAF8", marginBottom: 4, border: "1px solid #E4E2DC" }}>
+                <span style={{ fontSize: 10, color: "#9C9890", width: 16, fontWeight: 700 }}>{idx + 1}</span>
                 <span style={{ fontSize: 12, flex: 1, color: "#1A1918", fontWeight: 500 }}>{SECTION_LABELS[key] || key}</span>
                 <label style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 10, color: "#9C9890" }}>
                   <input type="checkbox" checked={data.settings.sections[key]} onChange={(e) => updateSections({ [key]: e.target.checked })} style={{ width: 14, height: 14, cursor: "pointer" }} />
                   visible
                 </label>
-                <button disabled={idx === 0} onClick={() => moveSection(idx, idx - 1)} style={{ background: "none", border: "none", cursor: idx === 0 ? "default" : "pointer", color: idx === 0 ? "#E4E2DC" : "#6B6860", fontSize: 12, padding: "2px 4px" }}>▲</button>
-                <button disabled={idx === sectionOrder.length - 1} onClick={() => moveSection(idx, idx + 1)} style={{ background: "none", border: "none", cursor: idx === sectionOrder.length - 1 ? "default" : "pointer", color: idx === sectionOrder.length - 1 ? "#E4E2DC" : "#6B6860", fontSize: 12, padding: "2px 4px" }}>▼</button>
+                <button disabled={idx === 0} onClick={() => moveSection(idx, idx - 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Subir</button>
+                <button disabled={idx === sectionOrder.length - 1} onClick={() => moveSection(idx, idx + 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Bajar</button>
               </div>
             ))}
           </SectionAccordion>
@@ -664,8 +659,8 @@ function EditorInner() {
                 {["#C0392B", "#2563EB", "#16A34A", "#7C3AED", "#374151", "#1A1918", "#D97706", "#0891B2", "#BE123C", "#065F46", "#0C4A6E", "#92400E"].map((c) => (
                   <button key={c} onClick={() => updateAccentColor(c)} style={{
                     width: 28, height: 28, borderRadius: 6, background: c,
-                    border: data.settings.accentColor === c ? "2px solid #1A1918" : "2px solid transparent",
-                    cursor: "pointer", boxShadow: data.settings.accentColor === c ? "0 0 0 2px #fff, 0 0 0 4px #1A1918" : "none",
+                    border: data.settings.accentColor === c ? "2px solid #000" : "1px solid #E4E2DC",
+                    cursor: "pointer", boxShadow: data.settings.accentColor === c ? "2px 2px 0 0 #000" : "none",
                     transition: "all 150ms ease",
                   }} />
                 ))}
@@ -702,33 +697,28 @@ function EditorInner() {
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: accentColor, display: "inline-block" }} />
             <span style={{ fontSize: 12, color: "#6B6860" }}>{TEMPLATES.find((t) => t.id === data.settings.template)?.name}</span>
-            <span style={{ fontSize: 10, color: "#9C9890", background: "#F3F2EE", padding: "2px 8px", borderRadius: 4 }}>
-              📄 {pageEstimate} página{pageEstimate !== 1 ? "s" : ""}
+            <span className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10, boxShadow: "2px 2px 0px 0px #000000" }}>
+              {pageEstimate} página{pageEstimate !== 1 ? "s" : ""}
             </span>
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {/* Preview mode toggle */}
-            <button onClick={() => setPreviewMode("desktop")} style={{ padding: "6px 10px", fontSize: 11, background: previewMode === "desktop" ? "#1A1918" : "#fff", color: previewMode === "desktop" ? "#fff" : "#6B6860", border: "1px solid #E4E2DC", borderRadius: 6, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <button onClick={() => setPreviewMode("desktop")} className={`boton-neobrutalista-sm${previewMode === "desktop" ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
               Escritorio
             </button>
-            <button onClick={() => setPreviewMode("mobile")} style={{ padding: "6px 10px", fontSize: 11, background: previewMode === "mobile" ? "#1A1918" : "#fff", color: previewMode === "mobile" ? "#fff" : "#6B6860", border: "1px solid #E4E2DC", borderRadius: 6, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            <button onClick={() => setPreviewMode("mobile")} className={`boton-neobrutalista-sm${previewMode === "mobile" ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
               Móvil
             </button>
-            <button onClick={() => setAtsMode(!atsMode)} style={{ padding: "6px 10px", fontSize: 11, background: atsMode ? "#2563EB" : "#fff", color: atsMode ? "#fff" : "#6B6860", border: "1px solid #E4E2DC", borderRadius: 6, cursor: "pointer" }}>
+            <button onClick={() => setAtsMode(!atsMode)} className={`boton-neobrutalista-sm${atsMode ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
               ATS
             </button>
-            <button onClick={handleShare} style={{ padding: "6px 10px", fontSize: 11, background: "#fff", color: "#6B6860", border: "1px solid #E4E2DC", borderRadius: 6, cursor: "pointer" }} title="Compartir">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <button onClick={handleShare} className="boton-neobrutalista-sm" style={{ padding: "6px 12px", fontSize: 11 }} title="Compartir">
               Compartir
             </button>
-            <button onClick={handlePrint} style={{ padding: "6px 10px", fontSize: 11, background: "#fff", color: "#6B6860", border: "1px solid #E4E2DC", borderRadius: 6, cursor: "pointer" }} title="Imprimir">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6,9 6,2 18,2 18,9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <button onClick={handlePrint} className="boton-neobrutalista-sm" style={{ padding: "6px 12px", fontSize: 11 }} title="Imprimir">
               Imprimir
             </button>
             <button onClick={handleExportMd} className="boton-neobrutalista" style={{ padding: "6px 12px", fontSize: 11 }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
               MD
             </button>
             <button onClick={handleExportPDF} disabled={isExporting} className="boton-neobrutalista boton-neobrutalista-primario" style={{ padding: "6px 12px", fontSize: 11 }}>
@@ -760,7 +750,7 @@ function EditorInner() {
             <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
               <button onClick={handleDownloadJson} className="boton-neobrutalista" style={{ padding: "8px 16px", fontSize: 12 }}>Descargar JSON</button>
               <button onClick={handleImportJson} className="boton-neobrutalista" style={{ padding: "8px 16px", fontSize: 12 }}>Importar JSON</button>
-              <button onClick={() => setShowShareModal(false)} style={{ marginLeft: "auto", padding: "8px 16px", fontSize: 12, background: "none", border: "none", color: "#9C9890", cursor: "pointer" }}>Cerrar</button>
+              <button onClick={() => setShowShareModal(false)} className="boton-neobrutalista" style={{ marginLeft: "auto", padding: "8px 16px", fontSize: 12 }}>Cerrar</button>
             </div>
           </div>
         </div>

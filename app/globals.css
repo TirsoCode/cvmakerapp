@@ -92,6 +92,13 @@ body {
   transform: translate(4px, 4px);
 }
 
+.boton-neobrutalista:disabled {
+  opacity: 0.45;
+  box-shadow: 0px 0px 0px 0px #000000;
+  transform: none;
+  cursor: default;
+}
+
 .boton-neobrutalista-primario {
   background: #C0392B;
   color: #ffffff;
@@ -99,4 +106,40 @@ body {
 
 .boton-neobrutalista-primario:active {
   background: #a93226;
+}
+
+/* Neo-brutalist buttons (small) */
+.boton-neobrutalista-sm {
+  background: #ffffff;
+  color: #000000;
+  font-weight: 700;
+  font-size: 11px;
+  font-family: 'Instrument Sans', sans-serif;
+  border: 1.5px solid #000000;
+  border-radius: 0;
+  padding: 6px 12px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px 0px #000000;
+  transition: box-shadow 80ms ease, transform 80ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.boton-neobrutalista-sm:hover {
+  box-shadow: 3px 3px 0px 0px #000000;
+}
+
+.boton-neobrutalista-sm:active {
+  box-shadow: 0px 0px 0px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.boton-neobrutalista-sm:disabled {
+  opacity: 0.4;
+  box-shadow: 0px 0px 0px 0px #000000;
+  transform: none;
+  cursor: default;
 }

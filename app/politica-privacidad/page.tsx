@@ -4,10 +4,6 @@ export default function PrivacyPolicy() {
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "20px 24px", display: "flex", alignItems: "center", gap: 12 }}>
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <svg width="24" height="24" viewBox="0 0 32 32">
-              <rect width="32" height="32" rx="7" fill="#1A1918"/>
-              <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
-            </svg>
             <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
           </a>
         </div>
