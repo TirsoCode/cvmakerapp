@@ -93,10 +93,6 @@ export default function Home() {
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <svg width="28" height="28" viewBox="0 0 32 32">
-              <rect width="32" height="32" rx="7" fill="#1A1918"/>
-              <text x="16" y="22" textAnchor="middle" fontSize="17" fill="white" fontFamily="serif" fontWeight="700">R</text>
-            </svg>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
               CVMakerApp
             </span>
@@ -122,9 +118,6 @@ export default function Home() {
             20 plantillas premium · PDF · Markdown · Sin registro
           </p>
           <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" />
-            </svg>
             Empezar ahora — es gratis
           </Link>
         </div>
@@ -167,40 +160,21 @@ export default function Home() {
                 step: "01",
                 title: "Elige tu plantilla",
                 desc: "Explora 20 diseños únicos pensados para diferentes sectores y estilos. Minimalista, corporativo, creativo — hay una para cada perfil.",
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-                    <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-                  </svg>
-                ),
               },
               {
                 step: "02",
                 title: "Rellena tus datos",
                 desc: "Completa tu información de forma intuitiva. Añade tu experiencia, educación, habilidades, idiomas y proyectos. Sube tu foto si lo deseas.",
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                ),
               },
               {
                 step: "03",
                 title: "Descarga y envíalo",
                 desc: "Exporta tu CV en PDF de alta calidad para enviar por email, o en Markdown si trabajas con herramientas como Notion o GitHub.",
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
-                ),
               },
             ].map((item) => (
-              <div key={item.step} style={{ textAlign: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 18 }}>
-                  <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    {item.icon}
-                  </div>
-                  <span style={{ fontSize: 36, fontWeight: 800, color: "#E4E2DC", fontFamily: "var(--font-playfair), serif", letterSpacing: "-0.03em" }}>
+              <div key={item.step} style={{ background: "#fff", border: "2px solid #000", boxShadow: "4px 4px 0 0 #000", padding: "24px 20px", textAlign: "center" }}>
+                <div style={{ width: 48, height: 48, border: "2px solid #000", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", boxShadow: "2px 2px 0 0 #000" }}>
+                  <span style={{ fontSize: 16, fontWeight: 800, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
                     {item.step}
                   </span>
                 </div>
@@ -260,9 +234,6 @@ export default function Home() {
         <div style={{ textAlign: "center", marginTop: 44 }}>
           <Link className="boton-neobrutalista" href="/editor">
             Probar ahora — gratis
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
-            </svg>
           </Link>
         </div>
       </section>
@@ -283,56 +254,43 @@ export default function Home() {
               {
                 title: "20 plantillas disponibles",
                 desc: "Diseños cuidados hasta el último píxel. Desde el minimalista más limpio hasta el editorial más atrevido.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
               },
               {
                 title: "Personalización total",
                 desc: "Cambia colores, fuentes, espaciado y muestra u oculta las secciones que necesites. Tu CV, tus reglas.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>,
               },
               {
                 title: "Exporta a PDF",
                 desc: "Genera un PDF de alta calidad listo para enviar a cualquier empresa. Formato A4 estándar internacional.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>,
               },
               {
                 title: "Exporta a Markdown",
                 desc: "Descarga tu CV en formato Markdown para usarlo en Notion, GitHub, o cualquier herramienta que prefieras.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M4 4l1.8 1.8M4 4v5.2M4 4h5.2"/><path d="M20 4l-1.8 1.8M20 4v5.2M20 4h-5.2"/><path d="M4 20l1.8-1.8M4 20v-5.2M4 20h5.2"/><path d="M20 20l-1.8-1.8M20 20v-5.2M20 20h-5.2"/></svg>,
               },
               {
                 title: "Añade tu foto",
                 desc: "Sube una foto de perfil directamente desde tu ordenador. Se ajusta automáticamente al formato ideal.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>,
               },
               {
                 title: "Vista previa en tiempo real",
                 desc: "Verás los cambios al instante mientras escribes. Sin esperas, sin recargas. Todo fluye.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
               },
               {
                 title: "Sin registro",
                 desc: "Abre la página y empieza. No necesitas cuenta, email ni contraseña. Tu privacidad, respetada.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
               },
               {
                 title: "Funciona en cualquier dispositivo",
                 desc: "Edición optimizada para escritorio. Vista previa adaptable. Trabaja donde prefieras.",
-                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C0392B" strokeWidth="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>,
               },
             ].map((f) => (
-              <div key={f.title} style={{ display: "flex", gap: 16 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: "#F3F2EE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  {f.icon}
-                </div>
-                <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
-                    {f.title}
-                  </h3>
-                  <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
-                    {f.desc}
-                  </p>
-                </div>
+              <div key={f.title} style={{ background: "#fff", border: "2px solid #000", boxShadow: "4px 4px 0 0 #000", padding: "20px" }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
+                  {f.title}
+                </h3>
+                <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
+                  {f.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -388,9 +346,6 @@ export default function Home() {
           </p>
           <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
             Crear mi CV ahora
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
-            </svg>
           </Link>
         </div>
       </section>
