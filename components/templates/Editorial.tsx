@@ -1,4 +1,5 @@
 import { type ResumeData } from "@/lib/types";
+import { getFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 
 interface Props {
   data: ResumeData;
@@ -10,12 +11,13 @@ export default function EditorialTemplate({ data, style }: Props) {
   const { accentColor } = data.settings;
 
   return (
-    <div style={{ fontFamily: "var(--font-playfair), Georgia, serif", color: "#1A1918", background: "#fff", padding: "0", ...style }}>
+    <div style={{ fontFamily: getFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: "0", ...style }}>
       {/* Left sidebar */}
       <div style={{ display: "grid", gridTemplateColumns: "200px 1fr" }}>
         <aside style={{ background: "#1A1918", color: "#F3F2EE", padding: "48px 28px", minHeight: "100%" }}>
           {/* Name in sidebar */}
-          <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.01em", margin: "0 0 6px", color: "#fff", lineHeight: 1.2 }}>
+          {<PhotoBadge data={data} size={72} />}
+          <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 22, fontWeight: 700, letterSpacing: "-0.01em", margin: "6px 0 6px", color: "#fff", lineHeight: 1.2 }}>
             {personal.name || "Tu Nombre"}
           </h1>
           <p style={{ fontSize: 11, color: accentColor, margin: "0 0 32px", fontFamily: "var(--font-instrument), sans-serif", fontWeight: 500 }}>
@@ -32,7 +34,7 @@ export default function EditorialTemplate({ data, style }: Props) {
               {personal.phone && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.phone}</span>}
               {personal.location && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.location}</span>}
               {personal.linkedin && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.linkedin}</span>}
-              {personal.github && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.github}</span>}
+              {personal.portfolio && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.portfolio}</span>}
             </div>
           </div>
 
@@ -214,6 +216,7 @@ export default function EditorialTemplate({ data, style }: Props) {
               ))}
             </section>
           )}
+          {renderCustomSections(data)}
         </main>
       </div>
     </div>

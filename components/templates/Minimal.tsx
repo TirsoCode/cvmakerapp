@@ -1,4 +1,5 @@
 import { type ResumeData } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 
 interface Props {
   data: ResumeData;
@@ -10,22 +11,26 @@ export default function MinimalTemplate({ data, style }: Props) {
   const { accentColor } = data.settings;
 
   return (
-    <div style={{ fontFamily: "var(--font-instrument), system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "48px 56px", ...style }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: "48px 56px", ...style }}>
       {/* Header */}
-      <header style={{ marginBottom: 40 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 6px", color: "#1A1918" }}>
-          {personal.name || "Tu Nombre"}
-        </h1>
-        <p style={{ fontSize: 14, color: accentColor, fontWeight: 500, margin: "0 0 16px" }}>
-          {personal.title}
-        </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 16px", fontSize: 12, color: "#6B6860" }}>
-          {personal.email && <span>{personal.email}</span>}
-          {personal.phone && <span>{personal.phone}</span>}
-          {personal.location && <span>{personal.location}</span>}
-          {personal.linkedin && <span>{personal.linkedin}</span>}
-          {personal.github && <span>{personal.github}</span>}
+      <header style={{ marginBottom: 40, display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 6px", color: "#1A1918" }}>
+            {personal.name || "Tu Nombre"}
+          </h1>
+          <p style={{ fontSize: 14, color: accentColor, fontWeight: 500, margin: "0 0 16px" }}>
+            {personal.title}
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 16px", fontSize: 12, color: "#6B6860" }}>
+            {personal.email && <span>{personal.email}</span>}
+            {personal.phone && <span>{personal.phone}</span>}
+            {personal.location && <span>{personal.location}</span>}
+            {personal.linkedin && <span>{personal.linkedin}</span>}
+            {personal.github && <span>{personal.github}</span>}
+            {personal.portfolio && <span>{personal.portfolio}</span>}
+          </div>
         </div>
+        {<PhotoBadge data={data} size={72} />}
       </header>
 
       {/* Summary */}
@@ -199,6 +204,8 @@ export default function MinimalTemplate({ data, style }: Props) {
             ))}
           </section>
         )}
+
+        {renderCustomSections(data)}
     </div>
   );
 }

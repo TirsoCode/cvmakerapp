@@ -1,4 +1,5 @@
 import { type ResumeData } from "@/lib/types";
+import { getFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 
 interface Props {
   data: ResumeData;
@@ -20,10 +21,11 @@ export default function ClassicTemplate({ data, style }: Props) {
   );
 
   return (
-    <div style={{ fontFamily: "'Georgia', serif", color: "#1A1918", background: "#fff", padding: "52px 56px", ...style }}>
+    <div style={{ fontFamily: getFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: "52px 56px", ...style }}>
       {/* Header */}
-      <header style={{ textAlign: "center", marginBottom: 28 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 700, letterSpacing: "0.04em", margin: "0 0 6px", color: "#1A1918", textTransform: "uppercase" }}>
+      <header style={{ textAlign: "center", marginBottom: 28, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        {<PhotoBadge data={data} size={72} />}
+        <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 26, fontWeight: 700, letterSpacing: "0.04em", margin: "6px 0 6px", color: "#1A1918", textTransform: "uppercase" }}>
           {personal.name || "Tu Nombre"}
         </h1>
         <p style={{ fontSize: 12, color: accentColor, fontWeight: 600, margin: "0 0 12px", letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -35,6 +37,7 @@ export default function ClassicTemplate({ data, style }: Props) {
           {personal.location && <span>{personal.location}</span>}
           {personal.linkedin && <span>{personal.linkedin}</span>}
           {personal.github && <span>{personal.github}</span>}
+          {personal.portfolio && <span>{personal.portfolio}</span>}
         </div>
       </header>
 
@@ -190,6 +193,7 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
         </div>
+        {renderCustomSections(data)}
       </div>
     </div>
   );

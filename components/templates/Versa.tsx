@@ -1,4 +1,5 @@
 import { type ResumeData, SPACING_MAP } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 interface Props { data: ResumeData; }
 export default function VersaTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
@@ -28,11 +29,12 @@ export default function VersaTemplate({ data }: Props) {
   const p8_s = `8*s`;
 
   return (
-    <div style={{ fontFamily: "var(--font-dm), system-ui", color: "#1A1918", background: "#FAFAFA", padding: p3644 }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#1A1918", background: "#FAFAFA", padding: p3644 }}>
       <header style={{ marginBottom: p28 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div>
-            <h1 style={{ fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
+            <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 26*s, fontWeight: 800, letterSpacing: "-0.03em", margin: p004, color: "#1A1918" }}>{personal.name || "Nombre"}</h1>
+            {<PhotoBadge data={data} size={64} />}
             <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: p0014 }}>{personal.title}</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: p4, fontSize: 11*s, color: "#6B6860" }}>
@@ -80,6 +82,7 @@ export default function VersaTemplate({ data }: Props) {
           {data.settings.sections.projects && projects.length > 0 && <section><h2 style={{ fontSize: 10*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: p0012 }}>Proyectos</h2>{projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: `0 0 ${p2}` }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{p.description}</p></div>)}</section>}
         </div>
       </div>
+      {renderCustomSections(data)}
     </div>
   );
 }

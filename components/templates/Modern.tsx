@@ -1,4 +1,5 @@
 import { type ResumeData } from "@/lib/types";
+import { getFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 
 interface Props {
   data: ResumeData;
@@ -10,22 +11,26 @@ export default function ModernTemplate({ data, style }: Props) {
   const { accentColor } = data.settings;
 
   return (
-    <div style={{ fontFamily: "var(--font-instrument), system-ui, sans-serif", color: "#1A1918", background: "#fff", padding: "0", ...style }}>
+    <div style={{ fontFamily: getFontFamily(data.settings), color: "#1A1918", background: "#fff", padding: "0", ...style }}>
       {/* Header bar */}
-      <div style={{ background: "#1A1918", padding: "36px 52px 32px" }}>
-        <h1 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.03em", margin: "0 0 6px", color: "#FFFFFF" }}>
-          {personal.name || "Tu Nombre"}
-        </h1>
-        <p style={{ fontSize: 13, color: accentColor, fontWeight: 600, margin: "0 0 18px", letterSpacing: "0.02em" }}>
-          {personal.title}
-        </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 20px", fontSize: 11, color: "#9C9890" }}>
-          {personal.email && <span>{personal.email}</span>}
-          {personal.phone && <span>{personal.phone}</span>}
-          {personal.location && <span>{personal.location}</span>}
-          {personal.linkedin && <span>{personal.linkedin}</span>}
-          {personal.github && <span>{personal.github}</span>}
+      <div style={{ background: "#1A1918", padding: "36px 52px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 30, fontWeight: 700, letterSpacing: "-0.03em", margin: "0 0 6px", color: "#FFFFFF" }}>
+            {personal.name || "Tu Nombre"}
+          </h1>
+          <p style={{ fontSize: 13, color: accentColor, fontWeight: 600, margin: "0 0 18px", letterSpacing: "0.02em" }}>
+            {personal.title}
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 20px", fontSize: 11, color: "#9C9890" }}>
+            {personal.email && <span>{personal.email}</span>}
+            {personal.phone && <span>{personal.phone}</span>}
+            {personal.location && <span>{personal.location}</span>}
+            {personal.linkedin && <span>{personal.linkedin}</span>}
+            {personal.github && <span>{personal.github}</span>}
+            {personal.portfolio && <span>{personal.portfolio}</span>}
+          </div>
         </div>
+        {<PhotoBadge data={data} size={72} />}
       </div>
 
       {/* Body */}
@@ -216,6 +221,8 @@ export default function ModernTemplate({ data, style }: Props) {
             ))}
           </section>
         )}
+
+        {renderCustomSections(data)}
       </div>
     </div>
   );

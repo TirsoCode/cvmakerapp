@@ -1,4 +1,5 @@
 import { type ResumeData, SPACING_MAP } from "@/lib/types";
+import { getFontFamily, getBodyFontFamily, PhotoBadge, renderCustomSections } from "./helpers";
 interface Props { data: ResumeData; }
 export default function ArtisanTemplate({ data }: Props) {
   const s = SPACING_MAP[data.settings.spacing];
@@ -22,9 +23,10 @@ export default function ArtisanTemplate({ data }: Props) {
   const p416 = `${Math.round(4*s)}px ${Math.round(16*s)}px`;
 
   return (
-    <div style={{ fontFamily: "var(--font-playfair), Georgia, serif", color: "#2C1810", background: "#FFFDF8", padding: p4048 }}>
+    <div style={{ fontFamily: getBodyFontFamily(data.settings), color: "#2C1810", background: "#FFFDF8", padding: p4048 }}>
       <header style={{ marginBottom: p32, paddingBottom: p24, borderBottom: `1px solid #D4C4B0` }}>
-        <h1 style={{ fontSize: 28*s, fontWeight: 700, letterSpacing: "-0.02em", margin: `0 0 ${6*s}px`, color: "#2C1810" }}>{personal.name || "Nombre"}</h1>
+        <h1 style={{ fontFamily: getFontFamily(data.settings), fontSize: 28*s, fontWeight: 700, letterSpacing: "-0.02em", margin: `0 0 ${6*s}px`, color: "#2C1810" }}>{personal.name || "Nombre"}</h1>
+        {<PhotoBadge data={data} size={64} />}
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: `0 0 ${14*s}px`, fontStyle: "italic" }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p416, fontSize: 11*s, color: "#8B7355" }}>
           {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}
@@ -33,7 +35,7 @@ export default function ArtisanTemplate({ data }: Props) {
       </header>
       {data.settings.sections.summary && summary && <section style={{ marginBottom: p28 }}><p style={{ fontSize: 12*s, lineHeight: 1.8, color: "#5C4A3A", margin: 0, fontStyle: "italic" }}>{summary}</p></section>}
       {data.settings.sections.experience && experience.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p16}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Experiencia</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p16}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Experiencia</h2>
         {experience.map((item) => (
           <div key={item.id} style={{ marginBottom: p18 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 14*s, fontWeight: 600, margin: 0 }}>{item.position}</h3><span style={{ fontSize: 10*s, color: "#8B7355", fontFamily: "var(--font-jetbrains), monospace" }}>{item.startDate} — {item.endDate}</span></div>
@@ -42,7 +44,7 @@ export default function ArtisanTemplate({ data }: Props) {
           </div>))}
       </section>}
       {data.settings.sections.education && education.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p16}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Educación</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p16}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Educación</h2>
         {education.map((item) => (
           <div key={item.id} style={{ marginBottom: p10 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}><h3 style={{ fontSize: 12*s, fontWeight: 600, margin: 0 }}>{item.degree}</h3><span style={{ fontSize: 10*s, color: "#8B7355", fontFamily: "var(--font-jetbrains), monospace" }}>{item.startDate} — {item.endDate}</span></div>
@@ -51,40 +53,41 @@ export default function ArtisanTemplate({ data }: Props) {
       </section>}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: `0px ${p32}` }}>
         {data.settings.sections.skills && skills.length > 0 && <section>
-          <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Habilidades</h2>
+          <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Habilidades</h2>
           {skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#8B7355" }}>{cat.category}</span><p style={{ fontSize: 11*s, color: "#5C4A3A", margin: `${2*s}px 0 0` }}>{cat.items.join(", ")}</p></div>)}
         </section>}
         <div>
           {data.settings.sections.languages && languages.length > 0 && <section style={{ marginBottom: `${20*s}px` }}>
-            <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Idiomas</h2>
+            <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Idiomas</h2>
             {languages.map((l) => <div key={l.id} style={{ fontSize: 11*s, marginBottom: p4 }}><span style={{ fontWeight: 600 }}>{l.language}</span> <span style={{ color: "#8B7355" }}>{l.level}</span></div>)}
           </section>}
           {data.settings.sections.projects && projects.length > 0 && <section>
-            <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Proyectos</h2>
+            <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Proyectos</h2>
             {projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 600, margin: `0 0 ${2*s}px` }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#5C4A3A", margin: 0 }}>{p.description}</p></div>)}
           </section>}
         </div>
       </div>
       {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Certificaciones</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Certificaciones</h2>
         {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#5C4A3A" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#8B7355" }}>— {c.issuer} ({c.date})</span></div>)}
       </section>}
       {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Premios</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Premios</h2>
         {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#5C4A3A" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#8B7355" }}>— {a.issuer} ({a.date})</span></div>)}
       </section>}
       {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Licencias</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Licencias</h2>
         {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#5C4A3A" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#8B7355" }}>— {l.issuer} ({l.licenseNumber})</span></div>)}
       </section>}
       {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Referencias</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Referencias</h2>
         {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#5C4A3A" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#8B7355" }}>— {r.company} ({r.relationship})</span><br /><span style={{ fontSize: 10*s, color: "#8B7355" }}>{r.email} | {r.phone}</span></div>)}
       </section>}
       {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p28 }}>
-        <h2 style={{ fontSize: 11*s, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Afiliaciones</h2>
+        <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Afiliaciones</h2>
         {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#5C4A3A" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#8B7355" }}>— {a.role} ({a.startDate} — {a.endDate})</span></div>)}
       </section>}
+      {renderCustomSections(data)}
     </div>
   );
 }
