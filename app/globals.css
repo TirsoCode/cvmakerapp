@@ -164,3 +164,13 @@ body {
   transform: none;
   cursor: default;
 }
+
+/* Primario debe imponerse sobre el estilo pequeño */
+.boton-neobrutalista-sm.boton-neobrutalista-primario {
+  background: #C0392B;
+  color: #ffffff;
+}
+
+.boton-neobrutalista-sm.boton-neobrutalista-primario:active {
+  background: #a93226;
+}

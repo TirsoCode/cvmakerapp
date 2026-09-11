@@ -171,10 +171,10 @@ export default function Home() {
                 title: "Descarga y envíalo",
                 desc: "Exporta tu CV en PDF de alta calidad para enviar por email, o en Markdown si trabajas con herramientas como Notion o GitHub.",
               },
-            ].map((item) => (
-              <div key={item.step} style={{ background: "#fff", border: "2px solid #000", boxShadow: "4px 4px 0 0 #000", padding: "24px 20px", textAlign: "center" }}>
-                <div style={{ width: 48, height: 48, border: "2px solid #000", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", boxShadow: "2px 2px 0 0 #000" }}>
-                  <span style={{ fontSize: 16, fontWeight: 800, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
+            ].map((item, i) => (
+              <div key={item.step} style={{ textAlign: "center" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F3F2EE", border: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}>
+                  <span style={{ fontSize: 18, fontWeight: 800, color: i === 0 ? "#C0392B" : "#1A1918", fontFamily: "var(--font-playfair), serif", letterSpacing: "-0.02em" }}>
                     {item.step}
                   </span>
                 </div>
@@ -284,13 +284,18 @@ export default function Home() {
                 desc: "Edición optimizada para escritorio. Vista previa adaptable. Trabaja donde prefieras.",
               },
             ].map((f) => (
-              <div key={f.title} style={{ background: "#fff", border: "2px solid #000", boxShadow: "4px 4px 0 0 #000", padding: "20px" }}>
-                <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
-                  {f.title}
-                </h3>
-                <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
-                  {f.desc}
-                </p>
+              <div key={f.title} style={{ display: "flex", gap: 14 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: "#F3F2EE", border: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#C0392B", display: "block" }} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 6px", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
+                    {f.title}
+                  </h3>
+                  <p style={{ fontSize: 12, color: "#6B6860", margin: 0, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
+                    {f.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
