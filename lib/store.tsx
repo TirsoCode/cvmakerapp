@@ -78,11 +78,21 @@ function saveCVs(cvs: CVEntry[]) {
 }
 
 function migrateData(d: ResumeData): ResumeData {
-  const patched = { ...d };
-  if (!patched.settings) patched.settings = { ...DEFAULT_RESUME.settings };
+  const patched: ResumeData = {
+    ...d,
+    personal: { ...DEFAULT_RESUME.personal, ...(d.personal || {}) },
+    settings: { ...DEFAULT_RESUME.settings, ...(d.settings || {}) },
+  };
   if (!patched.settings.sectionOrder) patched.settings.sectionOrder = [...DEFAULT_RESUME.settings.sectionOrder] as SectionKey[];
-  if (!patched.customSections) patched.customSections = [];
   if (!patched.settings.sections) patched.settings.sections = { ...DEFAULT_RESUME.settings.sections };
+  if (!patched.customSections) patched.customSections = [];
+  const ARRAY_FIELDS: (keyof ResumeData)[] = [
+    "experience", "education", "skills", "languages", "projects",
+    "certifications", "awards", "licenses", "references", "affiliations",
+  ];
+  for (const key of ARRAY_FIELDS) {
+    if (!Array.isArray(patched[key])) (patched as unknown as Record<string, unknown>)[key] = [];
+  }
   return patched;
 }
 
