@@ -59,6 +59,26 @@ body {
   }
 }
 
+/* Editor responsive: la barra lateral apila sobre el previsualizador
+   y la toolbar de modos de diseño queda completamente desplegada */
+@media (max-width: 860px) {
+  .editor-root {
+    flex-direction: column !important;
+  }
+  .editor-aside {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-height: none !important;
+    position: relative !important;
+    border-right: none !important;
+    border-bottom: 1px solid #E4E2DC !important;
+  }
+  .editor-main {
+    padding: 16px !important;
+    overflow: visible !important;
+  }
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
