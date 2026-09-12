@@ -59,8 +59,9 @@ body {
   }
 }
 
-/* Editor responsive: la barra lateral apila sobre el previsualizador
-   y la toolbar de modos de diseño queda completamente desplegada */
+/* Editor responsive: la barra de herramientas del panel se apila y los
+   modos de diseño quedan desplegados; el panel conserva su propio scroll
+   y la línea de cabecera (CV / Reset) se queda siempre fija arriba */
 @media (max-width: 860px) {
   .editor-root {
     flex-direction: column !important;
@@ -68,8 +69,8 @@ body {
   .editor-aside {
     width: 100% !important;
     min-width: 0 !important;
-    max-height: none !important;
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
     border-right: none !important;
     border-bottom: 1px solid #E4E2DC !important;
   }
