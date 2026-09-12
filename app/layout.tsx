@@ -60,8 +60,14 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "CVMakerApp — Crea currículums profesionales en minutos",
+  metadataBase: new URL("https://cvmakerapp.vercel.app"),
+  title: {
+    default: "CVMakerApp — Crea currículums profesionales en minutos",
+    template: "%s",
+  },
   description: "Generador de currículums con 20 plantillas premium, exporta a PDF y Markdown. Sin registro, sin límite, en minutos.",
+  applicationName: "CVMakerApp",
+  keywords: ["currículum", "CV", "plantillas CV", "curriculum vitae", "crear CV gratis", "PDF"],
   robots: {
     index: true,
     follow: true,
@@ -71,7 +77,17 @@ export const metadata: Metadata = {
     description: "Generador de currículums con 20 plantillas premium, exporta a PDF y Markdown. Sin registro, sin límite, en minutos.",
     type: "website",
     locale: "es_ES",
+    siteName: "CVMakerApp",
+    url: "https://cvmakerapp.vercel.app",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "CVMakerApp" }],
   },
+  twitter: {
+    card: "summary",
+    title: "CVMakerApp — Crea currículums profesionales en minutos",
+    description: "Generador de currículums con 20 plantillas premium, exporta a PDF y Markdown. Sin registro, sin límite, en minutos.",
+    images: ["/logo.png"],
+  },
+  themeColor: "#FAFAF8",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
