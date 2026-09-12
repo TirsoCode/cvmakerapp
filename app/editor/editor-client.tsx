@@ -629,12 +629,12 @@ function EditorInner() {
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#F3F2EE" }}>
+    <div className="editor-root" style={{ display: "flex", minHeight: "100vh", background: "#F3F2EE" }}>
       {/* LEFT PANEL */}
-      <aside style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", maxHeight: "100vh", position: "sticky", top: 0 }}>
+      <aside className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", maxHeight: "100vh", position: "sticky", top: 0 }}>
         <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CVs</button>
+            <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
             <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
             </a>
@@ -939,7 +939,7 @@ function EditorInner() {
       </aside>
 
       {/* RIGHT PANEL */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px", overflowY: "auto" }}>
+      <main className="editor-main" style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px", overflowY: "auto" }}>
         {/* Toolbar */}
         <div style={{ display: "flex", gap: 8, marginBottom: 20, width: "100%", maxWidth: previewMode === "mobile" ? 400 : 720, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
