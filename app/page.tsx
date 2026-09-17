@@ -94,7 +94,7 @@ export default function Home() {
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
-              CVMakerApp
+              nos
             </span>
           </div>
           <Link className="boton-neobrutalista" href="/editor" style={{ padding: "8px 18px", fontSize: 13 }}>
@@ -125,7 +125,7 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Image
             src="/foto.webp"
-            alt="CVMakerApp preview"
+            alt="nos preview"
             width={1600}
             height={831}
             priority
@@ -306,7 +306,7 @@ export default function Home() {
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
-            ¿Para quién es CVMakerApp?
+            ¿Para quién es nos?
           </h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
@@ -358,7 +358,7 @@ export default function Home() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: "0 0 8px", fontFamily: "var(--font-instrument), sans-serif" }}>
-          © {new Date().getFullYear()} CVMakerApp — Crea currículums profesionales en minutos
+          © {new Date().getFullYear()} nos — Crea currículums profesionales en minutos
         </p>
         <div style={{ display: "flex", justifyContent: "center", gap: 20 }}>
           <Link href="/politica-privacidad" style={{ fontSize: 11, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif", textDecoration: "none" }}>
