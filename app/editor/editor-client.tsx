@@ -626,6 +626,13 @@ function EditorInner() {
         ))}
       </nav>
 
+      {/* Floating show button (always visible when hidden) */}
+      {panelHidden && (
+        <button onClick={() => setPanelHidden(false)} style={{ position: "fixed", left: 8, top: 72, zIndex: 100, padding: "6px 12px", fontSize: 11, fontWeight: 700, background: "#1A1918", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", boxShadow: "2px 2px 0 0 rgba(0,0,0,0.15)" }}>
+          Mostrar panel
+        </button>
+      )}
+
       {/* LEFT PANEL */}
       <aside ref={asideRef} className="editor-aside" style={{ width: panelHidden ? 0 : 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "block", transition: "all 150ms ease" }}>
         <div className="editor-aside-header" style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
