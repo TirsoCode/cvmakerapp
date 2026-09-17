@@ -21,7 +21,7 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
           display: "flex",
           alignItems: "center",
           width: "100%",
-          padding: "8px 10px",
+          padding: "6px 8px",
           background: "none",
           border: "none",
           cursor: "pointer",
@@ -36,7 +36,7 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
           </span>
         )}
       </button>
-      <div style={{ display: open ? "block" : "none", padding: "0 8px 8px" }}>
+      <div style={{ display: open ? "block" : "none", padding: "0 6px 6px" }}>
         {children}
       </div>
     </div>

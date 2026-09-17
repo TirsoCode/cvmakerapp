@@ -61,8 +61,8 @@ body {
 
 /* Sidebar de secciones del editor */
 .editor-nav {
-  width: 200px;
-  min-width: 200px;
+  width: 170px;
+  min-width: 170px;
   height: 100vh;
   overflow-y: auto;
   background: #F3F2EE;
