@@ -59,24 +59,39 @@ body {
   }
 }
 
-/* Editor responsive: la barra de herramientas del panel se apila y los
-   modos de diseño quedan desplegados; el panel conserva su propio scroll
-   y la línea de cabecera (CV / Reset) se queda siempre fija arriba */
-@media (max-width: 860px) {
+/* Editor responsive: en pantallas pequeñas el panel del formulario fluye
+   con la página (scroll interno acotado) y el toolbar del preview queda
+   fijo arriba para que los botones Escritorio/Móvil sean siempre clicables */
+@media screen and (max-width: 860px) {
   .editor-root {
     flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
   }
   .editor-aside {
     width: 100% !important;
     min-width: 0 !important;
-    position: sticky !important;
-    top: 0 !important;
+    height: auto !important;
+    max-height: 70vh !important;
+    position: static !important;
     border-right: none !important;
     border-bottom: 1px solid #E4E2DC !important;
+  }
+  .editor-toolbar {
+    position: sticky !important;
+    top: 0 !important;
+    background: #F3F2EE !important;
+    z-index: 5 !important;
   }
   .editor-main {
     padding: 16px !important;
     overflow: visible !important;
+    height: auto !important;
+  }
+  .editor-main .a4-paper {
+    width: auto !important;
+    max-width: 100% !important;
   }
 }
 
