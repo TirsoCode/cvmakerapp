@@ -25,7 +25,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "¿Por qué no usamos cookies?",
-              content: "nos funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se mantienen en la memoria temporal de tu navegador mientras dura la sesión de edición y se descartan al salir de la web. No existe ningún tipo de seguimiento."
+              content: "El sitio funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se mantienen en la memoria temporal de tu navegador mientras dura la sesión de edición y se descartan al salir de la web. No existe ningún tipo de seguimiento."
             },
             {
               title: "Almacenamiento local",
@@ -37,11 +37,11 @@ export default function CookiesPolicy() {
             },
             {
               title: "Tu consentimiento",
-              content: "Dado que no utilizamos cookies, no solicitamos tu consentimiento para su uso. Sin embargo, si tu navegador muestra un aviso de cookies al entrar en el sitio, puedes informarte de que nos no utiliza ninguna cookie y rechaza o ignora dicho aviso sin consecuencias."
+              content: "Dado que no utilizamos cookies, no solicitamos tu consentimiento para su uso. Sin embargo, si tu navegador muestra un aviso de cookies al entrar en el sitio, puedes informarte de que este sitio no utiliza ninguna cookie y rechaza o ignora dicho aviso sin consecuencias."
             },
             {
               title: "Cómo desactivar el almacenamiento local",
-              content: "Si deseas impedir que el navegador almacene datos de nos, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador, o bien usar el botón \"Reset\" en el editor para eliminar los datos guardados."
+              content: "Si deseas impedir que el navegador almacene datos del sitio, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador, o bien usar el botón \"Reset\" en el editor para eliminar los datos guardados."
             },
             {
               title: "Cambios en esta política",

@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
           {[
             {
               title: "Responsable del tratamiento",
-              content: "nos (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
+              content: "nosotros (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopilamos ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
             },
             {
               title: "Datos que no recopilamos",
