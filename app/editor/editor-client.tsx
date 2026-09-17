@@ -627,7 +627,7 @@ function EditorInner() {
       </nav>
 
       {/* LEFT PANEL */}
-      <aside ref={asideRef} className="editor-aside" style={{ width: 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "block" }}>
+      <aside ref={asideRef} className="editor-aside" style={{ width: panelHidden ? 0 : 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "block", transition: "all 150ms ease" }}>
         <div className="editor-aside-header" style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
@@ -636,7 +636,7 @@ function EditorInner() {
             </a>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <button onClick={() => setPanelHidden(v => !v)} className="boton-neobrutalista-sm" style={{ padding: "4px 8px", fontSize: 10 }} title="Ocultar panel">{panelHidden ? "+" : "−"}</button>
+            <button onClick={() => setPanelHidden(v => !v)} className="boton-neobrutalista-sm" style={{ padding: "5px 10px", fontSize: 11, fontWeight: 700, background: panelHidden ? "#1A1918" : "#fff", color: panelHidden ? "#fff" : "#1A1918" }} title="Ocultar panel">{panelHidden ? "Mostrar" : "Ocultar"}</button>
             <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Reset</button>
           </div>
         </div>
