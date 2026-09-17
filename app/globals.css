@@ -61,8 +61,8 @@ body {
 
 /* Sidebar de secciones del editor */
 .editor-nav {
-  width: 200px;
-  min-width: 200px;
+  width: 160px;
+  min-width: 160px;
   height: 100vh;
   overflow-y: auto;
   background: #F3F2EE;
@@ -140,14 +140,14 @@ body {
     width: 100% !important;
     min-width: 0 !important;
     height: auto !important;
-    max-height: none !important;
+    max-height: 56vh !important;
     overflow: visible !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 6 !important;
     border-right: none !important;
     border-bottom: 1px solid #E4E2DC !important;
-    padding: 6px 8px !important;
+    padding: 4px 6px !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 4px !important;
@@ -164,7 +164,7 @@ body {
   .editor-nav-item {
     width: auto !important;
     white-space: nowrap !important;
-    padding: 6px 10px !important;
+    padding: 4px 8px !important;
     background: #fff !important;
     border: 1px solid #E4E2DC !important;
   }
