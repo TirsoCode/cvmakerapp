@@ -632,21 +632,15 @@ function EditorInner() {
     <div className="editor-root" style={{ display: "flex", minHeight: "100vh", background: "#F3F2EE" }}>
       {/* LEFT PANEL */}
       <aside className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", maxHeight: "100vh", position: "sticky", top: 0 }}>
-        <div style={{ position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
-          <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
-              <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
-              </a>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Reset</button>
-            </div>
+        <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
+            <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
+            </a>
           </div>
-          <div style={{ padding: "8px 16px 12px", borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Espaciado</label>
-            <SpacingPicker value={data.settings.spacing} onChange={updateSpacing} />
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Reset</button>
           </div>
         </div>
 
@@ -929,6 +923,10 @@ function EditorInner() {
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Fuente</label>
               <FontPicker value={data.settings.fontPairing} onChange={updateFontPairing} />
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Espaciado</label>
+              <SpacingPicker value={data.settings.spacing} onChange={updateSpacing} />
             </div>
             <div>
               <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#1A1918", cursor: "pointer" }}>
