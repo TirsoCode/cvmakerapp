@@ -10,21 +10,8 @@ export function getBodyFontFamily(settings: ResumeData["settings"]): string {
   return pairing?.body || "var(--font-instrument), system-ui, sans-serif";
 }
 
-export function PhotoBadge({ data, size = 64 }: { data: ResumeData; size?: number }) {
-  if (!data.settings.showPhoto || !data.personal.photo) return null;
-  return (
-    <img
-      src={data.personal.photo}
-      alt={data.personal.name}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        objectFit: "cover",
-        border: `2px solid ${data.settings.accentColor}40`,
-      }}
-    />
-  );
+export function PhotoBadge(_props: { data: ResumeData; size?: number }) {
+  return null;
 }
 
 export function getOrderedSections(data: ResumeData): { key: SectionKey; visible: boolean }[] {

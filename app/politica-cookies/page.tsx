@@ -25,11 +25,11 @@ export default function CookiesPolicy() {
             },
             {
               title: "¿Por qué no usamos cookies?",
-              content: "CVMakerApp funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se almacenan temporalmente en la memoria de tu navegador (localStorage) para tu comodidad durante la sesión de edición, pero esto no constituye una cookie en el sentido técnico ni legal. No existe追踪 ni seguimiento de ningún tipo."
+              content: "CVMakerApp funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se mantienen en la memoria temporal de tu navegador mientras dura la sesión de edición y se descartan al salir de la web. No existe ningún tipo de seguimiento."
             },
             {
-              title: "Almacenamiento local (localStorage)",
-              content: "Tu navegador puede almacenar los datos del editor en localStorage para que no los pierdas si cierras la pestaña accidentalmente. Estos datos permanecen en tu dispositivo y nunca se envían a ningún servidor. Puedes borrarlos limpiando los datos del sitio en la configuración de tu navegador."
+              title: "Almacenamiento local",
+              content: "La web no guarda tus datos en localStorage ni en ningún otro almacenamiento persistente: cada vez que abandonas el site se reinicia todo al estado predeterminado. Nada se envía a ningún servidor."
             },
             {
               title: "Cookies de terceros",

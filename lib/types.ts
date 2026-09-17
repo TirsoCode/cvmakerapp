@@ -14,7 +14,6 @@ export interface PersonalInfo {
   website: string;
   linkedin: string;
   github: string;
-  photo?: string;
   portfolio?: string;
 }
 
@@ -160,7 +159,6 @@ export interface ResumeSettings {
   accentColor: string;
   fontPairing: FontPairing;
   spacing: Spacing;
-  showPhoto: boolean;
   headerLayout: "centered" | "left" | "sidebar";
   sections: SectionVisibility;
   sectionOrder: SectionKey[];
@@ -239,7 +237,6 @@ export const DEFAULT_RESUME: ResumeData = {
     accentColor: "#1A1918",
     fontPairing: "default",
     spacing: "normal",
-    showPhoto: false,
     headerLayout: "left",
     sections: {
       summary: true, experience: true, education: true,

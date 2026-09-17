@@ -3,7 +3,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
   TEMPLATES, FONT_PAIRINGS, SECTION_LABELS, DEFAULT_SECTION_ORDER,
-  type SectionKey, type FontPairing, type Spacing, type ResumeData,
+  type SectionKey, type FontPairing, type ResumeData,
 } from "@/lib/types";
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
 import SectionAccordion from "@/components/ui/SectionAccordion";
@@ -167,49 +167,6 @@ function FontPicker({ value, onChange }: { value: FontPairing; onChange: (v: Fon
   );
 }
 
-function SpacingPicker({ value, onChange }: { value: Spacing; onChange: (v: Spacing) => void }) {
-  const options: { id: Spacing; label: string; bars: number; note: string }[] = [
-    { id: "compact", label: "Compacto", bars: 2, note: "Más contenido por página" },
-    { id: "normal", label: "Normal", bars: 3, note: "Equilibrado" },
-    { id: "relaxed", label: "Relajado", bars: 5, note: "Máxima legibilidad" },
-  ];
-  return (
-    <div style={{ display: "flex", gap: 6 }}>
-      {options.map((o) => {
-        const active = o.id === value;
-        return (
-          <button
-            key={o.id}
-            onClick={() => onChange(o.id)}
-            title={o.note}
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 6,
-              padding: "10px 6px",
-              borderRadius: 10,
-              background: active ? "#FAFAF8" : "#FFFFFF",
-              border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
-              cursor: "pointer",
-              transition: "all 150ms ease",
-              boxShadow: active ? "2px 2px 0 0 rgba(0,0,0,0.1)" : "none",
-            }}
-          >
-            <span style={{ display: "flex", alignItems: "flex-end", gap: 3 }}>
-              {[0, 1, 2].map((i) => (
-                <span key={i} style={{ width: 4, height: 4 + (i + o.bars) * 2, borderRadius: 2, background: active ? "#1A1918" : "#CBC8C0" }} />
-              ))}
-            </span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: active ? "#1A1918" : "#6B6860" }}>{o.label}</span>
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 /* Dashboard Component */
 function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
   const { cvList, currentCvId, selectCv, createNewCv, duplicateCv, deleteCv, renameCv } = useResume();
@@ -273,7 +230,7 @@ function EditorInner() {
     data, updatePersonal, updateSummary, updateExperience, updateEducation,
     updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
     updateLicenses, updateReferences, updateAffiliations,
-    updateTemplate, updateAccentColor, updateFontPairing, updateSpacing, updateShowPhoto,
+    updateTemplate, updateAccentColor, updateFontPairing,
     updateSections, resetData,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
     sectionOrder, moveSection,
@@ -282,7 +239,6 @@ function EditorInner() {
   } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [previewMode, setPreviewMode] = useState<"desktop" | "mobile">("desktop");
   const [atsMode, setAtsMode] = useState(false);
@@ -293,6 +249,47 @@ function EditorInner() {
   const [shareUrl, setShareUrl] = useState("");
   const [validationIssues, setValidationIssues] = useState<ReturnType<typeof validate>>([]);
   const [toast, setToast] = useState("");
+
+  const [activeSection, setActiveSection] = useState<string>("personal");
+  const asideRef = useRef<HTMLElement>(null);
+
+  const NAV_GROUPS: { label: string; items: { id: string; label: string; count: number }[] }[] = [
+    {
+      label: "Perfil",
+      items: [
+        { id: "personal", label: "Datos Personales", count: 0 },
+        { id: "summary", label: "Resumen", count: data.summary ? 1 : 0 },
+      ],
+    },
+    {
+      label: "Contenido",
+      items: [
+        { id: "experience", label: "Experiencia", count: data.experience.length },
+        { id: "education", label: "Educación", count: data.education.length },
+        { id: "skills", label: "Habilidades", count: data.skills.length },
+        { id: "languages", label: "Idiomas", count: data.languages.length },
+        { id: "projects", label: "Proyectos", count: data.projects.length },
+        { id: "certifications", label: "Certificaciones", count: data.certifications.length },
+        { id: "awards", label: "Premios y Honores", count: data.awards.length },
+        { id: "licenses", label: "Licencias y Carnets", count: data.licenses.length },
+        { id: "references", label: "Referencias", count: data.references.length },
+        { id: "affiliations", label: "Afiliaciones y Colegios", count: data.affiliations.length },
+        { id: "custom", label: "Secciones Personalizadas", count: customSections.length },
+      ],
+    },
+    {
+      label: "Apariencia",
+      items: [{ id: "design", label: "Diseño", count: 0 }],
+    },
+    {
+      label: "Estructura",
+      items: [{ id: "order", label: "Orden de Secciones", count: 0 }],
+    },
+  ];
+
+  useEffect(() => {
+    asideRef.current?.scrollTo?.({ top: 0, behavior: "smooth" });
+  }, [activeSection]);
 
   const accentColor = data.settings.accentColor || "#C0392B";
   const issues = validate();
@@ -332,25 +329,6 @@ function EditorInner() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handlePhotoUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    e.target.value = "";
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setToast("Elige un archivo de imagen (JPG, PNG o WebP)");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const result = ev.target?.result as string;
-      if (!result) return;
-      updatePersonal({ photo: result });
-      if (!data.settings.showPhoto) updateShowPhoto(true);
-      setToast("Foto añadida. Ya se muestra en tu CV");
-    };
-    reader.readAsDataURL(file);
-  }, [updatePersonal, updateShowPhoto, data.settings.showPhoto]);
 
   const handleExportPDF = useCallback(async () => {
     setIsExporting(true);
@@ -549,9 +527,7 @@ function EditorInner() {
   const handleShare = useCallback(() => {
     const json = JSON.stringify(data);
     setShareJson(json);
-    const { photo: _photo, ...personalNoPhoto } = data.personal;
-    const shareable = { ...data, personal: personalNoPhoto };
-    const compressed = compressToEncodedURIComponent(JSON.stringify(shareable));
+    const compressed = compressToEncodedURIComponent(json);
     setShareUrl(`${window.location.origin}/editor?cv=${compressed}`);
     setShowShareModal(true);
   }, [data]);
@@ -630,9 +606,28 @@ function EditorInner() {
 
   return (
     <div className="editor-root" style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#F3F2EE" }}>
+      {/* SIDEBAR NAV */}
+      <nav className="editor-nav">
+        {NAV_GROUPS.map((group) => (
+          <div key={group.label} className="editor-nav-group">
+            <div className="editor-nav-group-label">{group.label}</div>
+            {group.items.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={`editor-nav-item${activeSection === item.id ? " editor-nav-item-active" : ""}`}
+              >
+                <span>{item.label}</span>
+                {item.count > 0 && <span className="editor-nav-count">{item.count}</span>}
+              </button>
+            ))}
+          </div>
+        ))}
+      </nav>
+
       {/* LEFT PANEL */}
-      <aside className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", height: "100vh" }}>
-        <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
+      <aside ref={asideRef} className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", height: "100vh" }}>
+        <div className="editor-aside-header" style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
             <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
@@ -664,7 +659,7 @@ function EditorInner() {
 
         <div>
           {/* Personal */}
-          <SectionAccordion title="Datos Personales" defaultOpen>
+          <SectionAccordion title="Datos Personales" defaultOpen style={{ display: activeSection === "personal" ? undefined : "none" }}>
             <FormField label="Nombre completo" value={data.personal.name} onChange={(v) => updatePersonal({ name: v })} placeholder="María García López" />
             <FormField label="Título profesional" value={data.personal.title} onChange={(v) => updatePersonal({ title: v })} placeholder="Diseñadora de Producto" />
             <FormField label="Email" value={data.personal.email} onChange={(v) => updatePersonal({ email: v })} placeholder="maria@email.com" type="email" />
@@ -673,35 +668,15 @@ function EditorInner() {
             <FormField label="LinkedIn" value={data.personal.linkedin} onChange={(v) => updatePersonal({ linkedin: v })} placeholder="linkedin.com/in/tu-perfil" />
             <FormField label="GitHub" value={data.personal.github} onChange={(v) => updatePersonal({ github: v })} placeholder="github.com/tu-usuario" />
             <FormField label="Portfolio" value={data.personal.portfolio || ""} onChange={(v) => updatePersonal({ portfolio: v })} placeholder="tuportfolio.com" />
-            <div style={{ marginTop: 8 }}>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>Foto de perfil</label>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} style={{ display: "none" }} />
-              {data.personal.photo ? (
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <img src={data.personal.photo} alt={data.personal.name || "Foto de perfil"} style={{ width: 64, height: 64, borderRadius: "50%", objectFit: "cover", border: `2px solid ${accentColor}40`, flexShrink: 0 }} />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", gap: 6 }}>
-                      <button onClick={() => fileInputRef.current?.click()} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>Cambiar foto</button>
-                      <button onClick={() => { updatePersonal({ photo: undefined }); setToast("Foto eliminada"); }} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>Quitar</button>
-                    </div>
-                    {!data.settings.showPhoto && <p style={{ fontSize: 10, color: "#D97706", margin: "4px 0 0", fontWeight: 600 }}>Activa «Mostrar foto» en Diseño para verla en el CV.</p>}
-                  </div>
-                </div>
-              ) : (
-                <button onClick={() => fileInputRef.current?.click()} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>
-                  Subir foto
-                </button>
-              )}
-            </div>
           </SectionAccordion>
 
           {/* Summary */}
-          <SectionAccordion title="Resumen Profesional" count={data.summary ? 1 : 0} defaultOpen>
+          <SectionAccordion title="Resumen Profesional" count={data.summary ? 1 : 0} defaultOpen style={{ display: activeSection === "summary" ? undefined : "none" }}>
             <FormField label="Resumen" value={data.summary} onChange={updateSummary} placeholder="Breve descripción de tu perfil profesional..." type="textarea" />
           </SectionAccordion>
 
           {/* Experience */}
-          <SectionAccordion title="Experiencia" count={data.experience.length} defaultOpen={data.experience.length > 0}>
+          <SectionAccordion title="Experiencia" count={data.experience.length} defaultOpen={data.experience.length > 0} style={{ display: activeSection === "experience" ? undefined : "none" }}>
             {data.experience.map((exp) => (
               <div key={exp.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -721,7 +696,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Education */}
-          <SectionAccordion title="Educación" count={data.education.length} defaultOpen={data.education.length > 0}>
+          <SectionAccordion title="Educación" count={data.education.length} defaultOpen={data.education.length > 0} style={{ display: activeSection === "education" ? undefined : "none" }}>
             {data.education.map((edu) => (
               <div key={edu.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -740,7 +715,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Skills */}
-          <SectionAccordion title="Habilidades" count={data.skills.length} defaultOpen={data.skills.length > 0}>
+          <SectionAccordion title="Habilidades" count={data.skills.length} defaultOpen={data.skills.length > 0} style={{ display: activeSection === "skills" ? undefined : "none" }}>
             {data.skills.map((sk) => (
               <div key={sk.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -755,7 +730,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Languages */}
-          <SectionAccordion title="Idiomas" count={data.languages.length} defaultOpen={data.languages.length > 0}>
+          <SectionAccordion title="Idiomas" count={data.languages.length} defaultOpen={data.languages.length > 0} style={{ display: activeSection === "languages" ? undefined : "none" }}>
             {data.languages.map((lang) => (
               <div key={lang.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -770,7 +745,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Projects */}
-          <SectionAccordion title="Proyectos" count={data.projects.length} defaultOpen={data.projects.length > 0}>
+          <SectionAccordion title="Proyectos" count={data.projects.length} defaultOpen={data.projects.length > 0} style={{ display: activeSection === "projects" ? undefined : "none" }}>
             {data.projects.map((proj) => (
               <div key={proj.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -786,7 +761,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Certifications */}
-          <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0}>
+          <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0} style={{ display: activeSection === "certifications" ? undefined : "none" }}>
             {data.certifications.map((cert) => (
               <div key={cert.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -802,7 +777,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Awards */}
-          <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0}>
+          <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0} style={{ display: activeSection === "awards" ? undefined : "none" }}>
             {data.awards.map((award) => (
               <div key={award.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -818,7 +793,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Licenses */}
-          <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0}>
+          <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0} style={{ display: activeSection === "licenses" ? undefined : "none" }}>
             {data.licenses.map((lic) => (
               <div key={lic.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -835,7 +810,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* References */}
-          <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0}>
+          <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0} style={{ display: activeSection === "references" ? undefined : "none" }}>
             {data.references.map((ref) => (
               <div key={ref.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -853,7 +828,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Affiliations */}
-          <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0}>
+          <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0} style={{ display: activeSection === "affiliations" ? undefined : "none" }}>
             {data.affiliations.map((aff) => (
               <div key={aff.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -872,7 +847,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Custom Sections */}
-          <SectionAccordion title="Secciones Personalizadas" count={customSections.length} defaultOpen={false}>
+          <SectionAccordion title="Secciones Personalizadas" count={customSections.length} defaultOpen={false} style={{ display: activeSection === "custom" ? undefined : "none" }}>
             {customSections.map((cs) => (
               <div key={cs.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -886,7 +861,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Section Order */}
-          <SectionAccordion title="Orden de Secciones" defaultOpen={false}>
+          <SectionAccordion title="Orden de Secciones" defaultOpen={false} style={{ display: activeSection === "order" ? undefined : "none" }}>
             <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Usa los botones para reordenar</p>
             {sectionOrder.map((key, idx) => (
               <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FAFAF8", marginBottom: 4, border: "1px solid #E4E2DC" }}>
@@ -903,7 +878,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Design */}
-          <SectionAccordion title="Diseño" defaultOpen>
+          <SectionAccordion title="Diseño" defaultOpen style={{ display: activeSection === "design" ? undefined : "none" }}>
             <div style={{ marginBottom: 16 }}>
               <TemplateSelectorGrid selected={data.settings.template} onChange={updateTemplate} />
             </div>
@@ -923,16 +898,6 @@ function EditorInner() {
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Fuente</label>
               <FontPicker value={data.settings.fontPairing} onChange={updateFontPairing} />
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Espaciado</label>
-              <SpacingPicker value={data.settings.spacing} onChange={updateSpacing} />
-            </div>
-            <div>
-              <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#1A1918", cursor: "pointer" }}>
-                <input type="checkbox" checked={data.settings.showPhoto} onChange={(e) => updateShowPhoto(e.target.checked)} style={{ width: 16, height: 16, cursor: "pointer" }} />
-                Mostrar foto de perfil
-              </label>
             </div>
           </SectionAccordion>
         </div>
@@ -1005,7 +970,7 @@ function EditorInner() {
               Copiar mensaje listo para WhatsApp
             </button>
             <p style={{ fontSize: 10, color: "#9C9890", margin: "0 0 4px", lineHeight: 1.5 }}>
-              Se copia un mensaje con tu nombre ya incluido. La foto de perfil no viaja en el enlace para que sea corto.
+              Se copia un mensaje con tu nombre ya incluido.
             </p>
 
             <div style={{ height: 1, background: "#E4E2DC", margin: "14px 0" }} />

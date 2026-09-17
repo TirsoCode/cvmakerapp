@@ -1,27 +1,20 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 interface SectionAccordionProps {
   title: string;
   count?: number;
   defaultOpen?: boolean;
   accentColor?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 
-export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", children }: SectionAccordionProps) {
+export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", style, children }: SectionAccordionProps) {
   const [open, setOpen] = useState(defaultOpen);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState<number | undefined>(defaultOpen ? undefined : 0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(open ? contentRef.current.scrollHeight : 0);
-    }
-  }, [open, children]);
 
   return (
-    <div style={{ borderBottom: "1px solid #E4E2DC" }}>
+    <div style={{ borderBottom: "1px solid #E4E2DC", ...style }}>
       <button
         onClick={() => setOpen((v) => !v)}
         style={{
@@ -43,16 +36,8 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
           </span>
         )}
       </button>
-      <div
-        style={{
-          height: height !== undefined ? `${height}px` : "auto",
-          overflow: "hidden",
-          transition: "height 200ms ease",
-        }}
-      >
-        <div ref={contentRef} style={{ padding: "0 16px 16px" }}>
-          {children}
-        </div>
+      <div style={{ display: open ? "block" : "none", padding: "0 16px 16px" }}>
+        {children}
       </div>
     </div>
   );
