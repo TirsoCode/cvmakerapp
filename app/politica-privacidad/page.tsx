@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
             },
             {
               title: "Datos que tú nos proporcionas",
-              content: "Los datos que introduces en el editor (nombre, experiencia laboral, educación, habilidades, etc.) se almacenan exclusivamente en la memoria de tu navegador (localStorage) y en ningún momento se transmiten a nuestros servidores. Tú eres el único responsable de exportar y guardar tus datos."
+              content: "Los datos que introduces en el editor (nombre, experiencia laboral, educación, habilidades, etc.) se mantienen únicamente en la memoria de tu navegador mientras usas la web y se descartan en cuanto la abandonas. En ningún momento se transmiten a nuestros servidores. Tú eres el único responsable de exportar y guardar tus datos."
             },
             {
               title: "Cookies",

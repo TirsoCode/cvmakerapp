@@ -29,8 +29,6 @@ interface ResumeContextValue {
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
   updateFontPairing: (f: ResumeData["settings"]["fontPairing"]) => void;
-  updateSpacing: (s: ResumeData["settings"]["spacing"]) => void;
-  updateShowPhoto: (v: boolean) => void;
   updateSections: (s: Partial<ResumeData["settings"]["sections"]>) => void;
   resetData: () => void;
   customSections: CustomSection[];
@@ -57,24 +55,21 @@ const STORAGE_KEY = "cvmaker_cvs";
 const STORAGE_VER_KEY = "cvmaker_version";
 const CURRENT_VERSION = 1;
 
+// Sin persistencia: cada vez que se abandona la web los CV se descartan
+// y el editor vuelve siempre al estado predeterminado.
 function loadCVs(): CVEntry[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as CVEntry[];
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_VER_KEY);
   } catch {
-    return [];
+    // localStorage unavailable
   }
+  return [];
 }
 
-function saveCVs(cvs: CVEntry[]) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cvs));
-    localStorage.setItem(STORAGE_VER_KEY, String(CURRENT_VERSION));
-  } catch {
-    // localStorage full or unavailable
-  }
+function saveCVs(_cvs: CVEntry[]) {
+  // No se persiste nada: al salir de la web todo se reinicia
 }
 
 function migrateData(d: ResumeData): ResumeData {
@@ -102,7 +97,6 @@ function estimatePages(data: ResumeData): number {
   if (data.personal.title) lines += 1;
   if (data.personal.email || data.personal.phone || data.personal.location) lines += 1;
   if (data.personal.linkedin || data.personal.github || data.personal.portfolio) lines += 1;
-  if (data.personal.photo && data.settings.showPhoto) lines += 3;
   if (data.summary) lines += Math.ceil(data.summary.length / 80) + 2;
   if (data.experience.length > 0) {
     lines += 2;
@@ -242,14 +236,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, fontPairing } }));
   }, []);
 
-  const updateSpacing = useCallback((spacing: ResumeData["settings"]["spacing"]) => {
-    setData((d) => ({ ...d, settings: { ...d.settings, spacing } }));
-  }, []);
-
-  const updateShowPhoto = useCallback((showPhoto: boolean) => {
-    setData((d) => ({ ...d, settings: { ...d.settings, showPhoto } }));
-  }, []);
-
   const updateSections = useCallback((sections: Partial<ResumeData["settings"]["sections"]>) => {
     setData((d) => ({ ...d, settings: { ...d.settings, sections: { ...d.settings.sections, ...sections } } }));
   }, []);
@@ -365,7 +351,7 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       data, updatePersonal, updateSummary, updateExperience, updateEducation,
       updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
       updateLicenses, updateReferences, updateAffiliations,
-      updateTemplate, updateAccentColor, updateFontPairing, updateSpacing, updateShowPhoto,
+      updateTemplate, updateAccentColor, updateFontPairing,
       updateSections, resetData,
       customSections: data.customSections || [],
       addCustomSection, updateCustomSection, removeCustomSection,

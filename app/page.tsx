@@ -164,7 +164,7 @@ export default function Home() {
               {
                 step: "02",
                 title: "Rellena tus datos",
-                desc: "Completa tu información de forma intuitiva. Añade tu experiencia, educación, habilidades, idiomas y proyectos. Sube tu foto si lo deseas.",
+                desc: "Completa tu información de forma intuitiva. Añade tu experiencia, educación, habilidades, idiomas y proyectos.",
               },
               {
                 step: "03",
@@ -257,7 +257,7 @@ export default function Home() {
               },
               {
                 title: "Personalización total",
-                desc: "Cambia colores, fuentes, espaciado y muestra u oculta las secciones que necesites. Tu CV, tus reglas.",
+                desc: "Cambia colores y fuentes, y muestra u oculta las secciones que necesites. Tu CV, tus reglas.",
               },
               {
                 title: "Exporta a PDF",
@@ -268,8 +268,8 @@ export default function Home() {
                 desc: "Descarga tu CV en formato Markdown para usarlo en Notion, GitHub, o cualquier herramienta que prefieras.",
               },
               {
-                title: "Añade tu foto",
-                desc: "Sube una foto de perfil directamente desde tu ordenador. Se ajusta automáticamente al formato ideal.",
+                title: "Privacidad total",
+                desc: "Todo se procesa en tu navegador: los datos se descartan al salir de la web. Nada se envía a ningún servidor.",
               },
               {
                 title: "Vista previa en tiempo real",
