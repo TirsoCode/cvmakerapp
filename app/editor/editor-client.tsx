@@ -615,7 +615,7 @@ function EditorInner() {
             {group.items.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => { setActiveSection(item.id); if (panelHidden) setPanelHidden(false); }}
                 className={`editor-nav-item${activeSection === item.id ? " editor-nav-item-active" : ""}`}
               >
                 <span>{item.label}</span>
@@ -625,13 +625,6 @@ function EditorInner() {
           </div>
         ))}
       </nav>
-
-      {/* Floating show button (always visible when hidden) */}
-      {panelHidden && (
-        <button onClick={() => setPanelHidden(false)} style={{ position: "fixed", left: 8, top: 72, zIndex: 100, padding: "6px 12px", fontSize: 11, fontWeight: 700, background: "#1A1918", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", boxShadow: "2px 2px 0 0 rgba(0,0,0,0.15)" }}>
-          Mostrar panel
-        </button>
-      )}
 
       {/* LEFT PANEL */}
       <aside ref={asideRef} className="editor-aside" style={{ width: panelHidden ? 0 : 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "block", transition: "all 150ms ease" }}>
