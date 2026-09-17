@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "20px 24px", display: "flex", alignItems: "center", gap: 12 }}>
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>nos</span>
           </a>
         </div>
       </header>
@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
           {[
             {
               title: "Responsable del tratamiento",
-              content: "CVMakerApp (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
+              content: "nos (en adelante, \"nosotros\", \"nos\" o \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
             },
             {
               title: "Datos que no recopilamos",
@@ -58,7 +58,7 @@ export default function PrivacyPolicy() {
 
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
-          © {new Date().getFullYear()} CVMakerApp
+          © {new Date().getFullYear()} nos
         </p>
       </footer>
     </main>

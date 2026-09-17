@@ -18,9 +18,9 @@ export async function generateMetadata({ searchParams }: EditorPageProps): Promi
   } catch {
     // shared payload vacío o inválido
   }
-  const title = name ? `${name} — CV en CVMakerApp` : "CVMakerApp — Comparte tu currículum";
+  const title = name ? `${name} — CV en nos` : "nos — Comparte tu currículum";
   const description = name
-    ? `Mira el currículum de ${name}, creado con CVMakerApp.`
+    ? `Mira el currículum de ${name}, creado con nos.`
     : "Crea currículums profesionales en minutos. Sin registro, sin límite. 20 plantillas premium.";
   return {
     title,
@@ -29,7 +29,7 @@ export async function generateMetadata({ searchParams }: EditorPageProps): Promi
       title,
       description,
       type: "website",
-      images: [{ url: "/logo.png", width: 512, height: 512, alt: "CVMakerApp" }],
+      images: [{ url: "/logo.png", width: 512, height: 512, alt: "nos" }],
     },
     twitter: {
       card: "summary",

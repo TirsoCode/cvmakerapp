@@ -4,7 +4,7 @@ export default function CookiesPolicy() {
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "20px 24px", display: "flex", alignItems: "center", gap: 12 }}>
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>nos</span>
           </a>
         </div>
       </header>
@@ -25,7 +25,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "¿Por qué no usamos cookies?",
-              content: "CVMakerApp funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se mantienen en la memoria temporal de tu navegador mientras dura la sesión de edición y se descartan al salir de la web. No existe ningún tipo de seguimiento."
+              content: "nos funciona íntegramente en el lado del cliente. Los datos que introduces en el editor se mantienen en la memoria temporal de tu navegador mientras dura la sesión de edición y se descartan al salir de la web. No existe ningún tipo de seguimiento."
             },
             {
               title: "Almacenamiento local",
@@ -37,11 +37,11 @@ export default function CookiesPolicy() {
             },
             {
               title: "Tu consentimiento",
-              content: "Dado que no utilizamos cookies, no solicitamos tu consentimiento para su uso. Sin embargo, si tu navegador muestra un aviso de cookies al entrar en el sitio, puedes informarte de que CVMakerApp no utiliza ninguna cookie y rechaza o ignora dicho aviso sin consecuencias."
+              content: "Dado que no utilizamos cookies, no solicitamos tu consentimiento para su uso. Sin embargo, si tu navegador muestra un aviso de cookies al entrar en el sitio, puedes informarte de que nos no utiliza ninguna cookie y rechaza o ignora dicho aviso sin consecuencias."
             },
             {
               title: "Cómo desactivar el almacenamiento local",
-              content: "Si deseas impedir que el navegador almacene datos de CVMakerApp, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador, o bien usar el botón \"Reset\" en el editor para eliminar los datos guardados."
+              content: "Si deseas impedir que el navegador almacene datos de nos, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador, o bien usar el botón \"Reset\" en el editor para eliminar los datos guardados."
             },
             {
               title: "Cambios en esta política",
@@ -62,7 +62,7 @@ export default function CookiesPolicy() {
 
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
-          © {new Date().getFullYear()} CVMakerApp
+          © {new Date().getFullYear()} nos
         </p>
       </footer>
     </main>
