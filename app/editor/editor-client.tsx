@@ -629,9 +629,9 @@ function EditorInner() {
   }
 
   return (
-    <div className="editor-root" style={{ display: "flex", minHeight: "100vh", background: "#F3F2EE" }}>
+    <div className="editor-root" style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#F3F2EE" }}>
       {/* LEFT PANEL */}
-      <aside className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", maxHeight: "100vh", position: "sticky", top: 0 }}>
+      <aside className="editor-aside" style={{ width: 400, minWidth: 400, background: "#fff", borderRight: "1px solid #E4E2DC", overflowY: "auto", height: "100vh" }}>
         <div style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
@@ -939,9 +939,9 @@ function EditorInner() {
       </aside>
 
       {/* RIGHT PANEL */}
-      <main className="editor-main" style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px", overflowY: "auto" }}>
+      <main className="editor-main" style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px", overflowY: "auto", height: "100vh" }}>
         {/* Toolbar */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 20, width: "100%", maxWidth: previewMode === "mobile" ? 400 : 720, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
+        <div className="editor-toolbar" style={{ display: "flex", gap: 8, marginBottom: 20, width: "100%", maxWidth: previewMode === "mobile" ? 400 : 720, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: accentColor, display: "inline-block" }} />
             <span style={{ fontSize: 12, color: "#6B6860" }}>{TEMPLATES.find((t) => t.id === data.settings.template)?.name}</span>
@@ -1039,6 +1039,7 @@ function EditorInner() {
         }
         @media print {
           body * { visibility: hidden !important; }
+          .editor-root { height: auto !important; overflow: visible !important; }
           .a4-paper, .a4-paper-mobile, .a4-paper *, .a4-paper-mobile * { visibility: visible !important; }
           .a4-paper, .a4-paper-mobile {
             position: absolute;
