@@ -11,20 +11,14 @@ interface SectionAccordionProps {
 }
 
 export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", style, children }: SectionAccordionProps) {
-  const [open, setOpen] = useState(defaultOpen);
-
   return (
     <div style={{ borderBottom: "1px solid #E4E2DC", ...style }}>
-      <button
-        onClick={() => setOpen((v) => !v)}
+      <div
         style={{
           display: "flex",
           alignItems: "center",
           width: "100%",
           padding: "6px 8px",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
           textAlign: "left" as const,
           gap: 10,
         }}
@@ -35,8 +29,8 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
             {count}
           </span>
         )}
-      </button>
-      <div style={{ display: open ? "block" : "none", padding: "0 6px 6px" }}>
+      </div>
+      <div style={{ display: "block", padding: "0 6px 6px" }}>
         {children}
       </div>
     </div>
