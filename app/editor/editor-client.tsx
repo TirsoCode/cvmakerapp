@@ -615,7 +615,7 @@ function EditorInner() {
   }
 
   return (
-    <div className="editor-root" style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#F3F2EE" }}>
+     <div className="editor-root" style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#FFFFFF" }}>
       {/* SIDEBAR NAV */}
       <nav className="editor-nav">
         {NAV_GROUPS.map((group) => (
@@ -652,7 +652,7 @@ function EditorInner() {
 
         {/* Validation bar */}
         {(errorCount > 0 || warnCount > 0) && (
-          <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", gap: 8, cursor: "pointer", background: errorCount > 0 ? "#FEF2F2" : "#FFFBEB" }} onClick={() => setShowErrors(!showErrors)}>
+           <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", gap: 8, cursor: "pointer", background: "#FFFFFF" }} onClick={() => setShowErrors(!showErrors)}>
             {errorCount > 0 && <span style={{ fontSize: 11, color: "#DC2626", fontWeight: 700 }}>{errorCount} error{errorCount !== 1 ? "es" : ""}</span>}
             {warnCount > 0 && <span style={{ fontSize: 11, color: "#D97706", fontWeight: 700 }}>{warnCount} advertencia{warnCount !== 1 ? "s" : ""}</span>}
             <span style={{ fontSize: 10, color: "#9C9890", marginLeft: "auto", fontWeight: 600 }}>{showErrors ? "Ocultar" : "Ver detalles"}</span>
@@ -936,7 +936,7 @@ function EditorInner() {
               <button onClick={zoomIn} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, padding: "4px 9px", lineHeight: 1, color: "#1A1918", borderRadius: 4 }} title="Ampliar (Ctrl/Cmd + rueda)">
                 +
               </button>
-              <button onClick={() => setZoom(1)} style={{ border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700, padding: "3px 6px", borderRadius: 4, color: "#6B6860", background: "#F3F2EE", fontFamily: "var(--font-instrument), sans-serif" }} title="Restablecer zoom">
+               <button onClick={() => setZoom(1)} style={{ border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700, padding: "3px 6px", borderRadius: 4, color: "#6B6860", background: "#FFFFFF", fontFamily: "var(--font-instrument), sans-serif" }} title="Restablecer zoom">
                 reset
               </button>
             </span>
