@@ -196,9 +196,14 @@ body {
     border-right: none !important;
     border-bottom: 1px solid #E4E2DC !important;
     overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   .editor-aside-header {
     position: static !important;
+    flex-shrink: 0;
   }
   .editor-toolbar {
     position: sticky !important;
