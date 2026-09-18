@@ -200,10 +200,12 @@ body {
     overscroll-behavior: contain !important;
     display: flex !important;
     flex-direction: column !important;
+    background: #FFFFFF !important;
   }
   .editor-aside-header {
     position: static !important;
     flex-shrink: 0;
+    background: #FFFFFF !important;
   }
   .editor-aside > div:not(.editor-aside-header) {
     flex: 1 1 auto;
@@ -219,6 +221,7 @@ body {
     padding: 16px !important;
     overflow: visible !important;
     height: auto !important;
+    background: #FFFFFF !important;
   }
   .editor-main .a4-paper {
     width: auto !important;
