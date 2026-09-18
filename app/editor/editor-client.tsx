@@ -665,7 +665,7 @@ function EditorInner() {
       </nav>
 
       {/* LEFT PANEL */}
-      <aside ref={asideRef} className="editor-aside" style={{ width: panelHidden ? 0 : 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "block", transition: "all 150ms ease" }}>
+       <aside ref={asideRef} className="editor-aside" style={{ width: panelHidden ? 0 : 400, minWidth: panelHidden ? 0 : 400, background: "#fff", borderRight: panelHidden ? "none" : "1px solid #E4E2DC", overflowY: "auto", height: "100vh", display: panelHidden ? "none" : "flex", flexDirection: "column", transition: "all 150ms ease" }}>
         <div className="editor-aside-header" style={{ padding: "12px 16px", borderBottom: "1px solid #E4E2DC", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
