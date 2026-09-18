@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import EditorClient from "./editor-client";
 
 interface EditorPageProps {
