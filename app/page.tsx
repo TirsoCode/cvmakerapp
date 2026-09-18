@@ -245,8 +245,8 @@ export default function Home() {
           </h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-          {TESTIMONIALS.map((t, i) => (
-            <figure key={t.author} style={{ margin: 0, background: i === 0 ? "#fff" : "transparent", border: i === 0 ? "1px solid #E4E2DC" : "1px solid #ECE9E2", borderRadius: 14, padding: "28px 26px", display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: i === 0 ? "0 12px 32px rgba(0,0,0,0.05)" : "none" }}>
+           {TESTIMONIALS.map((t, i) => (
+             <figure key={t.author} style={{ margin: 0, background: "#fff", border: "1px solid #E4E2DC", borderRadius: 14, padding: "28px 26px", display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: "0 12px 32px rgba(0,0,0,0.05)" }}>
               <blockquote style={{ margin: 0, padding: 0 }}>
                 <div style={{ fontSize: 34, lineHeight: 1, color: "#C0392B", fontFamily: "var(--font-playfair), serif", marginBottom: 10 }}>“</div>
                 <p style={{ fontSize: 14, lineHeight: 1.65, color: "#1A1918", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>{t.quote}</p>
