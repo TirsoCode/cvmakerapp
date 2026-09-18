@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { TEMPLATES } from "@/lib/types";
+
 import { useState, useEffect } from "react";
 
 const PHRASES = [
@@ -99,11 +99,10 @@ export default function Home() {
           </a>
           <nav style={{ display: "flex", alignItems: "center", gap: 24 }}>
             {[
-              { href: "#como-funciona", label: "Cómo funciona" },
-              { href: "#plantillas", label: "Plantillas" },
-              { href: "#comparativa", label: "Comparativa" },
-              { href: "#faq", label: "FAQ" },
-            ].map((item) => (
+               { href: "#como-funciona", label: "Cómo funciona" },
+               { href: "#comparativa", label: "Comparativa" },
+               { href: "#faq", label: "FAQ" },
+             ].map((item) => (
               <a key={item.href} href={item.href} style={{ fontSize: 13, color: "#6B6860", textDecoration: "none", fontFamily: "var(--font-instrument), sans-serif", fontWeight: 500 }}>
                 {item.label}
               </a>
@@ -124,17 +123,14 @@ export default function Home() {
             </span>
           </div>
           <TypewriterHero />
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "var(--font-instrument), sans-serif" }}>
-            Elige tu plantilla, escribe tus datos y descarga tu PDF en minutos. Sin registro, sin marca de agua y sin esperas.
-          </p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
-              Empezar ahora — es gratis
-            </Link>
-            <a className="boton-neobrutalista" href="#plantillas" style={{ background: "#fff", color: "#1A1918" }}>
-              Ver plantillas
-            </a>
-          </div>
+            <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "var(--font-instrument), sans-serif" }}>
+              Escribe tus datos y descarga tu CV en minutos. Sin registro, sin marca de agua y sin esperas.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Link className="boton-neobrutalista boton-neobrutalista-primario" href="/editor">
+                Empezar ahora — es gratis
+              </Link>
+            </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Image
@@ -192,7 +188,7 @@ export default function Home() {
           <div style={{ position: "absolute", top: 34, left: "12%", right: "12%", height: 1, background: "#E4E2DC" }} />
           <div style={{ position: "relative", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 40 }}>
             {[
-              { step: "01", title: "Elige tu plantilla", desc: "Diseños únicos para cada sector y estilo: minimalista, corporativo, creativo." },
+               { step: "01", title: "Elige tu CV", desc: "Diseños únicos para cada sector y estilo: minimalista, corporativo, creativo." },
               { step: "02", title: "Rellena tus datos", desc: "Experiencia, educación, habilidades, idiomas y proyectos, con vista previa en vivo." },
               { step: "03", title: "Descarga y envíalo", desc: "Exporta a PDF sin marca de agua, o a Markdown para Notion o GitHub." },
             ].map((item) => (
@@ -208,88 +204,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Templates spotlight */}
-      <section id="plantillas" style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
-          <div style={{ marginBottom: 48 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#C0392B", textTransform: "uppercase", letterSpacing: "0.1em" }}>Plantillas en foco</span>
-            <h2 style={{ fontSize: 34, fontWeight: 700, letterSpacing: "-0.03em", margin: "8px 0 10px", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
-              Tres estilos, un estándar de cuidado
-            </h2>
-            <p style={{ fontSize: 16, color: "#6B6860", maxWidth: 520, fontFamily: "var(--font-instrument), sans-serif" }}>
-              Cada plantilla está pensada para un tipo de perfil. Mira estas tres y encuentra la tuya en el editor.
-            </p>
-          </div>
-
-          {/* Spotlight 1: Minimal — texto + página */}
-          <Spotlight
-            title="Minimal"
-            pitch="Menos es más. Tipografía limpia, mucho aire y un punto de color para que lo importante brille."
-            tags={["clean", "sans", "universal"]}
-            accent="#1A1918"
-            reverse={false}
-            centered={false}
-          >
-            <ThumbnailTile bg="#FFFFFF">
-              <TemplateThumbnail id="minimal" accent="#1A1918" scale={0.68} />
-            </ThumbnailTile>
-          </Spotlight>
-
-          {/* Spotlight 2: Editorial — página + texto */}
-          <Spotlight
-            title="Editorial"
-            pitch="Dos columnas, serif de revista y un acento rojo que da carácter. Perfecta para perfiles creativos y senior."
-            tags={["two-col", "serif", "editorial"]}
-            accent="#C0392B"
-            reverse={true}
-            centered={false}
-          >
-            <ThumbnailTile bg="#FFF9F8">
-              <TemplateThumbnail id="editorial" accent="#C0392B" scale={0.68} />
-            </ThumbnailTile>
-          </Spotlight>
-
-          {/* Spotlight 3: Modern — centrado */}
-          <Spotlight
-            title="Modern"
-            pitch="Cabecero con fuerza, barras de color y fechas en mono. La elección natural del perfil tech."
-            tags={["bold", "tech", "gradient"]}
-            accent="#2563EB"
-            reverse={false}
-            centered={true}
-          >
-            <ThumbnailTile bg="#EEF3FF">
-              <TemplateThumbnail id="modern" accent="#2563EB" scale={0.68} />
-            </ThumbnailTile>
-          </Spotlight>
-
-          {/* Resto de plantillas */}
-          <div style={{ marginTop: 48, borderTop: "1px solid #E4E2DC", paddingTop: 32 }}>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", margin: "0 0 14px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                Más plantillas, también gratis:
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {TEMPLATES.filter((t) => !["minimal", "editorial", "modern"].includes(t.id)).map((t) => (
-                <Link
-                  key={t.id}
-                  href="/editor"
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12,
-                    fontWeight: 600, color: "#1A1918", background: "#FAFAF8",
-                    border: "1px solid #E4E2DC", borderRadius: 999, padding: "7px 14px",
-                    textDecoration: "none", fontFamily: "var(--font-instrument), sans-serif",
-                  }}
-                >
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: t.accent, display: "inline-block" }} />
-                  {t.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison */}
       <section id="comparativa" style={{ background: "#F3F2EE", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", padding: "80px 24px" }}>
           <div style={{ textAlign: "center", marginBottom: 44 }}>
@@ -406,7 +320,6 @@ export default function Home() {
 const COMPARISON = [
   { feature: "Precio", us: "Gratis para siempre", them: "Suscripción mensual" },
   { feature: "Registro", us: "Ninguno", them: "Obligatorio" },
-    { feature: "Plantillas", us: "Premium", them: "2–5 básicas" },
   { feature: "Exportar PDF", us: "Sí, sin marca de agua", them: "A menudo de pago" },
   { feature: "Tus datos", us: "Solo en tu navegador", them: "En sus servidores" },
   { feature: "Primer CV", us: "En minutos", them: "Horas de setup" },
@@ -415,7 +328,7 @@ const COMPARISON = [
 const TESTIMONIALS = [
   { quote: "Me sorprendió lo bien que quedaba mi CV. En diez minutos tenía un PDF que mandé a tres empresas y recibí dos entrevistas.", author: "Laura M.", role: "Product Designer" },
   { quote: "Sin registro, sin pagar, sin historias. Escribes y descargas.", author: "Carlos R.", role: "Ingeniero de software" },
-  { quote: "La plantilla editorial es una pasada. Parece un CV de los que cuestan 40 euros.", author: "Nadia P.", role: "Fotógrafa" },
+  { quote: "El resultado parece un CV de los que cuestan 40 euros.", author: "Nadia P.", role: "Fotógrafa" },
 ];
 
 const FAQ = [
@@ -434,142 +347,3 @@ function Cross() {
   return <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#F3EEEE", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#C0392B", fontSize: 10, fontWeight: 800 }}>✕</span>;
 }
 
-function ThumbnailTile({ bg, children }: { bg: string; children: React.ReactNode }) {
-  return (
-    <div style={{ background: bg, border: "1px solid #E4E2DC", borderRadius: 16, padding: "28px 20px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 16px 40px rgba(0,0,0,0.08)" }}>
-      {children}
-    </div>
-  );
-}
-
-function Spotlight({ title, pitch, tags, accent, reverse, centered, children }: {
-  title: string;
-  pitch: string;
-  tags: string[];
-  accent: string;
-  reverse?: boolean;
-  centered?: boolean;
-  children: React.ReactNode;
-}) {
-  const copy = (
-    <div style={{ textAlign: centered ? "center" : "left", maxWidth: centered ? 440 : "none", margin: centered ? "0 auto" : undefined }}>
-      <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-        <span style={{ width: 10, height: 10, borderRadius: "50%", background: accent, display: "inline-block" }} />
-        <span style={{ fontSize: 13, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-instrument), sans-serif" }}>{title}</span>
-      </div>
-      <p style={{ fontSize: 17, lineHeight: 1.65, color: "#1A1918", margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif", fontWeight: 500 }}>
-        {pitch}
-      </p>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: centered ? "center" : "flex-start", marginBottom: 20 }}>
-        {tags.map((tag) => (
-          <span key={tag} style={{ fontSize: 11, fontWeight: 600, color: "#6B6860", background: "#F3F2EE", border: "1px solid #E4E2DC", borderRadius: 999, padding: "4px 12px", fontFamily: "var(--font-instrument), sans-serif" }}>
-            {tag}
-          </span>
-        ))}
-      </div>
-      <Link className="boton-neobrutalista-sm" href="/editor" style={{ padding: "7px 16px", fontSize: 12 }}>
-        Probar {title}
-      </Link>
-    </div>
-  );
-
-  if (centered) {
-    return (
-      <div style={{ marginBottom: 64 }}>
-        <div style={{ marginBottom: 32 }}>{children}</div>
-        {copy}
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ marginBottom: 64, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 44, alignItems: "center", order: reverse ? 1 : 0 }}>
-      <div style={{ order: reverse ? 1 : 0 }}>{copy}</div>
-      <div style={{ order: reverse ? 0 : 1 }}>{children}</div>
-    </div>
-  );
-}
-
-function TemplateThumbnail({ id, accent, scale = 0.36 }: { id: string; accent: string; scale?: number }) {
-  const w = Math.round(210 * scale);
-  const h = Math.round(297 * scale);
-
-  if (id === "minimal") {
-    return (
-      <ResumePage w={w} h={h} scale={scale}>
-        <div style={{ width: "60%", height: 5, background: "#1A1918", borderRadius: 2, marginBottom: 4 }} />
-        <div style={{ width: "40%", height: 3, background: accent, borderRadius: 2, marginBottom: 8 }} />
-        <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-        <div style={{ width: "85%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-        <div style={{ width: "70%", height: 2, background: "#E4E2DC" }} />
-      </ResumePage>
-    );
-  }
-  if (id === "editorial") {
-    return (
-      <ResumePage w={w} h={h} scale={scale} grid>
-        <div style={{ background: "#1A1918", padding: `${Math.round(14 * scale)}px` }}>
-          <div style={{ width: "80%", height: 3, background: "#F3F2EE", borderRadius: 2, marginBottom: 4 }} />
-          <div style={{ width: "60%", height: 2, background: "#6B6860", borderRadius: 2, marginBottom: 2 }} />
-          <div style={{ width: "70%", height: 2, background: "#6B6860", borderRadius: 2 }} />
-        </div>
-        <div style={{ padding: `${Math.round(12 * scale)}px` }}>
-          <div style={{ width: "90%", height: 3, background: accent, borderRadius: 2, marginBottom: 6 }} />
-          <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-          <div style={{ width: "80%", height: 2, background: "#E4E2DC" }} />
-        </div>
-      </ResumePage>
-    );
-  }
-  if (id === "modern") {
-    return (
-      <ResumePage w={w} h={h} scale={scale}>
-        <div style={{ background: "#1A1918", padding: `${Math.round(10 * scale)}px ${Math.round(14 * scale)}px`, width: "100%" }}>
-          <div style={{ width: "55%", height: 5, background: "#fff", borderRadius: 2, marginBottom: 3 }} />
-          <div style={{ width: "35%", height: 2, background: accent, borderRadius: 2 }} />
-        </div>
-        <div style={{ padding: `${Math.round(10 * scale)}px ${Math.round(14 * scale)}px`, width: "100%" }}>
-          <div style={{ width: "90%", height: 2, background: accent, borderRadius: 2, marginBottom: 5 }} />
-          <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-          <div style={{ width: "75%", height: 2, background: "#E4E2DC" }} />
-        </div>
-      </ResumePage>
-    );
-  }
-  return (
-    <ResumePage w={w} h={h} scale={scale}>
-      <div style={{ textAlign: "center", marginBottom: 6, width: "100%" }}>
-        <div style={{ width: "70%", height: 4, background: "#1A1918", borderRadius: 2, margin: "0 auto 3px" }} />
-        <div style={{ width: "40%", height: 2, background: accent, borderRadius: 2, margin: "0 auto" }} />
-      </div>
-      <div style={{ width: "100%", height: 1, background: "#E4E2DC", marginBottom: 4 }} />
-      <div style={{ width: "100%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-      <div style={{ width: "80%", height: 2, background: "#E4E2DC", marginBottom: 2 }} />
-      <div style={{ width: "90%", height: 2, background: "#E4E2DC" }} />
-    </ResumePage>
-  );
-}
-
-function ResumePage({ w, h, scale, grid, children }: { w: number; h: number; scale: number; grid?: boolean; children: React.ReactNode }) {
-  const base: React.CSSProperties = {
-    width: w,
-    height: h,
-    background: "#fff",
-    fontFamily: "Georgia, serif",
-    boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-    transform: `scale(${scale})`,
-    transformOrigin: "center",
-  };
-  if (grid) {
-    return (
-      <div style={{ ...base, display: "grid", gridTemplateColumns: "35% 1fr", overflow: "hidden" }}>
-        {children}
-      </div>
-    );
-  }
-  return (
-    <div style={{ ...base, padding: `${Math.round(14 * scale)}px`, boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "stretch", overflow: "hidden" }}>
-      {children}
-    </div>
-  );
-}

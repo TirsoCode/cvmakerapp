@@ -5,7 +5,7 @@ import {
   TEMPLATES, FONT_PAIRINGS, SECTION_LABELS, DEFAULT_SECTION_ORDER,
   type SectionKey, type FontPairing, type ResumeData,
 } from "@/lib/types";
-import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
+
 import SectionAccordion from "@/components/ui/SectionAccordion";
 import FormField from "@/components/ui/FormField";
 import MinimalTemplate from "@/components/templates/Minimal";
@@ -248,7 +248,6 @@ function EditorInner() {
   const [showDashboard, setShowDashboard] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [panelHidden, setPanelHidden] = useState(false);
-  const [shareJson, setShareJson] = useState("");
   const [shareUrl, setShareUrl] = useState("");
   const [validationIssues, setValidationIssues] = useState<ReturnType<typeof validate>>([]);
   const [toast, setToast] = useState("");
@@ -346,11 +345,7 @@ function EditorInner() {
     const encoded = params.get("cv");
     if (encoded) {
       try {
-        let json = decompressFromEncodedURIComponent(encoded);
-        if (!json) {
-          // legacy base64 encoding
-          json = decodeURIComponent(atob(encoded));
-        }
+        const json = decodeURIComponent(encoded);
         const parsed = JSON.parse(json) as ResumeData;
         if (parsed && parsed.personal && parsed.settings) {
           createNewCv(parsed);
@@ -564,10 +559,8 @@ function EditorInner() {
   }, []);
 
   const handleShare = useCallback(() => {
-    const json = JSON.stringify(data);
-    setShareJson(json);
-    const compressed = compressToEncodedURIComponent(json);
-    setShareUrl(`${window.location.origin}/editor?cv=${compressed}`);
+    const encoded = encodeURIComponent(JSON.stringify(data));
+    setShareUrl(`${window.location.origin}/editor?cv=${encoded}`);
     setShowShareModal(true);
   }, [data]);
 
@@ -582,28 +575,6 @@ function EditorInner() {
     await copyText(text);
     setToast("Mensaje copiado. Pégalo en WhatsApp o tu chat favorito");
   }, [shareUrl, data, copyText]);
-
-  const handleImportJson = useCallback(() => {
-    try {
-      const parsed = JSON.parse(shareJson);
-      if (parsed.personal && parsed.settings) {
-        createNewCv(parsed);
-        setShowShareModal(false);
-        setToast("CV importado correctamente");
-      } else {
-        setToast("JSON inválido");
-      }
-    } catch {
-      setToast("JSON inválido");
-    }
-  }, [shareJson, createNewCv]);
-
-  const handleDownloadJson = useCallback(() => {
-    const blob = new Blob([shareJson], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = `${(data.personal.name || "cv").replace(/\s+/g, "_")}_cv.json`; a.click();
-    URL.revokeObjectURL(url);
-  }, [shareJson, data]);
 
   const addExperience = () => updateExperience([...data.experience, { id: uid(), company: "", position: "", startDate: "", endDate: "", description: "" }]);
   const removeExperience = (id: string) => updateExperience(data.experience.filter((e) => e.id !== id));
@@ -1032,16 +1003,7 @@ function EditorInner() {
             <p style={{ fontSize: 10, color: "#9C9890", margin: "0 0 4px", lineHeight: 1.5 }}>
               Se copia un mensaje con tu nombre ya incluido.
             </p>
-
-            <div style={{ height: 1, background: "#E4E2DC", margin: "14px 0" }} />
-
-            <div style={{ fontSize: 11, fontWeight: 600, color: "#6B6860", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>Backup e importación</div>
-            <textarea value={shareJson} onChange={(e) => setShareJson(e.target.value)} style={{ width: "100%", height: 110, fontSize: 10, fontFamily: "monospace", padding: 10, border: "1px solid #E4E2DC", borderRadius: 10, resize: "vertical", background: "#FAFAF8", color: "#1A1918", boxSizing: "border-box" }} />
-            <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap", alignItems: "center" }}>
-              <button onClick={handleDownloadJson} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>Descargar JSON</button>
-              <button onClick={handleImportJson} className="boton-neobrutalista-sm" style={{ padding: "6px 12px" }}>Importar JSON</button>
-              <button onClick={() => setShowShareModal(false)} className="boton-neobrutalista-sm" style={{ marginLeft: "auto", padding: "6px 12px" }}>Cerrar</button>
-            </div>
+            <button onClick={() => setShowShareModal(false)} className="boton-neobrutalista-sm" style={{ marginLeft: "auto", padding: "6px 12px" }}>Cerrar</button>
           </div>
         </div>
       )}
