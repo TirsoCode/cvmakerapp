@@ -355,6 +355,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Big final name */}
+      <section style={{ minHeight: "100vh", background: "#1A1918", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "48px 24px" }}>
+        <Image src="/foto.webp" alt="Guay" width={400} height={200} style={{ borderRadius: 16, marginBottom: 40, boxShadow: "0 12px 40px rgba(0,0,0,0.4)", opacity: 0.85 }} />
+        <h2 style={{ fontSize: "clamp(80px, 18vw, 220px)", fontWeight: 700, letterSpacing: "-0.06em", lineHeight: 0.9, color: "#C0392B", fontFamily: "var(--font-playfair), serif" }}>
+          CVMakerApp
+        </h2>
+        <p style={{ fontSize: 18, color: "#9C9890", marginTop: 24, maxWidth: 500, lineHeight: 1.6, fontFamily: "var(--font-instrument), sans-serif" }}>
+          Crea tu currículum. Impresiona al mundo. En minutos.
+        </p>
+      </section>
+
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "28px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: "0 0 8px", fontFamily: "var(--font-instrument), sans-serif" }}>
