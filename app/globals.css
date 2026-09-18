@@ -74,6 +74,12 @@ body {
 }
 
 /* Sidebar de secciones del editor */
+.editor-aside {
+  background: #FFFFFF;
+}
+.editor-main {
+  background: #FFFFFF;
+}
 .editor-nav {
   width: 170px;
   min-width: 170px;
