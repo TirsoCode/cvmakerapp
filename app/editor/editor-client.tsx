@@ -312,9 +312,18 @@ function EditorInner() {
     },
   ];
 
-  useEffect(() => {
-    asideRef.current?.scrollTo?.({ top: 0, behavior: "smooth" });
-  }, [activeSection]);
+  const goToSection = (id: string) => {
+    setActiveSection(id);
+    if (panelHidden) setPanelHidden(false);
+    setTimeout(() => {
+      const target = document.getElementById("section-" + id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        asideRef.current?.scrollTo?.({ top: 0, behavior: "smooth" });
+      }
+    }, 60);
+  };
 
   const accentColor = data.settings.accentColor || "#C0392B";
   const issues = validate();
@@ -644,7 +653,7 @@ function EditorInner() {
             {group.items.map((item) => (
               <button
                 key={item.id}
-                onClick={() => { setActiveSection(item.id); if (panelHidden) setPanelHidden(false); }}
+                onClick={() => goToSection(item.id)}
                 className={`editor-nav-item${activeSection === item.id ? " editor-nav-item-active" : ""}`}
               >
                 <span>{item.label}</span>
@@ -690,7 +699,7 @@ function EditorInner() {
 
         <div>
           {/* Personal */}
-          <SectionAccordion title="Datos Personales" defaultOpen style={{}}>
+          <SectionAccordion title="Datos Personales" defaultOpen style={{}} sectionId="section-personal" active={activeSection === "personal"}>
             <FormField label="Nombre completo" value={data.personal.name} onChange={(v) => updatePersonal({ name: v })} placeholder="María García López" />
             <FormField label="Título profesional" value={data.personal.title} onChange={(v) => updatePersonal({ title: v })} placeholder="Diseñadora de Producto" />
             <FormField label="Email" value={data.personal.email} onChange={(v) => updatePersonal({ email: v })} placeholder="maria@email.com" type="email" />
@@ -702,12 +711,12 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Summary */}
-          <SectionAccordion title="Resumen Profesional" count={data.summary ? 1 : 0} defaultOpen style={{}}>
+          <SectionAccordion title="Resumen Profesional" count={data.summary ? 1 : 0} defaultOpen style={{}} sectionId="section-summary" active={activeSection === "summary"}>
             <FormField label="Resumen" value={data.summary} onChange={updateSummary} placeholder="Breve descripción de tu perfil profesional..." type="textarea" />
           </SectionAccordion>
 
           {/* Experience */}
-          <SectionAccordion title="Experiencia" count={data.experience.length} defaultOpen={data.experience.length > 0} style={{}}>
+          <SectionAccordion title="Experiencia" count={data.experience.length} defaultOpen={data.experience.length > 0} style={{}} sectionId="section-experience" active={activeSection === "experience"}>
             {data.experience.map((exp) => (
               <div key={exp.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -727,7 +736,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Education */}
-          <SectionAccordion title="Educación" count={data.education.length} defaultOpen={data.education.length > 0} style={{}}>
+          <SectionAccordion title="Educación" count={data.education.length} defaultOpen={data.education.length > 0} style={{}} sectionId="section-education" active={activeSection === "education"}>
             {data.education.map((edu) => (
               <div key={edu.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -746,7 +755,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Skills */}
-          <SectionAccordion title="Habilidades" count={data.skills.length} defaultOpen={data.skills.length > 0} style={{}}>
+          <SectionAccordion title="Habilidades" count={data.skills.length} defaultOpen={data.skills.length > 0} style={{}} sectionId="section-skills" active={activeSection === "skills"}>
             {data.skills.map((sk) => (
               <div key={sk.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -761,7 +770,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Languages */}
-          <SectionAccordion title="Idiomas" count={data.languages.length} defaultOpen={data.languages.length > 0} style={{}}>
+          <SectionAccordion title="Idiomas" count={data.languages.length} defaultOpen={data.languages.length > 0} style={{}} sectionId="section-languages" active={activeSection === "languages"}>
             {data.languages.map((lang) => (
               <div key={lang.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -776,7 +785,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Projects */}
-          <SectionAccordion title="Proyectos" count={data.projects.length} defaultOpen={data.projects.length > 0} style={{}}>
+          <SectionAccordion title="Proyectos" count={data.projects.length} defaultOpen={data.projects.length > 0} style={{}} sectionId="section-projects" active={activeSection === "projects"}>
             {data.projects.map((proj) => (
               <div key={proj.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -792,7 +801,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Certifications */}
-          <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0} style={{}}>
+          <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0} style={{}} sectionId="section-certifications" active={activeSection === "certifications"}>
             {data.certifications.map((cert) => (
               <div key={cert.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -808,7 +817,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Awards */}
-          <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0} style={{}}>
+          <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0} style={{}} sectionId="section-awards" active={activeSection === "awards"}>
             {data.awards.map((award) => (
               <div key={award.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -824,7 +833,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Licenses */}
-          <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0} style={{}}>
+          <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0} style={{}} sectionId="section-licenses" active={activeSection === "licenses"}>
             {data.licenses.map((lic) => (
               <div key={lic.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -841,7 +850,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* References */}
-          <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0} style={{}}>
+          <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0} style={{}} sectionId="section-references" active={activeSection === "references"}>
             {data.references.map((ref) => (
               <div key={ref.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -859,7 +868,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Affiliations */}
-          <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0} style={{}}>
+          <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0} style={{}} sectionId="section-affiliations" active={activeSection === "affiliations"}>
             {data.affiliations.map((aff) => (
               <div key={aff.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -878,7 +887,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Custom Sections */}
-          <SectionAccordion title="Secciones Personalizadas" count={customSections.length} defaultOpen={false} style={{}}>
+          <SectionAccordion title="Secciones Personalizadas" count={customSections.length} defaultOpen={false} style={{}} sectionId="section-custom" active={activeSection === "custom"}>
             {customSections.map((cs) => (
               <div key={cs.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -892,7 +901,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Section Order */}
-          <SectionAccordion title="Orden de Secciones" defaultOpen={false} style={{}}>
+          <SectionAccordion title="Orden de Secciones" defaultOpen={false} style={{}} sectionId="section-order" active={activeSection === "order"}>
             <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Usa los botones para reordenar</p>
             {sectionOrder.map((key, idx) => (
               <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FAFAF8", marginBottom: 4, border: "1px solid #E4E2DC" }}>
@@ -909,7 +918,7 @@ function EditorInner() {
           </SectionAccordion>
 
           {/* Design */}
-          <SectionAccordion title="Diseño" defaultOpen style={{}}>
+          <SectionAccordion title="Diseño" defaultOpen style={{}} sectionId="section-design" active={activeSection === "design"}>
             <div style={{ marginBottom: 16 }}>
               <TemplateSelectorGrid selected={data.settings.template} onChange={updateTemplate} />
             </div>
@@ -1042,6 +1051,9 @@ function EditorInner() {
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media (min-width: 861px) {
+          body:has(.editor-root) { overflow: hidden; }
+        }
         .a4-paper-mobile {
           width: 375px;
           min-height: 667px;

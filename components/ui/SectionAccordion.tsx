@@ -7,12 +7,24 @@ interface SectionAccordionProps {
   defaultOpen?: boolean;
   accentColor?: string;
   style?: React.CSSProperties;
+  sectionId?: string;
+  active?: boolean;
   children: React.ReactNode;
 }
 
-export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", style, children }: SectionAccordionProps) {
+export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", style, sectionId, active = false, children }: SectionAccordionProps) {
   return (
-    <div style={{ borderBottom: "1px solid #E4E2DC", ...style }}>
+    <div
+      id={sectionId}
+      style={{
+        borderBottom: "1px solid #E4E2DC",
+        scrollMarginTop: 70,
+        background: active ? "#FAF7F5" : "transparent",
+        boxShadow: active ? `inset 3px 0 0 0 ${accentColor}` : undefined,
+        transition: "background 200ms ease, box-shadow 200ms ease",
+        ...style,
+      }}
+    >
       <div
         style={{
           display: "flex",
