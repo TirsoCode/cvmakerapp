@@ -49,7 +49,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "Contacto",
-              content: "Si tienes preguntas sobre esta política, puedes contactar a través del repositorio de GitHub: github.com/TirsoCode/resumecraft"
+              content: "Si tienes preguntas sobre esta política, puedes contactar a través del repositorio de GitHub: github.com/TirsoCode/cvmakerapp"
             }
           ].map((section) => (
             <div key={section.title}>
