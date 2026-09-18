@@ -79,11 +79,11 @@ body {
   min-width: 170px;
   height: 100vh;
   overflow-y: auto;
-  background: #F3F2EE;
-  border-right: 1px solid #E4E2DC;
-  flex-shrink: 0;
-  padding: 12px 8px 24px;
-  box-sizing: border-box;
+   background: #FFFFFF;
+   border-right: 1px solid #E4E2DC;
+   flex-shrink: 0;
+   padding: 12px 8px 24px;
+   box-sizing: border-box;
 }
 .editor-nav-group {
   margin-bottom: 6px;
@@ -212,7 +212,7 @@ body {
   .editor-toolbar {
     position: sticky !important;
     top: 0 !important;
-    background: #F3F2EE !important;
+     background: #FFFFFF !important;
     z-index: 5 !important;
   }
   .editor-main {
