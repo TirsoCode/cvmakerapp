@@ -21,7 +21,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "Nuestro uso de cookies",
-              content: "Este sitio web NO utiliza cookies. No empleamos cookies de sesión, cookies persistentes, cookies de primera parte ni cookies de terceros. Tu experiencia de usuario no depende de ningún mecanismo de almacenamiento basado en cookies."
+              content: "Este sitio web no utiliza cookies. No empleamos cookies de sesión, cookies persistentes, cookies de primera parte ni cookies de terceros. Tu experiencia de usuario no depende de ningún mecanismo de almacenamiento basado en cookies."
             },
             {
               title: "¿Por qué no usamos cookies?",
