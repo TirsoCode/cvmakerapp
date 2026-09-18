@@ -144,19 +144,19 @@ function FontPicker({ value, onChange }: { value: FontPairing; onChange: (v: Fon
             key={fp.id}
             onClick={() => onChange(fp.id)}
             title={fp.name}
-               style={{
-                 display: "flex",
-                 flexDirection: "column",
-                 alignItems: "flex-start",
-                 gap: 4,
-                 padding: "10px 12px",
-                 borderRadius: 10,
-                 background: active ? "#FAFAF8" : "#FFFFFF",
-                 border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
-                 cursor: "pointer",
-                 transition: "all 150ms ease",
-                 boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
-               }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: 4,
+                  padding: "10px 12px",
+                  borderRadius: 10,
+                  background: "#FFFFFF",
+                  border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
+                  cursor: "pointer",
+                  transition: "all 150ms ease",
+                  boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
+                }}
           >
             <span style={{ fontFamily: fp.heading, fontSize: 14, fontWeight: 700, color: "#1A1918", lineHeight: 1.2 }}>{fp.name}</span>
             <span style={{ fontSize: 10, color: active ? "#6B6860" : "#9C9890", fontFamily: fp.body, fontWeight: 500 }}>Aa Bb 123 — cuerpo</span>
@@ -174,7 +174,7 @@ function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
   const [editName, setEditName] = useState("");
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F3F2EE", padding: "40px 24px" }}>
+     <div style={{ minHeight: "100vh", background: "#FFFFFF", padding: "40px 24px" }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -659,7 +659,7 @@ function EditorInner() {
           </div>
         )}
         {showErrors && (
-          <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", background: "#FAFAF8", maxHeight: 150, overflowY: "auto" }}>
+          <div style={{ padding: "8px 16px", borderBottom: "1px solid #E4E2DC", background: "#FFFFFF", maxHeight: 150, overflowY: "auto" }}>
             {validationIssues.map((issue, i) => (
               <div key={i} style={{ fontSize: 11, padding: "3px 0", color: issue.severity === "error" ? "#DC2626" : "#D97706" }}>
                 {issue.message}
@@ -689,7 +689,7 @@ function EditorInner() {
           {/* Experience */}
           <SectionAccordion title="Experiencia" count={data.experience.length} defaultOpen={data.experience.length > 0} style={{}} sectionId="section-experience" active={activeSection === "experience"}>
             {data.experience.map((exp) => (
-              <div key={exp.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={exp.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{exp.position || "Nuevo puesto"}</span>
                   <button onClick={() => removeExperience(exp.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -709,7 +709,7 @@ function EditorInner() {
           {/* Education */}
           <SectionAccordion title="Educación" count={data.education.length} defaultOpen={data.education.length > 0} style={{}} sectionId="section-education" active={activeSection === "education"}>
             {data.education.map((edu) => (
-              <div key={edu.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={edu.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{edu.degree || "Nueva formación"}</span>
                   <button onClick={() => removeEducation(edu.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -728,7 +728,7 @@ function EditorInner() {
           {/* Skills */}
           <SectionAccordion title="Habilidades" count={data.skills.length} defaultOpen={data.skills.length > 0} style={{}} sectionId="section-skills" active={activeSection === "skills"}>
             {data.skills.map((sk) => (
-              <div key={sk.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={sk.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{sk.category || "Nueva categoría"}</span>
                   <button onClick={() => removeSkill(sk.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -743,7 +743,7 @@ function EditorInner() {
           {/* Languages */}
           <SectionAccordion title="Idiomas" count={data.languages.length} defaultOpen={data.languages.length > 0} style={{}} sectionId="section-languages" active={activeSection === "languages"}>
             {data.languages.map((lang) => (
-              <div key={lang.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={lang.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{lang.language || "Nuevo idioma"}</span>
                   <button onClick={() => removeLanguage(lang.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -758,7 +758,7 @@ function EditorInner() {
           {/* Projects */}
           <SectionAccordion title="Proyectos" count={data.projects.length} defaultOpen={data.projects.length > 0} style={{}} sectionId="section-projects" active={activeSection === "projects"}>
             {data.projects.map((proj) => (
-              <div key={proj.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={proj.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{proj.name || "Nuevo proyecto"}</span>
                   <button onClick={() => removeProject(proj.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -774,7 +774,7 @@ function EditorInner() {
           {/* Certifications */}
           <SectionAccordion title="Certificaciones" count={data.certifications.length} defaultOpen={data.certifications.length > 0} style={{}} sectionId="section-certifications" active={activeSection === "certifications"}>
             {data.certifications.map((cert) => (
-              <div key={cert.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={cert.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{cert.name || "Nueva certificación"}</span>
                   <button onClick={() => updateCertifications(data.certifications.filter((c) => c.id !== cert.id))} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -790,7 +790,7 @@ function EditorInner() {
           {/* Awards */}
           <SectionAccordion title="Premios y Honores" count={data.awards.length} defaultOpen={data.awards.length > 0} style={{}} sectionId="section-awards" active={activeSection === "awards"}>
             {data.awards.map((award) => (
-              <div key={award.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={award.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{award.name || "Nuevo premio"}</span>
                   <button onClick={() => updateAwards(data.awards.filter((a) => a.id !== award.id))} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -806,7 +806,7 @@ function EditorInner() {
           {/* Licenses */}
           <SectionAccordion title="Licencias y Carnets" count={data.licenses.length} defaultOpen={data.licenses.length > 0} style={{}} sectionId="section-licenses" active={activeSection === "licenses"}>
             {data.licenses.map((lic) => (
-              <div key={lic.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={lic.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{lic.name || "Nueva licencia"}</span>
                   <button onClick={() => removeLicense(lic.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -823,7 +823,7 @@ function EditorInner() {
           {/* References */}
           <SectionAccordion title="Referencias" count={data.references.length} defaultOpen={data.references.length > 0} style={{}} sectionId="section-references" active={activeSection === "references"}>
             {data.references.map((ref) => (
-              <div key={ref.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={ref.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{ref.name || "Nueva referencia"}</span>
                   <button onClick={() => removeReference(ref.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -841,7 +841,7 @@ function EditorInner() {
           {/* Affiliations */}
           <SectionAccordion title="Afiliaciones y Colegios" count={data.affiliations.length} defaultOpen={data.affiliations.length > 0} style={{}} sectionId="section-affiliations" active={activeSection === "affiliations"}>
             {data.affiliations.map((aff) => (
-              <div key={aff.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={aff.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: "#1A1918" }}>{aff.organization || "Nueva afiliación"}</span>
                   <button onClick={() => removeAffiliation(aff.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -860,7 +860,7 @@ function EditorInner() {
           {/* Custom Sections */}
           <SectionAccordion title="Secciones Personalizadas" count={customSections.length} defaultOpen={false} style={{}} sectionId="section-custom" active={activeSection === "custom"}>
             {customSections.map((cs) => (
-              <div key={cs.id} style={{ background: "#FAFAF8", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
+              <div key={cs.id} style={{ background: "#FFFFFF", borderRadius: 10, padding: "12px", marginBottom: 10, border: "1px solid #E4E2DC" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <input value={cs.title} onChange={(e) => updateCustomSection(cs.id, { title: e.target.value })} style={{ fontSize: 12, fontWeight: 700, color: "#1A1918", border: "none", background: "none", padding: 0, width: "80%" }} />
                   <button onClick={() => removeCustomSection(cs.id)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Quitar</button>
@@ -875,7 +875,7 @@ function EditorInner() {
           <SectionAccordion title="Orden de Secciones" defaultOpen={false} style={{}} sectionId="section-order" active={activeSection === "order"}>
             <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Usa los botones para reordenar</p>
             {sectionOrder.map((key, idx) => (
-              <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FAFAF8", marginBottom: 4, border: "1px solid #E4E2DC" }}>
+              <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FFFFFF", marginBottom: 4, border: "1px solid #E4E2DC" }}>
                 <span style={{ fontSize: 10, color: "#9C9890", width: 16, fontWeight: 700 }}>{idx + 1}</span>
                 <span style={{ fontSize: 12, flex: 1, color: "#1A1918", fontWeight: 500 }}>{SECTION_LABELS[key] || key}</span>
                 <label style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 10, color: "#9C9890" }}>
@@ -990,7 +990,7 @@ function EditorInner() {
               {data.personal.name && <>El currículum de <strong>{data.personal.name}</strong> está listo.</>} Quien abra el enlace podrá ver tu CV en el editor y descargarlo.
             </p>
 
-            <div style={{ border: "1px dashed #CBC8C0", borderRadius: 12, padding: "10px 12px", display: "flex", gap: 10, alignItems: "center", marginBottom: 10, background: "#FAFAF8" }}>
+            <div style={{ border: "1px dashed #CBC8C0", borderRadius: 12, padding: "10px 12px", display: "flex", gap: 10, alignItems: "center", marginBottom: 10, background: "#FFFFFF" }}>
               <code style={{ flex: 1, fontSize: 11, color: "#6B6860", wordBreak: "break-all", fontFamily: "var(--font-jetbrains), monospace", maxHeight: 64, overflow: "auto", lineHeight: 1.5 }}>{shareUrl}</code>
               <button onClick={handleCopyShareUrl} className="boton-neobrutalista" style={{ padding: "8px 14px", fontSize: 11, whiteSpace: "nowrap", flexShrink: 0 }} title="Copiar el enlace">
                 Copiar
