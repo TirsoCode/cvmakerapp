@@ -37,7 +37,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
             boxSizing: "border-box",
             lineHeight: 1.55,
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = "#C0392B"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(192,57,43,0.08)"; }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = "#1A1918"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(26,25,24,0.06)"; }}
           onBlur={(e) => { e.currentTarget.style.borderColor = "#E4E2DC"; e.currentTarget.style.boxShadow = "none"; }}
         />
       ) : (
@@ -58,7 +58,7 @@ export default function FormField({ label, value, onChange, placeholder, type = 
             outline: "none",
             boxSizing: "border-box",
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = "#C0392B"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(192,57,43,0.08)"; }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = "#1A1918"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(26,25,24,0.06)"; }}
           onBlur={(e) => { e.currentTarget.style.borderColor = "#E4E2DC"; e.currentTarget.style.boxShadow = "none"; }}
         />
       )}
