@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import { decompressFromEncodedURIComponent } from "lz-string";
 import EditorClient from "./editor-client";
 
 interface EditorPageProps {
@@ -10,9 +8,7 @@ export async function generateMetadata({ searchParams }: EditorPageProps): Promi
   let name = "";
   try {
     const encoded = searchParams?.cv || "";
-    const json =
-      decompressFromEncodedURIComponent(encoded) ||
-      decodeURIComponent(atob(encoded));
+    const json = decodeURIComponent(encoded);
     const parsed = JSON.parse(json);
     if (parsed?.personal?.name) name = String(parsed.personal.name);
   } catch {
@@ -21,7 +17,7 @@ export async function generateMetadata({ searchParams }: EditorPageProps): Promi
   const title = name ? `${name} — CV en CVMakerApp` : "CVMakerApp — Comparte tu currículum";
   const description = name
     ? `Mira el currículum de ${name}, creado con CVMakerApp.`
-    : "Crea currículums profesionales en minutos. Sin registro, sin límite. 20 plantillas premium.";
+    : "Crea currículums profesionales en minutos. Sin registro, sin límite.";
   return {
     title,
     description,
