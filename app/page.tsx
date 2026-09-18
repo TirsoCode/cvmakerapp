@@ -94,7 +94,7 @@ export default function Home() {
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
-              nos
+              CVMakerApp
             </span>
           </div>
           <Link className="boton-neobrutalista" href="/editor" style={{ padding: "8px 18px", fontSize: 13 }}>

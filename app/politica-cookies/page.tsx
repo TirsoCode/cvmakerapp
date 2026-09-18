@@ -4,7 +4,7 @@ export default function CookiesPolicy() {
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff" }}>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "20px 24px", display: "flex", alignItems: "center", gap: 12 }}>
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>nos</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
           </a>
         </div>
       </header>
@@ -49,7 +49,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "Contacto",
-              content: "Si tienes preguntas sobre esta política, puedes contactar con nosotros a través del repositorio de GitHub: github.com/TirsoCode/resumecraft"
+              content: "Si tienes preguntas sobre esta política, puedes contactar a través del repositorio de GitHub: github.com/TirsoCode/resumecraft"
             }
           ].map((section) => (
             <div key={section.title}>
@@ -62,7 +62,7 @@ export default function CookiesPolicy() {
 
       <footer style={{ borderTop: "1px solid #E4E2DC", padding: "24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "#9C9890", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>
-          © {new Date().getFullYear()} nos
+          © {new Date().getFullYear()} CVMakerApp
         </p>
       </footer>
     </main>
