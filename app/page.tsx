@@ -160,9 +160,8 @@ export default function Home() {
       {/* Stats strip */}
       <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 24 }}>
-          {[
+           {[
             { n: "12", label: "secciones editables", accent: "#2563EB" },
-            { n: "0", label: "euros · registros", accent: "#16A34A" },
             { n: "2", label: "formatos: PDF y Markdown", accent: "#7C3AED" },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
