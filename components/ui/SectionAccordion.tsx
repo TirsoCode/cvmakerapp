@@ -20,8 +20,7 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
         borderBottom: "1px solid #E4E2DC",
         scrollMarginTop: 70,
         background: active ? "#FAF7F5" : "transparent",
-        boxShadow: active ? `inset 3px 0 0 0 ${accentColor}` : undefined,
-        transition: "background 200ms ease, box-shadow 200ms ease",
+        transition: "background 200ms ease",
         ...style,
       }}
     >

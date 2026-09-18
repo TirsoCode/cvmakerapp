@@ -112,15 +112,15 @@ function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChan
           key={t.id}
           onClick={() => onChange(t.id)}
           title={t.name}
-          style={{
-            background: t.bg,
-            border: selected === t.id ? `2px solid ${t.accent}` : "1px solid #E4E2DC",
-            borderRadius: 8,
-            padding: "8px 6px",
-            cursor: "pointer",
-            transition: "all 150ms ease",
-            boxShadow: selected === t.id ? `0 0 0 2px ${t.accent}30` : "none",
-          }}
+           style={{
+             background: t.bg,
+             border: selected === t.id ? `2px solid ${t.accent}` : "1px solid #E4E2DC",
+             borderRadius: 8,
+             padding: "8px 6px",
+             cursor: "pointer",
+             transition: "all 150ms ease",
+             boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
+           }}
         >
           <div style={{ width: "100%", height: 40, borderRadius: 4, background: selected === t.id ? `${t.accent}15` : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 4 }}>
             <span style={{ fontSize: 8, fontWeight: 800, color: t.accent, fontFamily: "system-ui", letterSpacing: "-0.02em" }}>
@@ -144,19 +144,19 @@ function FontPicker({ value, onChange }: { value: FontPairing; onChange: (v: Fon
             key={fp.id}
             onClick={() => onChange(fp.id)}
             title={fp.name}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: 4,
-              padding: "10px 12px",
-              borderRadius: 10,
-              background: active ? "#FAFAF8" : "#FFFFFF",
-              border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
-              cursor: "pointer",
-              transition: "all 150ms ease",
-              boxShadow: active ? "2px 2px 0 0 rgba(0,0,0,0.1)" : "none",
-            }}
+               style={{
+                 display: "flex",
+                 flexDirection: "column",
+                 alignItems: "flex-start",
+                 gap: 4,
+                 padding: "10px 12px",
+                 borderRadius: 10,
+                 background: active ? "#FAFAF8" : "#FFFFFF",
+                 border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
+                 cursor: "pointer",
+                 transition: "all 150ms ease",
+                 boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
+               }}
           >
             <span style={{ fontFamily: fp.heading, fontSize: 14, fontWeight: 700, color: "#1A1918", lineHeight: 1.2 }}>{fp.name}</span>
             <span style={{ fontSize: 10, color: active ? "#6B6860" : "#9C9890", fontFamily: fp.body, fontWeight: 500 }}>Aa Bb 123 — cuerpo</span>
@@ -927,10 +927,10 @@ function EditorInner() {
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {["#C0392B", "#2563EB", "#16A34A", "#7C3AED", "#374151", "#1A1918", "#D97706", "#0891B2", "#BE123C", "#065F46", "#0C4A6E", "#92400E"].map((c) => (
                   <button key={c} onClick={() => updateAccentColor(c)} style={{
-                    width: 28, height: 28, borderRadius: 6, background: c,
-                    border: data.settings.accentColor === c ? "2px solid #000" : "1px solid #E4E2DC",
-                    cursor: "pointer", boxShadow: data.settings.accentColor === c ? "2px 2px 0 0 #000" : "none",
-                    transition: "all 150ms ease",
+                     width: 28, height: 28, borderRadius: 6, background: c,
+                     border: data.settings.accentColor === c ? "2px solid #000" : "1px solid #E4E2DC",
+                     cursor: "pointer", boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
+                     transition: "all 150ms ease",
                   }} />
                 ))}
               </div>
@@ -996,9 +996,13 @@ function EditorInner() {
         {/* Preview */}
         <div ref={previewRef} style={{ width: "100%", maxWidth: previewMode === "mobile" ? 375 : 720 }}>
           <div ref={paperZoomRef} className="editor-paper-zoom" style={{ transformOrigin: "top center", margin: "0 auto", width: "fit-content" }}>
-            <div className={previewMode === "mobile" ? "a4-paper-mobile" : "a4-paper"}>
-              {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
-            </div>
+            {Array.from({ length: Math.max(1, pageEstimate) }).map((_, i) => (
+              <div key={i} className={previewMode === "mobile" ? "a4-paper-mobile" : "a4-paper"} style={{ overflow: "hidden", position: "relative", marginBottom: "8px", ...(previewMode === "mobile" ? { height: "667px" } : {}) }}>
+                <div style={{ position: "absolute", top: previewMode === "mobile" ? `-${i * 667}px` : `-${i * 297}mm`, left: 0, right: 0 }}>
+                  {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
@@ -1067,14 +1071,19 @@ function EditorInner() {
           .editor-paper-zoom { zoom: 1 !important; }
           .a4-paper, .a4-paper-mobile, .a4-paper *, .a4-paper-mobile * { visibility: visible !important; }
           .a4-paper, .a4-paper-mobile {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 210mm;
-            min-height: auto;
+            position: static !important;
+            left: auto !important;
+            top: auto !important;
+            width: 210mm !important;
+            height: 297mm !important;
+            overflow: hidden !important;
             box-shadow: none;
             margin: 0;
             padding: 0;
+            page-break-after: always;
+          }
+          .a4-paper:last-child {
+            page-break-after: auto;
           }
         }
       `}</style>

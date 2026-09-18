@@ -48,15 +48,29 @@ body {
 /* A4 paper for preview */
 .a4-paper {
   width: 210mm;
-  min-height: 297mm;
+  height: 297mm;
+  overflow: hidden;
   background: white;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.a4-paper section {
+  break-after: page;
+  page-break-after: always;
+}
+.a4-paper section:last-child {
+  break-after: auto;
+  page-break-after: auto;
 }
 
 @media screen {
   .a4-paper {
     transform-origin: top center;
   }
+}
+.editor-paper-zoom {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Sidebar de secciones del editor */
@@ -181,6 +195,7 @@ body {
     position: static !important;
     border-right: none !important;
     border-bottom: 1px solid #E4E2DC !important;
+    overflow-y: auto !important;
   }
   .editor-aside-header {
     position: static !important;
