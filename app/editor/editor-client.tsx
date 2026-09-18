@@ -242,6 +242,8 @@ function EditorInner() {
   const [isExporting, setIsExporting] = useState(false);
   const [previewMode, setPreviewMode] = useState<"desktop" | "mobile">("desktop");
   const [atsMode, setAtsMode] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const paperZoomRef = useRef<HTMLDivElement>(null);
   const [showErrors, setShowErrors] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -253,6 +255,28 @@ function EditorInner() {
 
   const [activeSection, setActiveSection] = useState<string>("personal");
   const asideRef = useRef<HTMLElement>(null);
+
+  const clampZoom = (z: number) => Math.min(2, Math.max(0.25, Math.round(z * 100) / 100));
+  const zoomIn = () => setZoom((z) => clampZoom(z + 0.25));
+  const zoomOut = () => setZoom((z) => clampZoom(z - 0.25));
+
+  useEffect(() => {
+    if (paperZoomRef.current) {
+      paperZoomRef.current.style.zoom = String(zoom);
+    }
+  }, [zoom]);
+
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      setZoom((z) => clampZoom(e.deltaY < 0 ? z + 0.25 : z - 0.25));
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   const NAV_GROUPS: { label: string; items: { id: string; label: string; count: number }[] }[] = [
     {
@@ -348,7 +372,12 @@ function EditorInner() {
       const html2canvas = (window as any).html2canvas;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { jsPDF } = (window as any).jspdf;
+      const zoomEl = paperZoomRef.current;
+      const prevZoom = zoomEl?.style.zoom;
+      if (zoomEl) zoomEl.style.zoom = "1";
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(null))));
       const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false });
+      if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -917,6 +946,20 @@ function EditorInner() {
             </span>
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 2, border: "1.5px solid #000", borderRadius: 6, padding: 1, background: "#fff", boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.35)" }}>
+              <button onClick={zoomOut} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, padding: "4px 9px", lineHeight: 1, color: "#1A1918", borderRadius: 4 }} title="Reducir (Ctrl/Cmd + rueda)">
+                −
+              </button>
+              <span style={{ fontSize: 11, fontWeight: 700, minWidth: 36, textAlign: "center", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
+                {Math.round(zoom * 100)}%
+              </span>
+              <button onClick={zoomIn} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, padding: "4px 9px", lineHeight: 1, color: "#1A1918", borderRadius: 4 }} title="Ampliar (Ctrl/Cmd + rueda)">
+                +
+              </button>
+              <button onClick={() => setZoom(1)} style={{ border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700, padding: "3px 6px", borderRadius: 4, color: "#6B6860", background: "#F3F2EE", fontFamily: "var(--font-instrument), sans-serif" }} title="Restablecer zoom">
+                reset
+              </button>
+            </span>
             <button onClick={() => setPreviewMode("desktop")} className={`boton-neobrutalista-sm${previewMode === "desktop" ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
               Escritorio
             </button>
@@ -943,8 +986,10 @@ function EditorInner() {
 
         {/* Preview */}
         <div ref={previewRef} style={{ width: "100%", maxWidth: previewMode === "mobile" ? 375 : 720 }}>
-          <div className={previewMode === "mobile" ? "a4-paper-mobile" : "a4-paper"} style={{ transform: "scale(1)", transformOrigin: "top center", margin: "0 auto" }}>
-            {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
+          <div ref={paperZoomRef} className="editor-paper-zoom" style={{ transformOrigin: "top center", margin: "0 auto", width: "fit-content" }}>
+            <div className={previewMode === "mobile" ? "a4-paper-mobile" : "a4-paper"}>
+              {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
+            </div>
           </div>
         </div>
       </main>
@@ -1007,6 +1052,7 @@ function EditorInner() {
         @media print {
           body * { visibility: hidden !important; }
           .editor-root { height: auto !important; overflow: visible !important; }
+          .editor-paper-zoom { zoom: 1 !important; }
           .a4-paper, .a4-paper-mobile, .a4-paper *, .a4-paper-mobile * { visibility: visible !important; }
           .a4-paper, .a4-paper-mobile {
             position: absolute;
