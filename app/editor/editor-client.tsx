@@ -540,7 +540,7 @@ function EditorInner() {
 
   const handleCopyShareMessage = useCallback(async () => {
     const name = data.personal.name || "mi CV";
-    const text = `¡Hola! Te comparto mi currículum:\n\n${name}\n${shareUrl}\n\n— Hecho con nos`;
+    const text = `¡Hola! Te comparto mi currículum:\n\n${name}\n${shareUrl}\n\n— Hecho con CVMakerApp`;
     await copyText(text);
     setToast("Mensaje copiado. Pégalo en WhatsApp o tu chat favorito");
   }, [shareUrl, data, copyText]);
@@ -632,7 +632,7 @@ function EditorInner() {
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button onClick={() => setShowDashboard(true)} className="boton-neobrutalista-sm" style={{ padding: "4px 10px" }}>CV</button>
             <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>nos</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>CVMakerApp</span>
             </a>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
