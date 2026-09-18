@@ -302,6 +302,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Big visual section */}
+      <section style={{ background: "#F3F2EE", padding: "120px 24px", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+          <div>
+            <h2 style={{ fontSize: 48, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: "#1A1918", fontFamily: "var(--font-playfair), serif", marginBottom: 24 }}>
+              Tu historia en papel de lujo
+            </h2>
+            <p style={{ fontSize: 18, color: "#6B6860", lineHeight: 1.7, fontFamily: "var(--font-instrument), sans-serif" }}>
+              Cada detalle cuenta. Cada línea, cada espacio en blanco, cada tipografía elegida con intención. CVMakerApp no es solo una herramienta: es una declaración de intenciones. Crea algo que la gente quiera mirar dos veces.
+            </p>
+          </div>
+          <div style={{ position: "relative" }}>
+            <Image src="/foto.webp" alt="Visual guay" width={800} height={500} style={{ borderRadius: 20, boxShadow: "0 20px 60px rgba(0,0,0,0.15)", width: "100%", height: "auto", objectFit: "cover" }} />
+          </div>
+        </div>
+      </section>
+
       {/* Who is it for */}
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
