@@ -205,6 +205,10 @@ body {
     position: static !important;
     flex-shrink: 0;
   }
+  .editor-aside > div:not(.editor-aside-header) {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
   .editor-toolbar {
     position: sticky !important;
     top: 0 !important;
