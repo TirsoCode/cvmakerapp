@@ -79,7 +79,10 @@ function migrateData(d: ResumeData): ResumeData {
     settings: { ...DEFAULT_RESUME.settings, ...(d.settings || {}) },
   };
   if (!patched.settings.sectionOrder) patched.settings.sectionOrder = [...DEFAULT_RESUME.settings.sectionOrder] as SectionKey[];
-  if (!patched.settings.sections) patched.settings.sections = { ...DEFAULT_RESUME.settings.sections };
+  // Se combina la visibilidad con los valores por defecto: un payload con
+  // secciones incompletas (p. ej. enlaces compartidos antiguos) no debe
+  // ocultar silenciosamente el resto de secciones.
+  patched.settings.sections = { ...DEFAULT_RESUME.settings.sections, ...(patched.settings.sections || {}) };
   if (!patched.customSections) patched.customSections = [];
   const ARRAY_FIELDS: (keyof ResumeData)[] = [
     "experience", "education", "skills", "languages", "projects",
@@ -96,7 +99,7 @@ function estimatePages(data: ResumeData): number {
   if (data.personal.name) lines += 2;
   if (data.personal.title) lines += 1;
   if (data.personal.email || data.personal.phone || data.personal.location) lines += 1;
-  if (data.personal.linkedin || data.personal.github || data.personal.portfolio) lines += 1;
+  if (data.personal.linkedin || data.personal.github || data.personal.website || data.personal.portfolio) lines += 1;
   if (data.summary) lines += Math.ceil(data.summary.length / 80) + 2;
   if (data.experience.length > 0) {
     lines += 2;
@@ -291,7 +294,7 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const createNewCv = useCallback((candidate?: ResumeData) => {
     const id = uid();
     const initial = candidate ? migrateData(candidate) : { ...DEFAULT_RESUME };
-    const entry: CVEntry = { id, name: candidate?.personal?.name ? `${candidate.personal.name}'s CV` : "Nuevo CV", updatedAt: Date.now(), data: initial };
+    const entry: CVEntry = { id, name: candidate?.personal?.name ? `CV de ${candidate.personal.name}` : "Nuevo CV", updatedAt: Date.now(), data: initial };
     setCvList((prev) => {
       const next = [...prev, entry];
       saveCVs(next);

@@ -407,6 +407,7 @@ function EditorInner() {
   const handleExportPDF = useCallback(async () => {
     setIsExporting(true);
     let wasMobile = false;
+    let wasAts = false;
     try {
       const script = document.createElement("script");
       script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
@@ -429,6 +430,10 @@ function EditorInner() {
       // estaba en modo Móvil, renderiza las hojas A4 durante la exportación.
       wasMobile = previewMode === "mobile";
       if (wasMobile) setPreviewMode("desktop");
+      // En la vista ATS se muestra el volcado de texto, no la plantilla:
+      // al exportar PDF se vuelve temporalmente a la vista normal.
+      wasAts = atsMode;
+      if (wasAts) setAtsMode(false);
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(null))));
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -457,15 +462,17 @@ function EditorInner() {
         }
       }
       if (wasMobile) setPreviewMode("mobile");
+      if (wasAts) setAtsMode(true);
       if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
       const name = data.personal.name?.replace(/\s+/g, "_") || "cv";
       pdf.save(`${name}_cv.pdf`);
     } finally {
       setIsExporting(false);
       if (wasMobile) setPreviewMode("mobile");
+      if (wasAts) setAtsMode(true);
       if (paperZoomRef.current) paperZoomRef.current.style.zoom = String(zoom);
     }
-  }, [data, zoom, previewMode]);
+  }, [data, zoom, previewMode, atsMode]);
 
 
   const handlePrint = useCallback(() => { window.print(); }, []);
@@ -582,7 +589,7 @@ function EditorInner() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button onClick={() => setPanelHidden(v => !v)} className="boton-neobrutalista-sm" style={{ padding: "5px 10px", fontSize: 11, fontWeight: 700, background: panelHidden ? "#1A1918" : "#fff", color: panelHidden ? "#fff" : "#1A1918" }} title="Ocultar panel">{panelHidden ? "Mostrar" : "Ocultar"}</button>
-            <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Reset</button>
+            <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Restablecer</button>
           </div>
         </div>
 
@@ -874,7 +881,7 @@ function EditorInner() {
                 +
               </button>
                <button onClick={() => setZoom(1)} style={{ border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700, padding: "3px 6px", borderRadius: 4, color: "#6B6860", background: "#FFFFFF", fontFamily: "var(--font-instrument), sans-serif" }} title="Restablecer zoom">
-                reset
+                Restablecer
               </button>
             </span>
             <button onClick={() => setPreviewMode("desktop")} className={`boton-neobrutalista-sm${previewMode === "desktop" ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
