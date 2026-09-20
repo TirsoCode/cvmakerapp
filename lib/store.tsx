@@ -29,15 +29,11 @@ interface ResumeContextValue {
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
   updateFontPairing: (f: ResumeData["settings"]["fontPairing"]) => void;
-  updateSections: (s: Partial<ResumeData["settings"]["sections"]>) => void;
   resetData: () => void;
   customSections: CustomSection[];
   addCustomSection: (title: string) => void;
   updateCustomSection: (id: string, patch: Partial<CustomSection>) => void;
   removeCustomSection: (id: string) => void;
-  sectionOrder: SectionKey[];
-  setSectionOrder: (order: SectionKey[]) => void;
-  moveSection: (from: number, to: number) => void;
   cvList: CVEntry[];
   currentCvId: string;
   createNewCv: (data?: ResumeData) => void;
@@ -246,10 +242,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, fontPairing } }));
   }, []);
 
-  const updateSections = useCallback((sections: Partial<ResumeData["settings"]["sections"]>) => {
-    setData((d) => ({ ...d, settings: { ...d.settings, sections: { ...d.settings.sections, ...sections } } }));
-  }, []);
-
   const resetData = useCallback(() => {
     setData(DEFAULT_RESUME);
   }, []);
@@ -274,20 +266,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       ...d,
       customSections: (d.customSections || []).filter((cs) => cs.id !== id),
     }));
-  }, []);
-
-  // Section ordering
-  const setSectionOrder = useCallback((sectionOrder: SectionKey[]) => {
-    setData((d) => ({ ...d, settings: { ...d.settings, sectionOrder } }));
-  }, []);
-
-  const moveSection = useCallback((from: number, to: number) => {
-    setData((d) => {
-      const order = [...d.settings.sectionOrder];
-      const [moved] = order.splice(from, 1);
-      order.splice(to, 0, moved);
-      return { ...d, settings: { ...d.settings, sectionOrder: order } };
-    });
   }, []);
 
   // Multi-CV management
@@ -362,11 +340,9 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
       updateLicenses, updateReferences, updateAffiliations,
       updateTemplate, updateAccentColor, updateFontPairing,
-      updateSections, resetData,
+      resetData,
       customSections: data.customSections || [],
       addCustomSection, updateCustomSection, removeCustomSection,
-      sectionOrder: data.settings.sectionOrder || [...DEFAULT_RESUME.settings.sectionOrder],
-      setSectionOrder, moveSection,
       cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
       validate, pageEstimate,
     }}>

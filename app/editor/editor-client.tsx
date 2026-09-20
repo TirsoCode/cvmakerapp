@@ -2,7 +2,7 @@
 import { useRef, useCallback, useState, useEffect } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
-  TEMPLATES, FONT_PAIRINGS, SECTION_LABELS, DEFAULT_SECTION_ORDER,
+  TEMPLATES, FONT_PAIRINGS,
   type FontPairing, type ResumeData, type SectionKey,
 } from "@/lib/types";
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
@@ -258,9 +258,8 @@ function EditorInner() {
     updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
     updateLicenses, updateReferences, updateAffiliations,
     updateTemplate, updateAccentColor, updateFontPairing,
-    updateSections, resetData,
+    resetData,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
-    sectionOrder, moveSection,
     cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
     validate, pageEstimate,
   } = useResume();
@@ -345,10 +344,6 @@ function EditorInner() {
     {
       label: "Apariencia",
       items: [{ id: "design", label: "Diseño", count: 0 }],
-    },
-    {
-      label: "Estructura",
-      items: [{ id: "order", label: "Orden de Secciones", count: 0 }],
     },
   ];
 
@@ -825,23 +820,6 @@ function EditorInner() {
               </div>
             ))}
             <button onClick={() => addCustomSection("Nueva sección")} className="boton-neobrutalista-sm" style={{ width: "100%", padding: "8px", justifyContent: "center", fontSize: 11 }}>+ Añadir sección personalizada</button>
-          </SectionAccordion>
-
-          {/* Section Order */}
-          <SectionAccordion title="Orden de Secciones" defaultOpen={false} style={{}} sectionId="section-order" active={activeSection === "order"}>
-            <p style={{ fontSize: 11, color: "#9C9890", margin: "0 0 10px" }}>Usa los botones para reordenar</p>
-            {sectionOrder.map((key, idx) => (
-              <div key={key} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#FFFFFF", marginBottom: 4, border: "1px solid #E4E2DC" }}>
-                <span style={{ fontSize: 10, color: "#9C9890", width: 16, fontWeight: 700 }}>{idx + 1}</span>
-                <span style={{ fontSize: 12, flex: 1, color: "#1A1918", fontWeight: 500 }}>{SECTION_LABELS[key] || key}</span>
-                <label style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 10, color: "#9C9890" }}>
-                  <input type="checkbox" checked={data.settings.sections[key] ?? false} onChange={(e) => updateSections({ [key]: e.target.checked })} style={{ width: 14, height: 14, cursor: "pointer" }} />
-                  Visible
-                </label>
-                <button disabled={idx === 0} onClick={() => moveSection(idx, idx - 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Subir</button>
-                <button disabled={idx === sectionOrder.length - 1} onClick={() => moveSection(idx, idx + 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Bajar</button>
-              </div>
-            ))}
           </SectionAccordion>
 
           {/* Design */}
