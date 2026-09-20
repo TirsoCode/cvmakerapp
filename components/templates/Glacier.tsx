@@ -52,23 +52,23 @@ export default function GlacierTemplate({ data }: Props) {
       </div>
       {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p26 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10*s, marginBottom: p12 }}><span style={{ display: "block", width: 24*s, height: 2*s, background: accentColor, borderRadius: 1 }} /><h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: "#0369A1", margin: 0 }}>Certificaciones</h2></div>
-        {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {c.issuer} ({c.date})</span></div>)}
+        {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {c.issuer} {c.date ? ` (${c.date})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p26 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10*s, marginBottom: p12 }}><span style={{ display: "block", width: 24*s, height: 2*s, background: accentColor, borderRadius: 1 }} /><h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: "#0369A1", margin: 0 }}>Premios</h2></div>
-        {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {a.issuer} ({a.date})</span></div>)}
+        {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {a.issuer} {a.date ? ` (${a.date})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p26 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10*s, marginBottom: p12 }}><span style={{ display: "block", width: 24*s, height: 2*s, background: accentColor, borderRadius: 1 }} /><h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: "#0369A1", margin: 0 }}>Licencias</h2></div>
-        {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {l.issuer} ({l.licenseNumber})</span></div>)}
+        {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {l.issuer} {l.licenseNumber ? ` (${l.licenseNumber})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p26 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10*s, marginBottom: p12 }}><span style={{ display: "block", width: 24*s, height: 2*s, background: accentColor, borderRadius: 1 }} /><h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: "#0369A1", margin: 0 }}>Referencias</h2></div>
-        {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {r.company} ({r.relationship})</span><br /><span style={{ fontSize: 10*s, color: "#0369A1" }}>{r.email} | {r.phone}</span></div>)}
+        {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {r.company} {r.relationship ? ` (${r.relationship})` : ""}</span><br /><span style={{ fontSize: 10*s, color: "#0369A1" }}>{[r.email, r.phone].filter(Boolean).join(" | ")}</span></div>)}
       </section>}
       {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p26 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10*s, marginBottom: p12 }}><span style={{ display: "block", width: 24*s, height: 2*s, background: accentColor, borderRadius: 1 }} /><h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: "#0369A1", margin: 0 }}>Afiliaciones</h2></div>
-        {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {a.role} ({a.startDate} — {a.endDate})</span></div>)}
+        {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#0C4A6E" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#0369A1" }}>— {a.role} {a.startDate || a.endDate ? ` (${a.startDate}${a.startDate && a.endDate ? " — " : ""}${a.endDate})` : ""}</span></div>)}
       </section>}
       {renderCustomSections(data)}
     </div>

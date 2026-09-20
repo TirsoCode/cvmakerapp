@@ -49,23 +49,23 @@ export default function EmberTemplate({ data }: Props) {
       </div>
       {data.settings.sections.certifications && certifications.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Certificaciones</h2>
-        {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {c.issuer} ({c.date})</span></div>)}
+        {certifications.map((c) => <div key={c.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{c.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {c.issuer} {c.date ? ` (${c.date})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.awards && awards.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Premios</h2>
-        {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.issuer} ({a.date})</span></div>)}
+        {awards.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.issuer} {a.date ? ` (${a.date})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.licenses && licenses.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Licencias</h2>
-        {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {l.issuer} ({l.licenseNumber})</span></div>)}
+        {licenses.map((l) => <div key={l.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{l.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {l.issuer} {l.licenseNumber ? ` (${l.licenseNumber})` : ""}</span></div>)}
       </section>}
       {data.settings.sections.references && references.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Referencias</h2>
-        {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {r.company} ({r.relationship})</span><br /><span style={{ fontSize: 10*s, color: "#9C9890" }}>{r.email} | {r.phone}</span></div>)}
+        {references.map((r) => <div key={r.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{r.name}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {r.company} {r.relationship ? ` (${r.relationship})` : ""}</span><br /><span style={{ fontSize: 10*s, color: "#9C9890" }}>{[r.email, r.phone].filter(Boolean).join(" | ")}</span></div>)}
       </section>}
       {data.settings.sections.affiliations && affiliations.length > 0 && <section style={{ marginBottom: p24 }}>
         <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}` }}>Afiliaciones</h2>
-        {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.role} ({a.startDate} — {a.endDate})</span></div>)}
+        {affiliations.map((a) => <div key={a.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 11*s, fontWeight: 600, color: "#4A4843" }}>{a.organization}</span> <span style={{ fontSize: 10*s, color: "#9C9890" }}>— {a.role} {a.startDate || a.endDate ? ` (${a.startDate}${a.startDate && a.endDate ? " — " : ""}${a.endDate})` : ""}</span></div>)}
       </section>}
       {renderCustomSections(data)}
     </div>
