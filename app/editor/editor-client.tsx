@@ -350,12 +350,26 @@ function EditorInner() {
   const goToSection = (id: string) => {
     setActiveSection(id);
     if (panelHidden) setPanelHidden(false);
+    // Scroll manual sobre el aside (el contenedor con overflow-y: auto):
+    // scrollIntoView puede ignorarlo por los contenedores anidados con
+    // overflow:hidden y dejar la sección cortada bajo el header sticky.
+    const headerOffset = 70; // altura del header sticky + margen de respiro
     setTimeout(() => {
+      const aside = asideRef.current;
       const target = document.getElementById("section-" + id);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        asideRef.current?.scrollTo?.({ top: 0, behavior: "smooth" });
+      if (aside && target) {
+        const asideRect = aside.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const top = Math.min(
+          aside.scrollHeight - aside.clientHeight,
+          aside.scrollTop + (targetRect.top - asideRect.top) - headerOffset
+        );
+        aside.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        // El ítem pulsado del nav también puede quedar cortado dentro de su
+        // propio contenedor con scroll (editor-nav); aseguramos que sea visible.
+        document.getElementById("nav-item-" + id)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else if (aside) {
+        aside.scrollTo?.({ top: 0, behavior: "smooth" });
       }
     }, 60);
   };
@@ -574,6 +588,7 @@ function EditorInner() {
             {group.items.map((item) => (
               <button
                 key={item.id}
+                id={"nav-item-" + item.id}
                 onClick={() => goToSection(item.id)}
                 className={`editor-nav-item${activeSection === item.id ? " editor-nav-item-active" : ""}`}
               >
