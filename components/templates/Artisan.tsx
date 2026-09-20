@@ -30,7 +30,7 @@ export default function ArtisanTemplate({ data }: Props) {
         <p style={{ fontSize: 13*s, color: accentColor, fontWeight: 600, margin: `0 0 ${14*s}px`, fontStyle: "italic" }}>{personal.title}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: p416, fontSize: 11*s, color: "#8B7355" }}>
           {personal.email && <span>{personal.email}</span>}{personal.phone && <span>{personal.phone}</span>}{personal.location && <span>{personal.location}</span>}
-          {personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{personal.portfolio && <span>{personal.portfolio}</span>}
+          {personal.linkedin && <span>{personal.linkedin}</span>}{personal.github && <span>{personal.github}</span>}{(personal.website || personal.portfolio) && <span>{personal.website || personal.portfolio}</span>}
         </div>
       </header>
       {data.settings.sections.summary && summary && <section style={{ marginBottom: p28 }}><p style={{ fontSize: 12*s, lineHeight: 1.8, color: "#5C4A3A", margin: 0, fontStyle: "italic" }}>{summary}</p></section>}
@@ -54,7 +54,7 @@ export default function ArtisanTemplate({ data }: Props) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: `0px ${p32}` }}>
         {data.settings.sections.skills && skills.length > 0 && <section>
           <h2 style={{ fontSize: 11*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), textTransform: "uppercase", letterSpacing: "0.14em", color: accentColor, margin: `0 0 ${p12}`, borderBottom: `1px solid #D4C4B0`, paddingBottom: p6 }}>Habilidades</h2>
-          {skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#8B7355" }}>{cat.category}</span><p style={{ fontSize: 11*s, color: "#5C4A3A", margin: `${2*s}px 0 0` }}>{cat.items.join(", ")}</p></div>)}
+          {skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#8B7355" }}>{cat.category}</span><p style={{ fontSize: 11*s, color: "#5C4A3A", margin: `${2*s}px 0 0` }}>{cat.items.filter(Boolean).join(", ")}</p></div>)}
         </section>}
         <div>
           {data.settings.sections.languages && languages.length > 0 && <section style={{ marginBottom: `${20*s}px` }}>

@@ -44,7 +44,7 @@ export default function PrussianTemplate({ data }: Props) {
           {personal.location && <span>{personal.location}</span>}
           {personal.linkedin && <span>{personal.linkedin}</span>}
           {personal.github && <span>{personal.github}</span>}
-          {personal.portfolio && <span>{personal.portfolio}</span>}
+          {(personal.website || personal.portfolio) && <span>{personal.website || personal.portfolio}</span>}
         </div>
       </header>
       {data.settings.sections.summary && summary && <section style={{ marginBottom: p24 }}>
@@ -81,7 +81,7 @@ export default function PrussianTemplate({ data }: Props) {
         {skills.map((cat) => (
           <div key={cat.id} style={{ marginBottom: p6 }}>
             <span style={{ fontSize: 11*s, fontWeight: 600, color: "#6B6860" }}>{cat.category}: </span>
-            <span style={{ fontSize: 11*s, color: "#4A4843" }}>{cat.items.join(", ")}</span>
+            <span style={{ fontSize: 11*s, color: "#4A4843" }}>{cat.items.filter(Boolean).join(", ")}</span>
           </div>
         ))}
       </section>}
@@ -94,24 +94,24 @@ export default function PrussianTemplate({ data }: Props) {
           <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Proyectos</h2>
           {projects.map((p) => <div key={p.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{p.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{p.description}</p>{p.url && <p style={{ fontSize: 10*s, color: accentColor, margin: p20_0_0 }}>{p.url}</p>}</div>)}
         </section>}
-        {certifications.length > 0 && <section>
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Certifications</h2>
+        {data.settings.sections.certifications && certifications.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Certificaciones</h2>
           {certifications.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.date && `• ${item.date}`}</p></div>)}
         </section>}
-        {awards.length > 0 && <section>
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Awards</h2>
+        {data.settings.sections.awards && awards.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Premios</h2>
           {awards.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.date && `• ${item.date}`}</p></div>)}
         </section>}
-        {licenses.length > 0 && <section>
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Licenses</h2>
+        {data.settings.sections.licenses && licenses.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Licencias</h2>
           {licenses.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.issuer} {item.licenseNumber && `• ${item.licenseNumber}`} {item.date && `• ${item.date}`}</p></div>)}
         </section>}
-        {references.length > 0 && <section>
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>References</h2>
+        {data.settings.sections.references && references.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Referencias</h2>
           {references.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.name}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.company} {item.relationship && `• ${item.relationship}`}</p><p style={{ fontSize: 10*s, color: "#6B6860", margin: p20_0_0 }}>{item.phone} {item.email && `• ${item.email}`}</p></div>)}
         </section>}
-        {affiliations.length > 0 && <section>
-          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Affiliations</h2>
+        {data.settings.sections.affiliations && affiliations.length > 0 && <section>
+          <h2 style={{ fontSize: 10*s, fontWeight: 700, fontFamily: getFontFamily(data.settings), color: accentColor, margin: `0 0 ${p10}`, letterSpacing: "-0.01em" }}>Afiliaciones</h2>
           {affiliations.map((item) => <div key={item.id} style={{ marginBottom: p8 }}><h3 style={{ fontSize: 11*s, fontWeight: 700, margin: p002 }}>{item.organization}</h3><p style={{ fontSize: 10*s, color: "#4A4843", margin: 0 }}>{item.role} {item.startDate && `• ${item.startDate}`} {item.endDate && ` - ${item.endDate}`}</p></div>)}
         </section>}
       </div>

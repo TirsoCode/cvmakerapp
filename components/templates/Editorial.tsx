@@ -34,12 +34,12 @@ export default function EditorialTemplate({ data, style }: Props) {
               {personal.phone && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.phone}</span>}
               {personal.location && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.location}</span>}
               {personal.linkedin && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.linkedin}</span>}
-              {personal.portfolio && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.portfolio}</span>}
+              {(personal.website || personal.portfolio) && <span style={{ fontSize: 10, color: "#E4E2DC", fontFamily: "var(--font-instrument), sans-serif" }}>{personal.website || personal.portfolio}</span>}
             </div>
           </div>
 
           {/* Skills */}
-          {skills.length > 0 && (
+          {data.settings.sections.skills && skills.length > 0 && (
             <div style={{ marginBottom: 28 }}>
               <h3 style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#6B6860", margin: "0 0 10px", fontFamily: "var(--font-instrument), sans-serif" }}>
                 Habilidades
@@ -50,7 +50,7 @@ export default function EditorialTemplate({ data, style }: Props) {
                     {cat.category}
                   </p>
                   <p style={{ fontSize: 10, color: "#E4E2DC", lineHeight: 1.5, fontFamily: "var(--font-instrument), sans-serif" }}>
-                    {cat.items.join(", ")}
+                    {cat.items.filter(Boolean).join(", ")}
                   </p>
                 </div>
               ))}
@@ -58,7 +58,7 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Languages */}
-          {languages.length > 0 && (
+          {data.settings.sections.languages && languages.length > 0 && (
             <div style={{ marginBottom: 28 }}>
               <h3 style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#6B6860", margin: "0 0 10px", fontFamily: "var(--font-instrument), sans-serif" }}>
                 Idiomas
@@ -76,14 +76,14 @@ export default function EditorialTemplate({ data, style }: Props) {
         {/* Main content */}
         <main style={{ padding: "48px 44px" }}>
           {/* Summary */}
-          {summary && (
+          {data.settings.sections.summary && summary && (
             <section style={{ marginBottom: 36, borderLeft: `3px solid ${accentColor}`, paddingLeft: 20 }}>
               <p style={{ fontSize: 13, lineHeight: 1.75, color: "#4A4843", margin: 0, fontStyle: "italic" }}>{summary}</p>
             </section>
           )}
 
           {/* Experience */}
-          {experience.length > 0 && (
+          {data.settings.sections.experience && experience.length > 0 && (
             <section style={{ marginBottom: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 20px", fontFamily: "var(--font-instrument), sans-serif" }}>
                 Experiencia Profesional
@@ -106,7 +106,7 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Education */}
-          {education.length > 0 && (
+          {data.settings.sections.education && education.length > 0 && (
             <section>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 20px", fontFamily: "var(--font-instrument), sans-serif" }}>
                 Educación
@@ -126,7 +126,7 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Projects */}
-          {projects.length > 0 && (
+          {data.settings.sections.projects && projects.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
                 Proyectos
@@ -142,10 +142,10 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Certifications */}
-          {certifications.length > 0 && (
+          {data.settings.sections.certifications && certifications.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                Certifications
+                Certificaciones
               </h2>
               {certifications.map((item) => (
                 <div key={item.id} style={{ marginBottom: 12 }}>
@@ -157,10 +157,10 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Awards */}
-          {awards.length > 0 && (
+          {data.settings.sections.awards && awards.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                Awards
+                Premios
               </h2>
               {awards.map((item) => (
                 <div key={item.id} style={{ marginBottom: 12 }}>
@@ -172,10 +172,10 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Licenses */}
-          {licenses.length > 0 && (
+          {data.settings.sections.licenses && licenses.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                Licenses
+                Licencias
               </h2>
               {licenses.map((item) => (
                 <div key={item.id} style={{ marginBottom: 12 }}>
@@ -187,10 +187,10 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* References */}
-          {references.length > 0 && (
+          {data.settings.sections.references && references.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                References
+                Referencias
               </h2>
               {references.map((item) => (
                 <div key={item.id} style={{ marginBottom: 12 }}>
@@ -203,10 +203,10 @@ export default function EditorialTemplate({ data, style }: Props) {
           )}
 
           {/* Affiliations */}
-          {affiliations.length > 0 && (
+          {data.settings.sections.affiliations && affiliations.length > 0 && (
             <section style={{ marginTop: 36 }}>
               <h2 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: accentColor, margin: "0 0 16px", fontFamily: "var(--font-instrument), sans-serif" }}>
-                Affiliations
+                Afiliaciones
               </h2>
               {affiliations.map((item) => (
                 <div key={item.id} style={{ marginBottom: 12 }}>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { decompressFromEncodedURIComponent } from "lz-string";
 import EditorClient from "./editor-client";
 
 interface EditorPageProps {
@@ -9,7 +10,13 @@ export async function generateMetadata({ searchParams }: EditorPageProps): Promi
   let name = "";
   try {
     const encoded = searchParams?.cv || "";
-    const json = decodeURIComponent(encoded);
+    let json = "";
+    try {
+      json = decompressFromEncodedURIComponent(encoded) || "";
+    } catch {
+      // enlace antiguo sin comprimir
+    }
+    if (!json) json = decodeURIComponent(encoded);
     const parsed = JSON.parse(json);
     if (parsed?.personal?.name) name = String(parsed.personal.name);
   } catch {

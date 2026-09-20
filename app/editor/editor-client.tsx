@@ -2,9 +2,11 @@
 import { useRef, useCallback, useState, useEffect } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
-  TEMPLATES, FONT_PAIRINGS, SECTION_LABELS,
-  type FontPairing, type ResumeData,
+  TEMPLATES, FONT_PAIRINGS, SECTION_LABELS, DEFAULT_SECTION_ORDER,
+  type FontPairing, type ResumeData, type SectionKey,
 } from "@/lib/types";
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
+import { getOrderedSections } from "@/components/templates/helpers";
 
 import SectionAccordion from "@/components/ui/SectionAccordion";
 import FormField from "@/components/ui/FormField";
@@ -55,51 +57,76 @@ function TemplateRenderer({ data }: { data: any }) {
   }
 }
 
+function ATSBlock({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <>
+      <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>{label}</h2>
+      {children}
+    </>
+  );
+}
+
 function ATSTemplate({ data }: { data: any }) {
   const font = FONT_PAIRINGS.find((f) => f.id === data.settings.fontPairing)?.body || "system-ui";
   const p = data.personal;
+  const ordered = getOrderedSections(data);
+  const renderSection = (key: SectionKey) => {
+    switch (key) {
+      case "summary":
+        return data.summary && <ATSBlock label="RESUMEN"><p style={{ margin: "4px 0 0", whiteSpace: "pre-wrap" }}>{data.summary}</p></ATSBlock>;
+      case "experience":
+        return data.experience.length > 0 && <ATSBlock label="EXPERIENCIA LABORAL">{data.experience.map((e: any) => <div key={e.id} style={{ marginBottom: 10 }}>
+          <p style={{ fontWeight: 700, margin: 0 }}>{e.position} — {e.company}</p>
+          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{e.startDate} — {e.endDate}</p>
+          <p style={{ margin: "4px 0 0", whiteSpace: "pre-wrap" }}>{e.description}</p>
+        </div>)}</ATSBlock>;
+      case "education":
+        return data.education.length > 0 && <ATSBlock label="EDUCACIÓN">{data.education.map((e: any) => <div key={e.id} style={{ marginBottom: 8 }}>
+          <p style={{ fontWeight: 700, margin: 0 }}>{e.degree}</p>
+          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{e.institution} | {e.startDate} — {e.endDate}</p>
+        </div>)}</ATSBlock>;
+      case "skills":
+        return data.skills.length > 0 && <ATSBlock label="HABILIDADES">{data.skills.map((s: any) => <p key={s.id} style={{ margin: "2px 0" }}>{s.category}: {(s.items || []).filter(Boolean).join(", ")}</p>)}</ATSBlock>;
+      case "languages":
+        return data.languages.length > 0 && <ATSBlock label="IDIOMAS"><p style={{ margin: "4px 0 0" }}>{data.languages.map((l: any) => `${l.language} (${l.level})`).join(", ")}</p></ATSBlock>;
+      case "projects":
+        return data.projects.length > 0 && <ATSBlock label="PROYECTOS">{data.projects.map((pr: any) => <div key={pr.id} style={{ marginBottom: 6 }}>
+          <p style={{ fontWeight: 700, margin: 0 }}>{pr.name}{pr.url ? ` — ${pr.url}` : ""}</p>
+          <p style={{ margin: "2px 0 0" }}>{pr.description}</p>
+        </div>)}</ATSBlock>;
+      case "certifications":
+        return data.certifications.length > 0 && <ATSBlock label="CERTIFICACIONES">{data.certifications.map((c: any) => <p key={c.id} style={{ margin: "2px 0" }}>{c.name} — {c.issuer}{c.date ? ` (${c.date})` : ""}</p>)}</ATSBlock>;
+      case "awards":
+        return data.awards.length > 0 && <ATSBlock label="PREMIOS Y HONORES">{data.awards.map((a: any) => <p key={a.id} style={{ margin: "2px 0" }}>{a.name} — {a.issuer}{a.date ? ` (${a.date})` : ""}</p>)}</ATSBlock>;
+      case "licenses":
+        return data.licenses.length > 0 && <ATSBlock label="LICENCIAS Y CARNETS">{data.licenses.map((l: any) => <p key={l.id} style={{ margin: "2px 0" }}>{l.name} — {l.issuer}{l.licenseNumber ? ` (${l.licenseNumber})` : ""}{l.date ? ` · ${l.date}` : ""}</p>)}</ATSBlock>;
+      case "references":
+        return data.references.length > 0 && <ATSBlock label="REFERENCIAS">{data.references.map((r: any) => <div key={r.id} style={{ marginBottom: 6 }}>
+          <p style={{ fontWeight: 700, margin: 0 }}>{r.name}</p>
+          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{r.company}{r.relationship ? ` — ${r.relationship}` : ""}{r.email ? ` · ${r.email}` : ""}{r.phone ? ` · ${r.phone}` : ""}</p>
+        </div>)}</ATSBlock>;
+      case "affiliations":
+        return data.affiliations.length > 0 && <ATSBlock label="AFILIACIONES Y COLEGIOS">{data.affiliations.map((a: any) => <div key={a.id} style={{ marginBottom: 6 }}>
+          <p style={{ fontWeight: 700, margin: 0 }}>{a.organization}</p>
+          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{a.role}{a.startDate ? ` — ${a.startDate}${a.endDate ? ` — ${a.endDate}` : ""}` : ""}</p>
+        </div>)}</ATSBlock>;
+      default:
+        return null;
+    }
+  };
   return (
     <div style={{ fontFamily: font, color: "#000", background: "#fff", padding: "40px 48px", fontSize: 12, lineHeight: 1.6 }}>
       <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px" }}>{p.name || "Tu Nombre"}</h1>
       {p.title && <p style={{ fontSize: 14, fontWeight: 500, margin: "0 0 8px" }}>{p.title}</p>}
       <p style={{ margin: "0 0 4px" }}>
-        {[p.email, p.phone, p.location, p.linkedin, p.github, p.portfolio].filter(Boolean).join(" | ")}
+        {[p.email, p.phone, p.location, p.website, p.linkedin, p.github, p.portfolio].filter(Boolean).join(" | ")}
       </p>
-      {data.summary && <p style={{ margin: "12px 0" }}>{data.summary}</p>}
-      {data.experience.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>EXPERIENCIA LABORAL</h2>
-        {data.experience.map((e: any) => <div key={e.id} style={{ marginBottom: 10 }}>
-          <p style={{ fontWeight: 700, margin: 0 }}>{e.position} — {e.company}</p>
-          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{e.startDate} — {e.endDate}</p>
-          <p style={{ margin: "4px 0 0" }}>{e.description}</p>
-        </div>)}
-      </>}
-      {data.education.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>EDUCACIÓN</h2>
-        {data.education.map((e: any) => <div key={e.id} style={{ marginBottom: 8 }}>
-          <p style={{ fontWeight: 700, margin: 0 }}>{e.degree}</p>
-          <p style={{ fontSize: 11, color: "#555", margin: "2px 0" }}>{e.institution} | {e.startDate} — {e.endDate}</p>
-        </div>)}
-      </>}
-      {data.skills.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>HABILIDADES</h2>
-        {data.skills.map((s: any) => <p key={s.id} style={{ margin: "2px 0" }}>{s.category}: {(s.items || []).join(", ")}</p>)}
-      </>}
-      {data.languages.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>IDIOMAS</h2>
-        <p>{data.languages.map((l: any) => `${l.language} (${l.level})`).join(", ")}</p>
-      </>}
-      {data.certifications.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>CERTIFICACIONES</h2>
-        {data.certifications.map((c: any) => <p key={c.id} style={{ margin: "2px 0" }}>{c.name} — {c.issuer}{c.date ? ` (${c.date})` : ""}</p>)}
-      </>}
-      {data.projects.length > 0 && <>
-        <h2 style={{ fontSize: 14, fontWeight: 700, margin: "16px 0 8px", borderBottom: "1px solid #ccc", paddingBottom: 4 }}>PROYECTOS</h2>
-        {data.projects.map((p: any) => <div key={p.id} style={{ marginBottom: 6 }}>
-          <p style={{ fontWeight: 700, margin: 0 }}>{p.name}{p.url ? ` — ${p.url}` : ""}</p>
-          <p style={{ margin: "2px 0 0" }}>{p.description}</p>
-        </div>)}
-      </>}
+      {ordered.map(({ key, visible }) => visible ? renderSection(key) : null)}
+      {(data.customSections || []).map((cs: any) => (
+        <div key={cs.id}>
+          <ATSBlock label={(cs.title || "Sección").toUpperCase()}><p style={{ margin: "4px 0 0", whiteSpace: "pre-wrap" }}>{cs.content}</p></ATSBlock>
+        </div>
+      ))}
     </div>
   );
 }
@@ -244,6 +271,8 @@ function EditorInner() {
   const [atsMode, setAtsMode] = useState(false);
   const [zoom, setZoom] = useState(1);
   const paperZoomRef = useRef<HTMLDivElement>(null);
+  const probeRef = useRef<HTMLDivElement>(null);
+  const [measuredPages, setMeasuredPages] = useState(1);
   const [showErrors, setShowErrors] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -276,6 +305,18 @@ function EditorInner() {
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
   }, []);
+
+  // Mide la altura real del CV renderizado (ancho A4, 794px = 210mm a 96dpi)
+  // para generar exactamente las hojas que necesite. Antes se usaba solo la
+  // heurística estimatePages() y el contenido que la superaba se cortaba en el
+  // preview y en el PDF exportado.
+  useEffect(() => {
+    const el = probeRef.current;
+    if (!el) return;
+    const pxPerPage = (297 * 96) / 25.4; // ≈1122.5px por página A4
+    const pages = Math.max(1, Math.ceil((el.scrollHeight + 12) / pxPerPage));
+    setMeasuredPages(pages);
+  }, [data, atsMode]);
 
   const NAV_GROUPS: { label: string; items: { id: string; label: string; count: number }[] }[] = [
     {
@@ -324,6 +365,10 @@ function EditorInner() {
     }, 60);
   };
 
+  // Nº de hojas: suficiente para que el contenido nunca se corte (medición
+  // real) aunque la heurística estimatePages() subestime.
+  const totalPages = Math.max(pageEstimate, measuredPages);
+
   const accentColor = data.settings.accentColor || "#C0392B";
   const issues = validate();
   const errorCount = issues.filter((i) => i.severity === "error").length;
@@ -339,13 +384,13 @@ function EditorInner() {
     return () => clearTimeout(t);
   }, [toast]);
 
-  // Restore CV from shared URL param ?cv=<compressed>
+  // Restore CV from shared URL param ?cv=<JSON comprimido con lz-string>
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get("cv");
     if (encoded) {
       try {
-        const json = decodeURIComponent(encoded);
+        const json = decompressFromEncodedURIComponent(encoded) || decodeURIComponent(encoded);
         const parsed = JSON.parse(json) as ResumeData;
         if (parsed && parsed.personal && parsed.settings) {
           createNewCv(parsed);
@@ -361,6 +406,7 @@ function EditorInner() {
 
   const handleExportPDF = useCallback(async () => {
     setIsExporting(true);
+    let wasMobile = false;
     try {
       const script = document.createElement("script");
       script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
@@ -379,6 +425,10 @@ function EditorInner() {
       const zoomEl = paperZoomRef.current;
       const prevZoom = zoomEl?.style.zoom;
       if (zoomEl) zoomEl.style.zoom = "1";
+      // El PDF siempre se genera en formato A4 (vista Escritorio). Si el preview
+      // estaba en modo Móvil, renderiza las hojas A4 durante la exportación.
+      wasMobile = previewMode === "mobile";
+      if (wasMobile) setPreviewMode("desktop");
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(null))));
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -406,14 +456,16 @@ function EditorInner() {
           offsetPx += pageHeightPx;
         }
       }
+      if (wasMobile) setPreviewMode("mobile");
       if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
       const name = data.personal.name?.replace(/\s+/g, "_") || "cv";
       pdf.save(`${name}_cv.pdf`);
     } finally {
       setIsExporting(false);
+      if (wasMobile) setPreviewMode("mobile");
       if (paperZoomRef.current) paperZoomRef.current.style.zoom = String(zoom);
     }
-  }, [data, zoom]);
+  }, [data, zoom, previewMode]);
 
 
   const handlePrint = useCallback(() => { window.print(); }, []);
@@ -436,7 +488,10 @@ function EditorInner() {
   }, []);
 
   const handleShare = useCallback(() => {
-    const encoded = encodeURIComponent(JSON.stringify(data));
+    // Se comprime el JSON con lz-string para generar un enlace corto. Sin
+    // compresión, un CV con muchas secciones supera el límite de caracteres y
+    // WhatsApp/Telegram truncan la URL, rompiendo el enlace compartido.
+    const encoded = compressToEncodedURIComponent(JSON.stringify(data));
     setShareUrl(`${window.location.origin}/editor?cv=${encoded}`);
     setShowShareModal(true);
   }, [data]);
@@ -465,7 +520,11 @@ function EditorInner() {
   const removeSkill = (id: string) => updateSkills(data.skills.filter((s) => s.id !== id));
   const updateSkillCat = (id: string, category: string) => updateSkills(data.skills.map((s) => s.id === id ? { ...s, category } : s));
   const updateSkillItems = (id: string, items: string[]) => updateSkills(data.skills.map((s) => s.id === id ? { ...s, items } : s));
-  const handleSkillItemsChange = (id: string, value: string) => updateSkillItems(id, value.split(",").map((s) => s.trim()).filter(Boolean));
+  // Se guarda el texto tal cual (incluido el último elemento vacío) para que al
+  // escribir "Figma, React" la coma no desaparezca del input y la siguiente
+  // letra no se concatene con la anterior. Los vacíos se descartan solo al
+  // renderizar en las plantillas (filter(Boolean) antes del join).
+  const handleSkillItemsChange = (id: string, value: string) => updateSkillItems(id, value.split(",").map((s) => s.trim()));
 
   const addLanguage = () => updateLanguages([...data.languages, { id: uid(), language: "", level: "" }]);
   const removeLanguage = (id: string) => updateLanguages(data.languages.filter((l) => l.id !== id));
@@ -555,7 +614,8 @@ function EditorInner() {
             <FormField label="Ubicación" value={data.personal.location} onChange={(v) => updatePersonal({ location: v })} placeholder="Madrid, España" />
             <FormField label="LinkedIn" value={data.personal.linkedin} onChange={(v) => updatePersonal({ linkedin: v })} placeholder="linkedin.com/in/tu-perfil" />
             <FormField label="GitHub" value={data.personal.github} onChange={(v) => updatePersonal({ github: v })} placeholder="github.com/tu-usuario" />
-            <FormField label="Portfolio" value={data.personal.portfolio || ""} onChange={(v) => updatePersonal({ portfolio: v })} placeholder="tuportfolio.com" />
+            <FormField label="Portafolio" value={data.personal.portfolio || ""} onChange={(v) => updatePersonal({ portfolio: v })} placeholder="tuportfolio.com" />
+            <FormField label="Sitio web" value={data.personal.website} onChange={(v) => updatePersonal({ website: v })} placeholder="tuweb.com" type="url" />
           </SectionAccordion>
 
           {/* Summary */}
@@ -756,8 +816,8 @@ function EditorInner() {
                 <span style={{ fontSize: 10, color: "#9C9890", width: 16, fontWeight: 700 }}>{idx + 1}</span>
                 <span style={{ fontSize: 12, flex: 1, color: "#1A1918", fontWeight: 500 }}>{SECTION_LABELS[key] || key}</span>
                 <label style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 10, color: "#9C9890" }}>
-                  <input type="checkbox" checked={data.settings.sections[key]} onChange={(e) => updateSections({ [key]: e.target.checked })} style={{ width: 14, height: 14, cursor: "pointer" }} />
-                  visible
+                  <input type="checkbox" checked={data.settings.sections[key] ?? false} onChange={(e) => updateSections({ [key]: e.target.checked })} style={{ width: 14, height: 14, cursor: "pointer" }} />
+                  Visible
                 </label>
                 <button disabled={idx === 0} onClick={() => moveSection(idx, idx - 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Subir</button>
                 <button disabled={idx === sectionOrder.length - 1} onClick={() => moveSection(idx, idx + 1)} className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10 }}>Bajar</button>
@@ -799,7 +859,7 @@ function EditorInner() {
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: accentColor, display: "inline-block" }} />
             <span style={{ fontSize: 12, color: "#6B6860" }}>{TEMPLATES.find((t) => t.id === data.settings.template)?.name}</span>
             <span className="boton-neobrutalista-sm" style={{ padding: "2px 8px", fontSize: 10, boxShadow: "2px 2px 0px 0px #000000" }}>
-              {pageEstimate} página{pageEstimate !== 1 ? "s" : ""}
+              {totalPages} página{totalPages !== 1 ? "s" : ""}
             </span>
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -841,13 +901,18 @@ function EditorInner() {
         {/* Preview */}
         <div ref={previewRef} style={{ width: "100%", maxWidth: previewMode === "mobile" ? 375 : 720 }}>
           <div ref={paperZoomRef} className="editor-paper-zoom" style={{ transformOrigin: "top center", margin: "0 auto", width: "fit-content" }}>
-            {Array.from({ length: Math.max(1, pageEstimate) }).map((_, i) => (
+            {Array.from({ length: totalPages }).map((_, i) => (
               <div key={i} className={previewMode === "mobile" ? "a4-paper-mobile" : "a4-paper"} style={{ overflow: "hidden", position: "relative", marginBottom: "8px", ...(previewMode === "mobile" ? { height: "667px" } : {}) }}>
                 <div style={{ position: "absolute", top: previewMode === "mobile" ? `-${i * 667}px` : `-${i * 297}mm`, left: 0, right: 0 }}>
                   {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
                 </div>
               </div>
             ))}
+          </div>
+          {/* Medidor oculto: mide la altura real del CV a ancho A4 (794px) para
+              generar exactamente las hojas que necesita */}
+          <div ref={probeRef} aria-hidden="true" className="cv-measure-probe" style={{ position: "fixed", left: -9999, top: 0, width: 794, pointerEvents: "none", visibility: "hidden" }}>
+            {atsMode ? <ATSTemplate data={data} /> : <TemplateRenderer data={data} />}
           </div>
         </div>
       </main>
@@ -902,9 +967,12 @@ function EditorInner() {
           overflow: hidden;
         }
         @media print {
+          @page { size: A4; margin: 0; }
           body * { visibility: hidden !important; }
           .editor-root { height: auto !important; overflow: visible !important; }
-          .editor-paper-zoom { zoom: 1 !important; }
+          .editor-nav, .editor-aside, .editor-toolbar, .cv-measure-probe { display: none !important; }
+          .editor-main { height: auto !important; overflow: visible !important; padding: 0 !important; display: block !important; }
+          .editor-paper-zoom { zoom: 1 !important; display: block !important; margin: 0 !important; }
           .a4-paper, .a4-paper-mobile, .a4-paper *, .a4-paper-mobile * { visibility: visible !important; }
           .a4-paper, .a4-paper-mobile {
             position: static !important;
@@ -917,6 +985,8 @@ function EditorInner() {
             margin: 0;
             padding: 0;
             page-break-after: always;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
           .a4-paper:last-child {
             page-break-after: auto;

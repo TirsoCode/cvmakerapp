@@ -27,7 +27,7 @@ export default function ModernTemplate({ data, style }: Props) {
             {personal.location && <span>{personal.location}</span>}
             {personal.linkedin && <span>{personal.linkedin}</span>}
             {personal.github && <span>{personal.github}</span>}
-            {personal.portfolio && <span>{personal.portfolio}</span>}
+            {(personal.website || personal.portfolio) && <span>{personal.website || personal.portfolio}</span>}
           </div>
         </div>
         {<PhotoBadge data={data} size={72} />}
@@ -36,7 +36,7 @@ export default function ModernTemplate({ data, style }: Props) {
       {/* Body */}
       <div style={{ padding: "36px 52px" }}>
         {/* Summary */}
-        {summary && (
+        {data.settings.sections.summary && summary && (
           <section style={{ marginBottom: 30 }}>
             <p style={{ fontSize: 13, lineHeight: 1.75, color: "#4A4843", margin: 0, borderLeft: `4px solid ${accentColor}`, paddingLeft: 16 }}>
               {summary}
@@ -45,7 +45,7 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Experience */}
-        {experience.length > 0 && (
+        {data.settings.sections.experience && experience.length > 0 && (
           <section style={{ marginBottom: 30 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 20, height: 2, background: accentColor }} />
@@ -70,7 +70,7 @@ export default function ModernTemplate({ data, style }: Props) {
 
         {/* Education + Skills in 2 columns */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 40px" }}>
-          {education.length > 0 && (
+          {data.settings.sections.education && education.length > 0 && (
             <section style={{ marginBottom: 24 }}>
               <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
@@ -88,7 +88,7 @@ export default function ModernTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {skills.length > 0 && (
+          {data.settings.sections.skills && skills.length > 0 && (
             <section style={{ marginBottom: 24 }}>
               <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
@@ -99,7 +99,7 @@ export default function ModernTemplate({ data, style }: Props) {
                   <span style={{ fontSize: 10, fontWeight: 700, color: "#6B6860", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                     {cat.category}
                   </span>
-                  <p style={{ fontSize: 11, color: "#4A4843", margin: "2px 0 0", lineHeight: 1.5 }}>{cat.items.join(", ")}</p>
+                  <p style={{ fontSize: 11, color: "#4A4843", margin: "2px 0 0", lineHeight: 1.5 }}>{cat.items.filter(Boolean).join(", ")}</p>
                 </div>
               ))}
             </section>
@@ -107,7 +107,7 @@ export default function ModernTemplate({ data, style }: Props) {
         </div>
 
         {/* Languages */}
-        {languages.length > 0 && (
+        {data.settings.sections.languages && languages.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 12px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
@@ -125,7 +125,7 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Projects */}
-        {projects.length > 0 && (
+        {data.settings.sections.projects && projects.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
@@ -142,11 +142,11 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Certifications */}
-        {certifications.length > 0 && (
+        {data.settings.sections.certifications && certifications.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
-              Certifications
+              Certificaciones
             </h2>
             {certifications.map((item) => (
               <div key={item.id} style={{ marginBottom: 10 }}>
@@ -158,11 +158,11 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Awards */}
-        {awards.length > 0 && (
+        {data.settings.sections.awards && awards.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
-              Awards
+              Premios
             </h2>
             {awards.map((item) => (
               <div key={item.id} style={{ marginBottom: 10 }}>
@@ -174,11 +174,11 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Licenses */}
-        {licenses.length > 0 && (
+        {data.settings.sections.licenses && licenses.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
-              Licenses
+              Licencias
             </h2>
             {licenses.map((item) => (
               <div key={item.id} style={{ marginBottom: 10 }}>
@@ -190,11 +190,11 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* References */}
-        {references.length > 0 && (
+        {data.settings.sections.references && references.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
-              References
+              Referencias
             </h2>
             {references.map((item) => (
               <div key={item.id} style={{ marginBottom: 10 }}>
@@ -207,11 +207,11 @@ export default function ModernTemplate({ data, style }: Props) {
         )}
 
         {/* Affiliations */}
-        {affiliations.length > 0 && (
+        {data.settings.sections.affiliations && affiliations.length > 0 && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9C9890", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ display: "block", width: 16, height: 2, background: accentColor }} />
-              Affiliations
+              Afiliaciones
             </h2>
             {affiliations.map((item) => (
               <div key={item.id} style={{ marginBottom: 10 }}>

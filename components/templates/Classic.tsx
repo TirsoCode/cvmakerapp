@@ -37,12 +37,12 @@ export default function ClassicTemplate({ data, style }: Props) {
           {personal.location && <span>{personal.location}</span>}
           {personal.linkedin && <span>{personal.linkedin}</span>}
           {personal.github && <span>{personal.github}</span>}
-          {personal.portfolio && <span>{personal.portfolio}</span>}
+          {(personal.website || personal.portfolio) && <span>{personal.website || personal.portfolio}</span>}
         </div>
       </header>
 
       {/* Summary */}
-      {summary && (
+      {data.settings.sections.summary && summary && (
         <section style={{ marginBottom: 24 }}>
           <SectionTitle>Perfil Profesional</SectionTitle>
           <p style={{ fontSize: 12, lineHeight: 1.75, color: "#4A4843", margin: 0, textAlign: "justify" }}>{summary}</p>
@@ -50,7 +50,7 @@ export default function ClassicTemplate({ data, style }: Props) {
       )}
 
       {/* Experience */}
-      {experience.length > 0 && (
+      {data.settings.sections.experience && experience.length > 0 && (
         <section style={{ marginBottom: 24 }}>
           <SectionTitle>Experiencia Profesional</SectionTitle>
           {experience.map((item) => (
@@ -71,7 +71,7 @@ export default function ClassicTemplate({ data, style }: Props) {
       )}
 
       {/* Education */}
-      {education.length > 0 && (
+      {data.settings.sections.education && education.length > 0 && (
         <section style={{ marginBottom: 24 }}>
           <SectionTitle>Formación Académica</SectionTitle>
           {education.map((item) => (
@@ -91,7 +91,7 @@ export default function ClassicTemplate({ data, style }: Props) {
       {/* Two columns at bottom */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
         {/* Skills */}
-        {skills.length > 0 && (
+        {data.settings.sections.skills && skills.length > 0 && (
           <section>
             <SectionTitle>Habilidades</SectionTitle>
             {skills.map((cat) => (
@@ -99,7 +99,7 @@ export default function ClassicTemplate({ data, style }: Props) {
                 <p style={{ fontSize: 10, fontWeight: 700, color: "#6B6860", margin: "0 0 3px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                   {cat.category}
                 </p>
-                <p style={{ fontSize: 11, color: "#4A4843", margin: 0, lineHeight: 1.5 }}>{cat.items.join(", ")}</p>
+                <p style={{ fontSize: 11, color: "#4A4843", margin: 0, lineHeight: 1.5 }}>{cat.items.filter(Boolean).join(", ")}</p>
               </div>
             ))}
           </section>
@@ -107,7 +107,7 @@ export default function ClassicTemplate({ data, style }: Props) {
 
         {/* Languages + Projects */}
         <div>
-          {languages.length > 0 && (
+          {data.settings.sections.languages && languages.length > 0 && (
             <section style={{ marginBottom: 20 }}>
               <SectionTitle>Idiomas</SectionTitle>
               {languages.map((l) => (
@@ -119,7 +119,7 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {projects.length > 0 && (
+          {data.settings.sections.projects && projects.length > 0 && (
             <section style={{ marginBottom: 20 }}>
               <SectionTitle>Proyectos</SectionTitle>
               {projects.map((p) => (
@@ -132,9 +132,9 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {certifications.length > 0 && (
+          {data.settings.sections.certifications && certifications.length > 0 && (
             <section style={{ marginBottom: 20 }}>
-              <SectionTitle>Certifications</SectionTitle>
+              <SectionTitle>Certificaciones</SectionTitle>
               {certifications.map((item) => (
                 <div key={item.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
@@ -144,9 +144,9 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {awards.length > 0 && (
+          {data.settings.sections.awards && awards.length > 0 && (
             <section style={{ marginBottom: 20 }}>
-              <SectionTitle>Awards</SectionTitle>
+              <SectionTitle>Premios</SectionTitle>
               {awards.map((item) => (
                 <div key={item.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
@@ -156,9 +156,9 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {licenses.length > 0 && (
+          {data.settings.sections.licenses && licenses.length > 0 && (
             <section style={{ marginBottom: 20 }}>
-              <SectionTitle>Licenses</SectionTitle>
+              <SectionTitle>Licencias</SectionTitle>
               {licenses.map((item) => (
                 <div key={item.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
@@ -168,9 +168,9 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {references.length > 0 && (
+          {data.settings.sections.references && references.length > 0 && (
             <section style={{ marginBottom: 20 }}>
-              <SectionTitle>References</SectionTitle>
+              <SectionTitle>Referencias</SectionTitle>
               {references.map((item) => (
                 <div key={item.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.name}</h3>
@@ -181,9 +181,9 @@ export default function ClassicTemplate({ data, style }: Props) {
             </section>
           )}
 
-          {affiliations.length > 0 && (
+          {data.settings.sections.affiliations && affiliations.length > 0 && (
             <section style={{ marginBottom: 20 }}>
-              <SectionTitle>Affiliations</SectionTitle>
+              <SectionTitle>Afiliaciones</SectionTitle>
               {affiliations.map((item) => (
                 <div key={item.id} style={{ marginBottom: 8 }}>
                   <h3 style={{ fontSize: 11, fontWeight: 700, margin: "0 0 1px", color: "#1A1918" }}>{item.organization}</h3>

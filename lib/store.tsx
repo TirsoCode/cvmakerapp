@@ -153,6 +153,13 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       setCvList(migrated);
       setCurrentCvId(migrated[0].id);
       setData(migrated[0].data);
+    } else if (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("cv")) {
+      // Hay un CV compartido en la URL (?cv=...): el editor se encarga de
+      // importarlo (createNewCv). Si creáramos aquí el CV por defecto, el
+      // efecto de importación del editor (que corre antes, por ser un hijo)
+      // quedaría pisado y el enlace compartido mostraría siempre el CV inicial.
+      initialized.current = true;
+      return;
     } else {
       const id = uid();
       const entry: CVEntry = { id, name: "Mi CV", updatedAt: Date.now(), data: DEFAULT_RESUME };

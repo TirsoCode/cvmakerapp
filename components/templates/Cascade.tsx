@@ -36,7 +36,7 @@ export default function CascadeTemplate({ data }: Props) {
           {personal.location && <span>{personal.location}</span>}
           {personal.linkedin && <span>{personal.linkedin}</span>}
           {personal.github && <span>{personal.github}</span>}
-          {personal.portfolio && <span>{personal.portfolio}</span>}
+          {(personal.website || personal.portfolio) && <span>{personal.website || personal.portfolio}</span>}
         </div>
       </div>
       <div style={{ padding: p3248 }}>
@@ -71,7 +71,7 @@ export default function CascadeTemplate({ data }: Props) {
         {data.settings.sections.skills && skills.length > 0 && <section style={{ marginBottom: p26 }}>
           <div style={{ width: p40, height: p3, background: accentColor, borderRadius: 2, marginBottom: p12 }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: `0px ${p24}` }}>
-            {skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#6B6860", textTransform: "uppercase", letterSpacing: "0.06em" }}>{cat.category}</span><p style={{ fontSize: 11*s, color: "#4A4843", margin: `${3*s}px 0 0`, lineHeight: 1.5 }}>{cat.items.join(", ")}</p></div>)}
+            {skills.map((cat) => <div key={cat.id} style={{ marginBottom: p8 }}><span style={{ fontSize: 10*s, fontWeight: 700, color: "#6B6860", textTransform: "uppercase", letterSpacing: "0.06em" }}>{cat.category}</span><p style={{ fontSize: 11*s, color: "#4A4843", margin: `${3*s}px 0 0`, lineHeight: 1.5 }}>{cat.items.filter(Boolean).join(", ")}</p></div>)}
           </div>
         </section>}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: `0px ${p32}` }}>
