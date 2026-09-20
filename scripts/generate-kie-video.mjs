@@ -42,7 +42,7 @@ const SCENES = [
   {
     prompt:
       "Vertical timelapse of a white A4 resume page filling itself with text, colored section headers and skill progress bars in corporate red on clean light background, elegant minimal design, bright studio lighting, smooth motion, no text on screen",
-    text: "20 plantillas premium · PDF · Markdown",
+    text: "20 plantillas premium · exporta a PDF",
     tone: "#18181B",
   },
   {
@@ -148,7 +148,7 @@ function esc(s) {
 
 description=Crea tu currículum en minutos con CVMakerApp.
 
-20 plantillas premium · Exporta a PDF y Markdown · Sin registro.
+20 plantillas premium · Exporta a PDF · Sin registro.
 
 👉 https://cvmakerapp.vercel.app
 

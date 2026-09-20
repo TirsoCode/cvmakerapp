@@ -18,7 +18,7 @@ Haz push a GitHub y conecta el repo a Vercel.
 ## Features
 
 - 20 plantillas premium
-- Exporta a PDF y Markdown
+- Exporta a PDF
 - Personalización: colores, fuentes, espaciado
 - Sube tu foto de perfil
 - Sin registro, sin límite, datos solo en tu navegador

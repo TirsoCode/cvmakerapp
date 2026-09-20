@@ -73,7 +73,7 @@ async function uploadVideo(accessToken, filePath, meta) {
     title: meta.title || `CVMakerApp · Nuevo CV profesional (${dateStr})`,
     description:
       meta.description ||
-      "Crea tu currículum profesional en minutos.\n\n20 plantillas premium · Exporta a PDF y Markdown · Sin registro.\n\n👉 https://cvmakerapp.vercel.app\n\n#CV #Curriculum #Empleo #Trabajo",
+      "Crea tu currículum profesional en minutos.\n\n20 plantillas premium · Exporta a PDF · Sin registro.\n\n👉 https://cvmakerapp.vercel.app\n\n#CV #Curriculum #Empleo #Trabajo",
     tags: meta.tags.length ? meta.tags : ["CV", "Curriculo", "Plantillas", "Empleo", "Trabajo"],
     categoryId: "25",
   };

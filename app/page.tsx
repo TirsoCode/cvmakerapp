@@ -158,7 +158,7 @@ export default function Home() {
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 24 }}>
            {[
             { n: "12", label: "secciones editables", accent: "#2563EB" },
-            { n: "2", label: "formatos: PDF y Markdown", accent: "#7C3AED" },
+            { n: "1", label: "formato de exportación: PDF", accent: "#7C3AED" },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
               <div style={{ fontSize: 44, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif", letterSpacing: "-0.03em", lineHeight: 1 }}>
@@ -190,7 +190,7 @@ export default function Home() {
             {[
                { step: "01", title: "Elige tu CV", desc: "Diseños únicos para cada sector y estilo: minimalista, corporativo, creativo." },
               { step: "02", title: "Rellena tus datos", desc: "Experiencia, educación, habilidades, idiomas y proyectos, con vista previa en vivo." },
-              { step: "03", title: "Descarga y envíalo", desc: "Exporta a PDF sin marca de agua, o a Markdown para Notion o GitHub." },
+              { step: "03", title: "Descarga y envíalo", desc: "Exporta a PDF en formato A4, sin marca de agua, listo para enviar." },
             ].map((item) => (
               <div key={item.step} style={{ textAlign: "center" }}>
                 <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#fff", border: "1px solid #E4E2DC", boxShadow: "0 2px 8px rgba(0,0,0,0.05)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", position: "relative", zIndex: 2 }}>
@@ -335,7 +335,7 @@ const FAQ = [
   { q: "¿Necesito registrarme?", a: "No. Abre la web, escribe y descarga. No pedimos email ni contraseña ni permiso para nada." },
   { q: "¿Cuánto cuesta?", a: "Nada. La herramienta es gratis, sin planes ocultos y sin marca de agua en el PDF." },
   { q: "¿Dónde se guardan mis datos?", a: "Solo en tu navegador. Nada se sube a ningún servidor, así que tu CV no puede acabar en manos de nadie." },
-  { q: "¿Puedo exportar mi CV en PDF?", a: "Sí, con un clic obtienes un PDF A4 listo para enviar. También puedes exportar a Markdown o imprimir directamente." },
+  { q: "¿Puedo exportar mi CV en PDF?", a: "Sí, con un clic obtienes un PDF A4 listo para enviar. También puedes imprimir directamente." },
   { q: "¿Puedo compartir mi CV?", a: "Sí. Generas un enlace corto con tu CV comprimido; quien lo abra podrá verlo y descargarlo sin registrarse." },
 ];
 

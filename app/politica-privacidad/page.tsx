@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
           {[
             {
               title: "Responsable del tratamiento",
-              content: "CVMakerApp (en adelante, \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación de archivos PDF y Markdown exportados por el propio usuario."
+              content: "CVMakerApp (en adelante, \"sitio\") no recopila ningún dato personal de los usuarios. Este sitio funciona íntegramente en el navegador del usuario y no envía información a ningún servidor externo, excepto para la generación del archivo PDF exportado por el propio usuario."
             },
             {
               title: "Datos que no recopilamos",
@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
             },
             {
               title: "Exportación de datos",
-              content: "Cuando exportas tu CV a PDF o Markdown, el procesamiento se realiza localmente en tu dispositivo. Los archivos generados son descargados directamente por ti y no se almacenan en nuestros servidores."
+              content: "Cuando exportas tu CV a PDF, el procesamiento se realiza localmente en tu dispositivo. Los archivos generados son descargados directamente por ti y no se almacenan en nuestros servidores."
             },
             {
               title: "Tus derechos",

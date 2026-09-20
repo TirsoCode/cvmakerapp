@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     default: "CVMakerApp — Crea currículums profesionales en minutos",
     template: "%s",
   },
-  description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF y Markdown.",
+  description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
   applicationName: "CVMakerApp",
   keywords: ["currículum", "CV", "crear CV gratis", "PDF"],
   robots: {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "CVMakerApp — Crea currículums profesionales en minutos",
-    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF y Markdown.",
+    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
     type: "website",
     locale: "es_ES",
     siteName: "CVMakerApp",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "CVMakerApp — Crea currículums profesionales en minutos",
-    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF y Markdown.",
+    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
     images: ["/logo.png"],
   },
   icons: {

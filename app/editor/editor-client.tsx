@@ -2,8 +2,8 @@
 import { useRef, useCallback, useState, useEffect } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
-  TEMPLATES, FONT_PAIRINGS, SECTION_LABELS, DEFAULT_SECTION_ORDER,
-  type SectionKey, type FontPairing, type ResumeData,
+  TEMPLATES, FONT_PAIRINGS, SECTION_LABELS,
+  type FontPairing, type ResumeData,
 } from "@/lib/types";
 
 import SectionAccordion from "@/components/ui/SectionAccordion";
@@ -380,164 +380,41 @@ function EditorInner() {
       const prevZoom = zoomEl?.style.zoom;
       if (zoomEl) zoomEl.style.zoom = "1";
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(null))));
-      const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false });
-      if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
-      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-      const pageHeightPx = Math.round((canvas.height * pdfWidth) / canvas.width);
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, imgHeight);
-      let heightLeft = canvas.height - pageHeightPx;
-      let position = 0;
-      while (heightLeft > 0) {
-        position -= pageHeightPx;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
-        heightLeft -= pageHeightPx;
+      // Se captura cada hoja A4 por separado: evita que los márgenes entre
+      // hojas y el zoom del preview desalineen las páginas del PDF.
+      const papers = Array.from(element.querySelectorAll<HTMLElement>(".a4-paper, .a4-paper-mobile"));
+      const targets = papers.length > 0 ? papers : [element];
+      for (let i = 0; i < targets.length; i++) {
+        const canvas = await html2canvas(targets[i], { scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false });
+        if (i > 0) pdf.addPage();
+        const imgData = canvas.toDataURL("image/png");
+        const pxPerMm = canvas.width / pdfWidth;
+        const imgHeightMm = canvas.height / pxPerMm;
+        // Alto de UNA página A4 expresado en píxeles del canvas. Antes se usaba
+        // el alto total de la imagen, lo que cortaba el contenido a partir de la
+        // página 2 del PDF.
+        const pageHeightPx = Math.round(pdfHeight * pxPerMm);
+        let offsetPx = 0;
+        let firstSlice = true;
+        while (firstSlice || offsetPx + pageHeightPx < canvas.height - 1) {
+          if (!firstSlice) pdf.addPage();
+          firstSlice = false;
+          pdf.addImage(imgData, "PNG", 0, -(offsetPx / pxPerMm), pdfWidth, imgHeightMm);
+          offsetPx += pageHeightPx;
+        }
       }
+      if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
       const name = data.personal.name?.replace(/\s+/g, "_") || "cv";
       pdf.save(`${name}_cv.pdf`);
     } finally {
       setIsExporting(false);
+      if (paperZoomRef.current) paperZoomRef.current.style.zoom = String(zoom);
     }
-  }, [data]);
+  }, [data, zoom]);
 
-  const handleExportMd = useCallback(() => {
-    const { personal, summary } = data;
-    const exp = data.experience || [];
-    const edu = data.education || [];
-    const skills = data.skills || [];
-    const langs = data.languages || [];
-    const projs = data.projects || [];
-    const certs = data.certifications || [];
-    const awards = data.awards || [];
-    const lic = data.licenses || [];
-    const refs = data.references || [];
-    const affs = data.affiliations || [];
-
-    let md = `# ${personal.name || "Mi CV"}\n\n`;
-    if (personal.title) md += `${personal.title}\n\n`;
-    const contact = [personal.email, personal.phone, personal.location].filter(Boolean).join(" · ");
-    const links = [personal.linkedin, personal.github, personal.portfolio, personal.website].filter(Boolean).join(" · ");
-    if (contact || links) {
-      if (contact) md += `${contact}\n`;
-      if (links) md += `${links}\n`;
-      md += "\n";
-    }
-
-    const sectionMarkdown: Partial<Record<SectionKey, string>> = {};
-
-    if (summary?.trim()) sectionMarkdown.summary = `## Resumen\n\n${summary.trim()}`;
-
-    if (exp.length) {
-      sectionMarkdown.experience = "## Experiencia\n\n" + exp.map((e) => {
-        const head = [e.position, e.company].filter(Boolean).join(" — ") || "Puesto";
-        const dates = [e.startDate, e.endDate].filter(Boolean).join(" — ");
-        return `### ${head}\n${dates ? `${dates}\n` : ""}${e.description?.trim() ? `\n${e.description.trim()}` : ""}`.trim();
-      }).join("\n\n");
-    }
-
-    if (edu.length) {
-      sectionMarkdown.education = "## Educación\n\n" + edu.map((e) => {
-        const head = e.degree || "Formación";
-        const meta = [e.institution, [e.startDate, e.endDate].filter(Boolean).join(" — ")].filter(Boolean).join(" · ");
-        return `### ${head}\n${meta}`.trim();
-      }).join("\n\n");
-    }
-
-    if (skills.length) {
-      sectionMarkdown.skills = "## Habilidades\n\n" + skills.map((s) => {
-        const name = s.category || "Habilidades";
-        return s.items?.length ? `- **${name}:** ${s.items.join(", ")}` : `- ${name}`;
-      }).join("\n");
-    }
-
-    if (langs.length) {
-      sectionMarkdown.languages = "## Idiomas\n\n" + langs.map((l) =>
-        [`- ${l.language}`, l.level].filter(Boolean).join(" — ")
-      ).join("\n");
-    }
-
-    if (projs.length) {
-      sectionMarkdown.projects = "## Proyectos\n\n" + projs.map((p) => {
-        const lines = [`### ${p.name || "Proyecto"}`];
-        if (p.description?.trim()) lines.push(p.description.trim());
-        if (p.url?.trim()) lines.push(`Link: ${p.url.trim()}`);
-        return lines.join("\n");
-      }).join("\n\n");
-    }
-
-    if (certs.length) {
-      sectionMarkdown.certifications = "## Certificaciones\n\n" + certs.map((c) => {
-        const parts = [`- **${c.name || "Certificación"}**`];
-        if (c.issuer) parts.push(c.issuer);
-        if (c.date) parts.push(`(${c.date})`);
-        return parts.join(" — ");
-      }).join("\n");
-    }
-
-    if (awards.length) {
-      sectionMarkdown.awards = "## Premios y Honores\n\n" + awards.map((a) => {
-        const parts = [`- **${a.name || "Premio"}**`];
-        if (a.issuer) parts.push(a.issuer);
-        if (a.date) parts.push(`(${a.date})`);
-        return parts.join(" — ");
-      }).join("\n");
-    }
-
-    if (lic.length) {
-      sectionMarkdown.licenses = "## Licencias y Carnets\n\n" + lic.map((l) => {
-        const parts = [`- **${l.name || "Licencia"}**`];
-        if (l.issuer) parts.push(l.issuer);
-        if (l.licenseNumber) parts.push(`Nº ${l.licenseNumber}`);
-        if (l.date) parts.push(`(${l.date})`);
-        return parts.join(" — ");
-      }).join("\n");
-    }
-
-    if (refs.length) {
-      sectionMarkdown.references = "## Referencias\n\n" + refs.map((r) => {
-        const lines = [`**${r.name || "Referencia"}**${r.relationship ? ` — ${r.relationship}` : ""}${r.company ? `, ${r.company}` : ""}`];
-        if (r.email) lines.push(`Email: ${r.email}`);
-        if (r.phone) lines.push(`Teléfono: ${r.phone}`);
-        return lines.join("\n");
-      }).join("\n\n");
-    }
-
-    if (affs.length) {
-      sectionMarkdown.affiliations = "## Afiliaciones y Colegios\n\n" + affs.map((a) => {
-        const parts = [a.organization || "Afiliación"];
-        if (a.role) parts.push(a.role);
-        if (a.startDate) parts.push(a.startDate);
-        if (a.endDate) parts.push(`— ${a.endDate}`);
-        return `- ${parts.join(" · ")}`;
-      }).join("\n");
-    }
-
-    const order = data.settings.sectionOrder?.length ? data.settings.sectionOrder : DEFAULT_SECTION_ORDER;
-    for (const key of order) {
-      if (data.settings.sections?.[key] === false) continue;
-      const content = sectionMarkdown[key];
-      if (content) md += `${content}\n\n`;
-    }
-
-    if (customSections?.length) {
-      for (const cs of customSections) {
-        if (!cs.title && !cs.content) continue;
-        md += `## ${cs.title || "Sección"}\n\n${cs.content.trim()}\n\n`;
-      }
-    }
-
-    md = md.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim() + "\n";
-
-    const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = `${(personal.name || "mi_cv").replace(/[^\w\u00C0-\u024F]+/g, "_").replace(/^_+|_+$/g, "") || "mi_cv"}_cv.md`; a.click();
-    URL.revokeObjectURL(url);
-    setToast("Markdown generado correctamente");
-  }, [data, customSections]);
 
   const handlePrint = useCallback(() => { window.print(); }, []);
 
@@ -954,9 +831,6 @@ function EditorInner() {
             </button>
             <button onClick={handlePrint} className="boton-neobrutalista-sm" style={{ padding: "6px 12px", fontSize: 11 }} title="Imprimir">
               Imprimir
-            </button>
-            <button onClick={handleExportMd} className="boton-neobrutalista" style={{ padding: "6px 12px", fontSize: 11 }}>
-              MD
             </button>
             <button onClick={handleExportPDF} disabled={isExporting} className="boton-neobrutalista boton-neobrutalista-primario" style={{ padding: "6px 12px", fontSize: 11 }}>
               {isExporting ? "Exportando…" : "PDF"}

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "CVMakerApp",
     short_name: "CVMakerApp",
     description:
-      "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF y Markdown.",
+      "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
     start_url: "/",
     display: "standalone",
     background_color: "#FAFAF8",
