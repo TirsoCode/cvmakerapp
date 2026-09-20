@@ -28,7 +28,6 @@ interface ResumeContextValue {
   updateAffiliations: (affiliations: ResumeData["affiliations"]) => void;
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
-  updateFontPairing: (f: ResumeData["settings"]["fontPairing"]) => void;
   resetData: () => void;
   customSections: CustomSection[];
   addCustomSection: (title: string) => void;
@@ -238,10 +237,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, accentColor } }));
   }, []);
 
-  const updateFontPairing = useCallback((fontPairing: ResumeData["settings"]["fontPairing"]) => {
-    setData((d) => ({ ...d, settings: { ...d.settings, fontPairing } }));
-  }, []);
-
   const resetData = useCallback(() => {
     setData(DEFAULT_RESUME);
   }, []);
@@ -339,7 +334,7 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       data, updatePersonal, updateSummary, updateExperience, updateEducation,
       updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
       updateLicenses, updateReferences, updateAffiliations,
-      updateTemplate, updateAccentColor, updateFontPairing,
+      updateTemplate, updateAccentColor,
       resetData,
       customSections: data.customSections || [],
       addCustomSection, updateCustomSection, removeCustomSection,

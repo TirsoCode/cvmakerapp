@@ -3,7 +3,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
   TEMPLATES, FONT_PAIRINGS,
-  type FontPairing, type ResumeData, type SectionKey,
+  type ResumeData, type SectionKey,
 } from "@/lib/types";
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
 import { getOrderedSections } from "@/components/templates/helpers";
@@ -161,39 +161,6 @@ function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChan
   );
 }
 
-function FontPicker({ value, onChange }: { value: FontPairing; onChange: (v: FontPairing) => void }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
-      {FONT_PAIRINGS.map((fp) => {
-        const active = fp.id === value;
-        return (
-          <button
-            key={fp.id}
-            onClick={() => onChange(fp.id)}
-            title={fp.name}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  gap: 4,
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  background: "#FFFFFF",
-                  border: active ? "1.5px solid #1A1918" : "1px solid #E4E2DC",
-                  cursor: "pointer",
-                  transition: "all 150ms ease",
-                  boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
-                }}
-          >
-            <span style={{ fontFamily: fp.heading, fontSize: 14, fontWeight: 700, color: "#1A1918", lineHeight: 1.2 }}>{fp.name}</span>
-            <span style={{ fontSize: 10, color: active ? "#6B6860" : "#9C9890", fontFamily: fp.body, fontWeight: 500 }}>Aa Bb 123 — cuerpo</span>
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 /* Dashboard Component */
 function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
   const { cvList, currentCvId, selectCv, createNewCv, duplicateCv, deleteCv, renameCv } = useResume();
@@ -257,7 +224,7 @@ function EditorInner() {
     data, updatePersonal, updateSummary, updateExperience, updateEducation,
     updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
     updateLicenses, updateReferences, updateAffiliations,
-    updateTemplate, updateAccentColor, updateFontPairing,
+    updateTemplate, updateAccentColor,
     resetData,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
     cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
@@ -854,10 +821,6 @@ function EditorInner() {
                   }} />
                 ))}
               </div>
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Fuente</label>
-              <FontPicker value={data.settings.fontPairing} onChange={updateFontPairing} />
             </div>
           </SectionAccordion>
         </div>
