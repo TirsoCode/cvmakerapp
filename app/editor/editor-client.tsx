@@ -475,7 +475,19 @@ function EditorInner() {
   }, [data, zoom, previewMode, atsMode]);
 
 
-  const handlePrint = useCallback(() => { window.print(); }, []);
+  const handlePrint = useCallback(() => {
+    // Imprimir desde Móvil o ATS desalineaba las páginas (offset de 667px
+    // frente a hojas A4) o imprimía una página en blanco (ATS no usa .a4-paper).
+    const wasMobile = previewMode === "mobile";
+    const wasAts = atsMode;
+    if (wasMobile) setPreviewMode("desktop");
+    if (wasAts) setAtsMode(false);
+    setTimeout(() => {
+      window.print();
+      if (wasMobile) setPreviewMode("mobile");
+      if (wasAts) setAtsMode(true);
+    }, 150);
+  }, [previewMode, atsMode]);
 
   const copyText = useCallback(async (text: string) => {
     try {

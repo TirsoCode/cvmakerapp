@@ -92,7 +92,7 @@ export default function Home() {
       {/* Header */}
       <header style={{ borderBottom: "1px solid #E4E2DC", background: "#fff", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
               CVMakerApp
             </span>
