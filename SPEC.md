@@ -4,7 +4,7 @@
 
 Generador de CVs profesional 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwind). Escribes en el panel izquierdo y ves tu CV renderizado en tiempo real a la derecha. Sin registro, sin backend, sin tracking: los datos no salen nunca del navegador.
 
-**Persistencia:** por diseño la app **no persiste** los datos; al recargar se reinicia al estado por defecto. Para conservar un CV se usa el botón **Compartir**, que empaqueta el JSON (`lz-string`) en un `?cv=` de la URL. Esto es intencional, no un bug.
+**Persistencia:** por diseño la app **no persiste** los datos; al recargar se reinicia al estado por defecto. Para conservar un CV se usa el botón **Compartir**, que compacta el JSON (claves de una letra, campos vacíos fuera; ver `lib/share.ts`) y lo comprime con `lz-string` en un `?cv=` de la URL. Todo ocurre en el navegador. Esto es intencional, no un bug.
 
 Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF), con estética editorial minimalista.
 
@@ -88,9 +88,9 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 1. **Live preview** — cada keystroke actualiza el preview al instante
 2. **20 plantillas** — `minimal, editorial, modern, classic, prussian, cascade, artisan, glacier, ember, obsidian, ivory, cedar, slate, sand, plum, meridian, carbon, aurora, versa, opus`
 3. **Plantillas** — 20 diseños con accent propio; el modelo permite accent color, pares tipográficos y espaciados (definidos en `FONT_PAIRINGS`/`SPACING_MAP`), sin UI expuesta por ahora
-4. **Export PDF** — `html2canvas` + `jsPDF` (CDN en runtime), paginación real en multipágina
+4. **Export PDF** — `html2canvas` + `jsPDF` empaquetados en el bundle (sin CDN, import dinámico), paginación real en multipágina
 5. **Vista ATS** — texto plano legible por sistemas de seguimiento de candidatos; desde ATS también se puede exportar PDF
-6. **Compartir por URL** — `?cv=<JSON comprimido con lz-string>`, descomprimido en server y client
+6. **Compartir por URL** — `?cv=<JSON compactado y comprimido con lz-string>` (100 % cliente, en `lib/share.ts`); los enlaces antiguos con JSON completo se siguen leyendo
 7. **Multi-CV** — crear, duplicar, renombrar, eliminar y seleccionar CVs (en memoria)
 8. **Validación** — errores y advertencias por campo; al importar un CV por URL se mergea la visibilidad/orden de secciones
 9. **Visibilidad/orden de secciones** — viven en el modelo (`settings.sections.X` gatea cada sección en las plantillas; `sectionOrder` se usa en la vista ATS) y se mergean al importar un CV por URL; sin UI propia en el editor
@@ -137,13 +137,14 @@ interface ResumeData {
 ## Arquitectura
 
 - `app/page.tsx` — Landing (client, estilos inline)
-- `app/editor/page.tsx` — Wrapper server: metadata dinámica + descompresión de `?cv=` para SEO
+- `app/editor/page.tsx` — Wrapper con metadata **estática** (build 100 % estático): la pestaña del navegador se personaliza en cliente al importar `?cv=`; si se vuelve a un deploy con servidor, restaurar `generateMetadata(searchParams)`
 - `app/editor/editor-client.tsx` — Todo el editor en un único archivo client (formulario, preview, toolbar, modales de share y ATS)
 - `app/globals.css` — Estilos globales: botones neobrutalistas, editor, media queries responsive (<860px)
 - `components/templates/` — 20 componentes de plantilla + `helpers.tsx` (fuentes, orden de secciones, secciones personalizadas)
 - `components/ui/` — FormField, SectionAccordion
 - `lib/store.tsx` — Contexto React (`ResumeProvider`/`useResume`) + gestión multi-CV. `loadCVs()` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es no-op (sin persistencia, por diseño)
 - `lib/types.ts` — Tipos, `DEFAULT_RESUME`, `TEMPLATES`, `FONT_PAIRINGS`, `SPACING_MAP`
+- `lib/share.ts` — Empaquetado compacto de `?cv=` (`packCV`/`unpackCV`, compat legacy); tests en `lib/share.test.ts` (`npm test`)
 
 **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el mapa `TEMPLATE_COMPONENTS` (con `TemplateRenderer`) en `editor-client.tsx`.
 
@@ -153,22 +154,24 @@ interface ResumeData {
 
 1. El preview del CV tiene un `ref`
 2. Al exportar: `html2canvas(ref.current, { scale: 2 })` → canvas → `canvas.toDataURL('image/png')` → `jsPDF` → descarga
-3. `html2canvas` + `jsPDF` se cargan desde CDN en runtime (no en `package.json`)
+3. `html2canvas` + `jsPDF` están en `package.json` (deps npm) y se importan dinámicamente en `handleExportPDF` — sin CDN, sin servidor externo
 4. Soporta multipágina con paginación real
 
 ---
 
 ## Deploy
 
-- **Producción:** Vercel → `https://cvmakerapp.vercel.app` (connector de Next.js)
-- No se requieren variables de entorno: app 100 % estática en runtime
+- **Build:** `next build` genera `out/` **100 % estático** (`output: "export"` en `next.config.mjs`, imágenes sin optimizar) → alojable en cualquier hosting estático.
+- **Producción:** Vercel → `https://cvmakerapp.vercel.app` (sirve el export estático).
+- Sin variables de entorno; cero servidor Node en runtime: todo ocurre en el navegador.
 
 ---
 
 ## Criterios de éxito
 
 - [ ] `npm run typecheck` pasa sin errores (`tsc --noEmit`)
-- [ ] `npm run build` termina con EXIT 0
+- [ ] `npm run test` pasa (tests de `lib/share.ts`)
+- [ ] `npm run build` termina con EXIT 0 y genera el export estático en `out/`
 - [ ] Las 20 plantillas renderizan correctamente
 - [ ] Live preview actualiza por keystroke sin fricción
 - [ ] Export PDF genera archivo legible, bien formateado y multipágina

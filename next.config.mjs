@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
+// Build 100 % estático (output: "export"): genera HTML/CSS/JS puros en out/,
+// sin servidor Node ni funciones serverless. Las imágenes se sirven tal cual
+// desde /public (unoptimized) porque no existe el optimizador de imágenes.
 const nextConfig = {
+  output: "export",
   images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    minimumCacheTTL: 31536000,
+    unoptimized: true,
   },
   compress: true,
   poweredByHeader: false,

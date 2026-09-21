@@ -1,48 +1,31 @@
 import type { Metadata } from "next";
-import { decompressFromEncodedURIComponent } from "lz-string";
 import EditorClient from "./editor-client";
 
-interface EditorPageProps {
-  searchParams: { cv?: string };
-}
-
-export async function generateMetadata({ searchParams }: EditorPageProps): Promise<Metadata> {
-  let name = "";
-  try {
-    const encoded = searchParams?.cv || "";
-    let json = "";
-    try {
-      json = decompressFromEncodedURIComponent(encoded) || "";
-    } catch {
-      // enlace antiguo sin comprimir
-    }
-    if (!json) json = decodeURIComponent(encoded);
-    const parsed = JSON.parse(json);
-    if (parsed?.personal?.name) name = String(parsed.personal.name);
-  } catch {
-    // shared payload vacío o inválido
-  }
-  const title = name ? `${name} — CV en CVMakerApp` : "CVMakerApp — Comparte tu currículum";
-  const description = name
-    ? `Mira el currículum de ${name}, creado con CVMakerApp.`
-    : "Crea currículums profesionales en minutos. Sin registro, sin límite.";
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      images: [{ url: "/logo.png", width: 512, height: 512, alt: "CVMakerApp" }],
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description,
-      images: ["/logo.png"],
-    },
-  };
-}
+// Con output: "export" la metadata se calcula en build (no hay servidor por
+// petición), así que no se lee ?cv= aquí. La pestaña del navegador se
+// personaliza en el cliente (editor-client.tsx) al importar un CV compartido;
+// los crawlers ven la vista genérica. Si algún día se vuelve a un deploy con
+// servidor, reutilizar unpackCV(searchParams.cv) en generateMetadata.
+export const metadata: Metadata = {
+  title: "Editor de CV — CVMakerApp",
+  description:
+    "Crea y personaliza tu currículum gratis: 20 plantillas, exporta a PDF y compártelo con un enlace. Sin registro.",
+  openGraph: {
+    title: "CVMakerApp — Edita tu currículum",
+    description:
+      "Crea y personaliza tu currículum gratis: 20 plantillas, exporta a PDF y compártelo con un enlace. Sin registro.",
+    type: "website",
+    locale: "es_ES",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "CVMakerApp" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "CVMakerApp — Edita tu currículum",
+    description:
+      "Crea y personaliza tu currículum gratis: 20 plantillas, exporta a PDF y compártelo con un enlace.",
+    images: ["/logo.png"],
+  },
+};
 
 export default function EditorPage() {
   return <EditorClient />;

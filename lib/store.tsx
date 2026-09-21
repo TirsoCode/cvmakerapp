@@ -1,10 +1,10 @@
 "use client";
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
-import { decompressFromEncodedURIComponent } from "lz-string";
 import {
   type ResumeData, DEFAULT_RESUME, type TemplateId, type CustomSection,
   type SectionKey, type ValidationIssue, type ValidationSeverity,
 } from "./types";
+import { unpackCV } from "./share";
 
 export interface CVEntry {
   id: string;
@@ -163,26 +163,21 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       const encoded = params.get("cv");
       let imported = false;
       if (encoded) {
-        try {
-          const json = decompressFromEncodedURIComponent(encoded) || decodeURIComponent(encoded);
-          const parsed = JSON.parse(json) as ResumeData;
-          if (parsed && parsed.personal && parsed.settings) {
-            const migrated = migrateData(parsed);
-            const id = uid();
-            const entry: CVEntry = {
-              id,
-              name: migrated.personal.name ? `CV de ${migrated.personal.name}` : "CV compartido",
-              updatedAt: Date.now(),
-              data: migrated,
-            };
-            setCvList([entry]);
-            setCurrentCvId(id);
-            setData(migrated);
-            imported = true;
-          }
-        } catch {
-          // Payload corrupto o truncado: el editor muestra el aviso y aquí se
-          // cae al CV por defecto para que la app quede usable.
+        // unpackCV normaliza tanto los enlaces nuevos (formato compacto) como
+        // los antiguos (JSON completo) y rellena los valores por defecto.
+        const importedData = unpackCV(encoded);
+        if (importedData) {
+          const id = uid();
+          const entry: CVEntry = {
+            id,
+            name: importedData.personal.name ? `CV de ${importedData.personal.name}` : "CV compartido",
+            updatedAt: Date.now(),
+            data: importedData,
+          };
+          setCvList([entry]);
+          setCurrentCvId(id);
+          setData(importedData);
+          imported = true;
         }
       }
       if (!imported) {

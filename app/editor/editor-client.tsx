@@ -5,7 +5,7 @@ import {
   TEMPLATES, FONT_PAIRINGS, DEFAULT_RESUME,
   type ResumeData, type SectionKey, type TemplateId,
 } from "@/lib/types";
-import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
+import { packCV, unpackCV } from "@/lib/share";
 import { getOrderedSections } from "@/components/templates/helpers";
 
 import SectionAccordion from "@/components/ui/SectionAccordion";
@@ -140,19 +140,9 @@ const PREVIEW_RENDER_WIDTH = 794;
 // Ancho de cada miniatura en el selector de Diseño
 const THUMB_WIDTH = 108;
 
-// Carga un script externo (html2canvas/jsPDF) con detección de error:
-// sin esto, si la CDN falla la promesa nunca se resolvía y el botón
-// "Exportando…" se quedaba colgado para siempre.
-function loadScript(src: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`No se pudo cargar ${src}`));
-    document.head.appendChild(script);
-  });
-}
+// html2canvas y jsPDF van empaquetados en el bundle (npm, sin CDN ni
+// servidor externo): se importan dinámicamente al exportar para que el
+// bundle inicial sea más pequeño y no se carguen hasta que hagan falta.
 
 // Renderiza una plantilla real a escala reducida para que se vea de verdad
 // cómo queda cada diseño, no una abreviatura.
@@ -424,7 +414,7 @@ function EditorInner() {
     return () => document.removeEventListener("mousedown", onMouseDown);
   }, [exportMenuOpen]);
 
-  // Feedback del CV compartido vía ?cv=<JSON comprimido con lz-string>.
+  // Feedback del CV compartido vía ?cv=<JSON comprimido>.
   // La importación en sí la hace ResumeProvider (el padre) en su efecto de
   // hidratación: los efectos de los hijos corren antes que los del padre y,
   // si el editor importara aquí, el CV por defecto lo pisaría al final.
@@ -433,19 +423,16 @@ function EditorInner() {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get("cv");
     if (encoded) {
-      try {
-        const json = decompressFromEncodedURIComponent(encoded) || decodeURIComponent(encoded);
-        const parsed = JSON.parse(json) as ResumeData;
-        if (parsed && parsed.personal && parsed.settings) {
-          setToast("CV importado desde el enlace compartido");
-        } else {
-          // URL llega entera pero el contenido no es un CV válido
-          setToast("El enlace compartido no contiene un CV válido");
-        }
-      } catch {
-        // La URL llegó cortada/truncada o corrompida (p. ej. por una app de
-        // mensajería): avisar, no fallar en silencio mostrando el CV por defecto.
-        setToast("No se pudo cargar el CV: el enlace está truncado o incompleto");
+      const parsed = unpackCV(encoded);
+      if (parsed) {
+        setToast("CV importado desde el enlace compartido");
+        // Static export: el <title> de /editor es fijo (no hay servidor por
+        // petición); se personaliza la pestaña en el cliente con el nombre.
+        const nombre = parsed.personal?.name;
+        if (nombre) document.title = `${nombre} — CV en CVMakerApp`;
+      } else {
+        // URL llega entera pero el contenido no es un CV válido
+        setToast("El enlace compartido no contiene un CV válido");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -456,14 +443,11 @@ function EditorInner() {
     let wasMobile = false;
     let wasAts = false;
     try {
-      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
-      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
       const element = previewRef.current;
       if (!element) return;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const html2canvas = (window as any).html2canvas;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { jsPDF } = (window as any).jspdf;
+      // Import dinámico de librerías locales (html2canvas + jspdf): sin CDN.
+      const html2canvas = (await import("html2canvas")).default;
+      const { jsPDF } = await import("jspdf");
       const zoomEl = paperZoomRef.current;
       const prevZoom = zoomEl?.style.zoom;
       if (zoomEl) zoomEl.style.zoom = "1";
@@ -553,13 +537,15 @@ function EditorInner() {
     // Se comprime el JSON con lz-string para generar un enlace corto. Sin
     // compresión, un CV con muchas secciones supera el límite de caracteres y
     // WhatsApp/Telegram truncan la URL, rompiendo el enlace compartido.
+    // Para que el enlace sea aún más corto, lib/share.ts compacta el JSON
+    // (claves de una letra, campos vacíos fuera) antes de comprimirlo: la URL
+    // pesa ~35 % menos que comprimiendo el JSON tal cual.
     // IMPORTANTE: el alfabeto URI-safe de lz-string incluye "+", que en una
     // query string se decodifica como espacio al abrir el enlace. Solo hace
     // falta escapar el "+" (%2B): el resto de la codificación es segura en
     // una query string. Escapar todo con encodeURIComponent triplicaba la
     // longitud de esos caracteres y alargaba el enlace sin necesidad.
-    const encoded = compressToEncodedURIComponent(JSON.stringify(data)).replace(/\+/g, "%2B");
-    setShareUrl(`${window.location.origin}/editor?cv=${encoded}`);
+    setShareUrl(`${window.location.origin}/editor?cv=${packCV(data)}`);
     setShowShareModal(true);
   }, [data]);
 
