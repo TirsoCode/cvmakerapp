@@ -148,26 +148,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats strip */}
-      <section style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 24 }}>
-           {[
-            { n: "12", label: "secciones editables", accent: "#2563EB" },
-            { n: "1", label: "formato de exportación: PDF", accent: "#7C3AED" },
-          ].map((s) => (
-            <div key={s.label} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 44, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-playfair), serif", letterSpacing: "-0.03em", lineHeight: 1 }}>
-                {s.n}
-              </div>
-              <div style={{ width: 28, height: 3, borderRadius: 2, background: s.accent, margin: "10px auto" }} />
-              <div style={{ fontSize: 12, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif", fontWeight: 500 }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* How it works */}
       <section id="como-funciona" style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px 72px" }}>
         <div style={{ marginBottom: 56 }}>
