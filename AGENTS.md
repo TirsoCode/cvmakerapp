@@ -21,12 +21,12 @@ Generador de CV 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwin
 
 ## Gotchas
 
-- **Sin persistencia intencionada**: `loadCVs()` en `lib/store.tsx` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es un no-op. Al recargar se resetea. SPEC.md y README afirman lo contrario; el código manda. No lo "arregles" sin que te lo pidan explícitamente.
-- **SPEC.md está desactualizado**: habla de 4 plantillas, drag-and-drop de secciones, dark mode y persistencia. La realidad: 20 plantillas, reorden con botones "Subir/Bajar", sin dark mode, sin persistencia.
+- **Sin persistencia intencionada**: `loadCVs()` en `lib/store.tsx` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es un no-op. Al recargar se resetea. SPEC.md y README ya lo documentan. No lo "arregles" sin que te lo pidan explícitamente.
+- **SPEC.md refleja la realidad actual** (20 plantillas, sin persistencia, reorden con "Subir/Bajar", sin dark mode). Si cambias el comportamiento de la app, actualízalo.
 - **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el switch `TemplateRenderer` en `editor-client.tsx`. La mini-preview de la landing (`TemplateThumbnail` en `app/page.tsx`) solo maneja 4 ids concretos.
 - **PDF export** carga `html2canvas` + `jsPDF` desde CDN en runtime (no están en package.json).
 - **Compartir CV** = URL `?cv=<JSON comprimido con lz-string>`; se descomprime en server y en client.
-- **Deploy**: `netlify.toml` (Netlify, Node 20, `@netlify/plugin-nextjs`). Las URLs `*.vercel.app` de `app/layout.tsx` y README están desactualizadas.
+- **Deploy**: producción en **Vercel** (`https://cvmakerapp.vercel.app`). `netlify.toml` (Netlify, Node 20, `@netlify/plugin-nextjs`) existe como alternativa pero no está activo. Las URLs `*.vercel.app` en `app/layout.tsx`, `app/sitemap.ts` y scripts son correctas; no las cambies.
 
 ## Estilo
 
