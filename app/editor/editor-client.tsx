@@ -140,6 +140,20 @@ const PREVIEW_RENDER_WIDTH = 794;
 // Ancho de cada miniatura en el selector de Diseño
 const THUMB_WIDTH = 108;
 
+// Carga un script externo (html2canvas/jsPDF) con detección de error:
+// sin esto, si la CDN falla la promesa nunca se resolvía y el botón
+// "Exportando…" se quedaba colgado para siempre.
+function loadScript(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`No se pudo cargar ${src}`));
+    document.head.appendChild(script);
+  });
+}
+
 // Renderiza una plantilla real a escala reducida para que se vea de verdad
 // cómo queda cada diseño, no una abreviatura.
 const TemplateMini = memo(function TemplateMini({ id, selected, onChange }: { id: TemplateId; selected: boolean; onChange: (t: TemplateId) => void }) {
@@ -435,14 +449,8 @@ function EditorInner() {
     let wasMobile = false;
     let wasAts = false;
     try {
-      const script = document.createElement("script");
-      script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
-      script.async = true;
-      await new Promise<void>((resolve) => { script.onload = () => resolve(); document.head.appendChild(script); });
-      const script2 = document.createElement("script");
-      script2.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-      script2.async = true;
-      await new Promise<void>((resolve) => { script2.onload = () => resolve(); document.head.appendChild(script2); });
+      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
       const element = previewRef.current;
       if (!element) return;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -492,6 +500,8 @@ function EditorInner() {
       if (zoomEl) zoomEl.style.zoom = prevZoom || String(zoom);
       const name = data.personal.name?.replace(/\s+/g, "_") || "cv";
       pdf.save(`${name}_cv.pdf`);
+    } catch {
+      setToast("No se pudo exportar el PDF. Comprueba tu conexión e inténtalo de nuevo.");
     } finally {
       setIsExporting(false);
       if (wasMobile) setPreviewMode("mobile");

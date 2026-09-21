@@ -48,9 +48,16 @@ const PHRASES = [
 ];
 
 function TypewriterHero() {
-  const [phraseIndex, setPhraseIndex] = useState(() => Math.floor(Math.random() * PHRASES.length));
+  // Índice inicial fijo: el servidor y el cliente deben renderizar el mismo
+  // HTML en la hidratación. La frase aleatoria se elige al montar, abajo.
+  const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    // Se elige la frase inicial aleatoria solo en el cliente, tras hidratar.
+    setPhraseIndex(Math.floor(Math.random() * PHRASES.length));
+  }, []);
 
   useEffect(() => {
     const current = PHRASES[phraseIndex];
