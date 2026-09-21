@@ -261,7 +261,7 @@ function EditorInner() {
     data, updatePersonal, updateSummary, updateExperience, updateEducation,
     updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
     updateLicenses, updateReferences, updateAffiliations,
-    updateTemplate, updateAccentColor,
+    updateTemplate,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
     cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
     validate,
@@ -858,21 +858,8 @@ function EditorInner() {
 
           {/* Design */}
           <SectionAccordion title="Diseño" defaultOpen style={{}} sectionId="section-design" active={activeSection === "design"}>
-            <div style={{ marginBottom: 16 }}>
+            <div>
               <TemplateSelectorGrid selected={data.settings.template} onChange={updateTemplate} />
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "#6B6860", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>Color de accent</label>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {["#C0392B", "#2563EB", "#16A34A", "#7C3AED", "#374151", "#1A1918", "#D97706", "#0891B2", "#BE123C", "#065F46", "#0C4A6E", "#92400E"].map((c) => (
-                  <button key={c} onClick={() => updateAccentColor(c)} style={{
-                     width: 28, height: 28, borderRadius: 6, background: c,
-                     border: data.settings.accentColor === c ? "2px solid #000" : "1px solid #E4E2DC",
-                     cursor: "pointer", boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
-                     transition: "all 150ms ease",
-                  }} />
-                ))}
-              </div>
             </div>
           </SectionAccordion>
         </div>
