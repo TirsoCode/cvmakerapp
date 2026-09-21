@@ -72,7 +72,9 @@ function migrateData(d: ResumeData): ResumeData {
     personal: { ...DEFAULT_RESUME.personal, ...(d.personal || {}) },
     settings: { ...DEFAULT_RESUME.settings, ...(d.settings || {}) },
   };
-  if (!patched.settings.sectionOrder) patched.settings.sectionOrder = [...DEFAULT_RESUME.settings.sectionOrder] as SectionKey[];
+  if (!Array.isArray(patched.settings.sectionOrder) || patched.settings.sectionOrder.length === 0) {
+    patched.settings.sectionOrder = [...DEFAULT_RESUME.settings.sectionOrder] as SectionKey[];
+  }
   // Se combina la visibilidad con los valores por defecto: un payload con
   // secciones incompletas (p. ej. enlaces compartidos antiguos) no debe
   // ocultar silenciosamente el resto de secciones.

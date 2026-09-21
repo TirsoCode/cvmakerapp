@@ -436,9 +436,14 @@ function EditorInner() {
           createNewCv(parsed);
           window.history.replaceState({}, "", window.location.pathname);
           setToast("CV importado desde el enlace compartido");
+        } else {
+          // URL llega entera pero el contenido no es un CV válido
+          setToast("El enlace compartido no contiene un CV válido");
         }
       } catch {
-        // invalid shared payload, ignore
+        // La URL llegó cortada/truncada o corrompida (p. ej. por una app de
+        // mensajería): avisar, no fallar en silencio mostrando el CV por defecto.
+        setToast("No se pudo cargar el CV: el enlace está truncado o incompleto");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -547,9 +552,11 @@ function EditorInner() {
     // compresión, un CV con muchas secciones supera el límite de caracteres y
     // WhatsApp/Telegram truncan la URL, rompiendo el enlace compartido.
     // IMPORTANTE: el alfabeto URI-safe de lz-string incluye "+", que en una
-    // query string se decodifica como espacio al abrir el enlace. Por eso se
-    // pasa por encodeURIComponent: el receptor recupera el string exacto.
-    const encoded = encodeURIComponent(compressToEncodedURIComponent(JSON.stringify(data)));
+    // query string se decodifica como espacio al abrir el enlace. Solo hace
+    // falta escapar el "+" (%2B): el resto de la codificación es segura en
+    // una query string. Escapar todo con encodeURIComponent triplicaba la
+    // longitud de esos caracteres y alargaba el enlace sin necesidad.
+    const encoded = compressToEncodedURIComponent(JSON.stringify(data)).replace(/\+/g, "%2B");
     setShareUrl(`${window.location.origin}/editor?cv=${encoded}`);
     setShowShareModal(true);
   }, [data]);
@@ -960,7 +967,18 @@ function EditorInner() {
             </p>
 
             <div style={{ border: "1px dashed #CBC8C0", borderRadius: 12, padding: "10px 12px", display: "flex", gap: 10, alignItems: "center", marginBottom: 10, background: "#FFFFFF" }}>
-              <code style={{ flex: 1, fontSize: 11, color: "#6B6860", wordBreak: "break-all", fontFamily: "var(--font-jetbrains), monospace", maxHeight: 64, overflow: "auto", lineHeight: 1.5 }}>{shareUrl}</code>
+              <code
+                onClick={(e) => {
+                  // Selecciona la URL completa al hacer clic: evita que alguien
+                  // copie solo la parte visible y pegue un enlace truncado.
+                  const range = document.createRange();
+                  range.selectNodeContents(e.currentTarget);
+                  const sel = window.getSelection();
+                  if (sel) { sel.removeAllRanges(); sel.addRange(range); }
+                }}
+                title="Clic para seleccionar el enlace completo"
+                style={{ flex: 1, fontSize: 10.5, color: "#6B6860", wordBreak: "break-all", fontFamily: "var(--font-jetbrains), monospace", maxHeight: 96, overflowY: "auto", lineHeight: 1.5, cursor: "text" }}
+              >{shareUrl}</code>
               <button onClick={handleCopyShareUrl} className="boton-neobrutalista" style={{ padding: "8px 14px", fontSize: 11, whiteSpace: "nowrap", flexShrink: 0 }} title="Copiar el enlace">
                 Copiar
               </button>
