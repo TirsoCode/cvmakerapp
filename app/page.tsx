@@ -117,11 +117,6 @@ export default function Home() {
       {/* Hero */}
       <section style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px", display: "grid", gridTemplateColumns: "5fr 7fr", gap: 48, alignItems: "center" }}>
         <div style={{ paddingLeft: 0 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F3F2EE", borderRadius: 100, padding: "6px 16px", marginBottom: 28 }}>
-            <span style={{ fontSize: 12, fontWeight: 600, color: "#6B6860", fontFamily: "var(--font-instrument), sans-serif" }}>
-              Diseños profesionales
-            </span>
-          </div>
           <TypewriterHero />
             <p style={{ fontSize: 17, lineHeight: 1.65, color: "#6B6860", maxWidth: 500, margin: "0 0 28px", fontFamily: "var(--font-instrument), sans-serif" }}>
               Escribe tus datos y descarga tu CV en minutos. Sin registro, sin marca de agua y sin esperas.
@@ -236,30 +231,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section id="opiniones" style={{ maxWidth: 1000, margin: "0 auto", padding: "80px 24px" }}>
-        <div style={{ marginBottom: 40 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#C0392B", textTransform: "uppercase", letterSpacing: "0.1em" }}>Gente como tú</span>
-          <h2 style={{ fontSize: 34, fontWeight: 700, letterSpacing: "-0.03em", margin: "8px 0 0", color: "#1A1918", fontFamily: "var(--font-playfair), serif" }}>
-            Lo que cuentan los CV creados aquí
-          </h2>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-           {TESTIMONIALS.map((t, i) => (
-             <figure key={t.author} style={{ margin: 0, background: "#fff", border: "1px solid #E4E2DC", borderRadius: 14, padding: "28px 26px", display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: "0 12px 32px rgba(0,0,0,0.05)" }}>
-              <blockquote style={{ margin: 0, padding: 0 }}>
-                <div style={{ fontSize: 34, lineHeight: 1, color: "#C0392B", fontFamily: "var(--font-playfair), serif", marginBottom: 10 }}>“</div>
-                <p style={{ fontSize: 14, lineHeight: 1.65, color: "#1A1918", margin: 0, fontFamily: "var(--font-instrument), sans-serif" }}>{t.quote}</p>
-              </blockquote>
-              <figcaption style={{ marginTop: 18 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>{t.author}</div>
-                <div style={{ fontSize: 12, color: "#9C9890", fontFamily: "var(--font-instrument), sans-serif" }}>{t.role}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" style={{ background: "#fff", borderTop: "1px solid #E4E2DC", borderBottom: "1px solid #E4E2DC" }}>
         <div style={{ maxWidth: 760, margin: "0 auto", padding: "80px 24px" }}>
@@ -323,12 +294,6 @@ const COMPARISON = [
   { feature: "Exportar PDF", us: "Sí, sin marca de agua", them: "A menudo de pago" },
   { feature: "Tus datos", us: "Solo en tu navegador", them: "En sus servidores" },
   { feature: "Primer CV", us: "En minutos", them: "Horas de setup" },
-];
-
-const TESTIMONIALS = [
-  { quote: "Me sorprendió lo bien que quedaba mi CV. En diez minutos tenía un PDF que mandé a tres empresas y recibí dos entrevistas.", author: "Laura M.", role: "Product Designer" },
-  { quote: "Sin registro, sin pagar, sin historias. Escribes y descargas.", author: "Carlos R.", role: "Ingeniero de software" },
-  { quote: "El resultado parece un CV de los que cuestan 40 euros.", author: "Nadia P.", role: "Fotógrafa" },
 ];
 
 const FAQ = [
