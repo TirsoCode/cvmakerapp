@@ -47,10 +47,11 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 ## Layout & estructura
 
 ### Landing (`/`)
-1. **Hero** — titular, subtítulo, CTA "Crear mi CV" → `/editor`
-2. **Showcase de plantillas** — miniaturas (preview de 4 plantillas concretas)
-3. **Features** — sin registro, export PDF, tus datos son tuyos
-4. **Footer** — minimal
+1. **Hero** — titular animado (typewriter con profesiones), subtítulo y CTA "Empezar ahora" → `/editor`
+2. **Cómo funciona** — 3 pasos (elige plantilla, rellena, descarga)
+3. **Comparativa** — CVMakerApp frente a otras herramientas
+4. **FAQ** — preguntas frecuentes (`<details>`)
+5. **CTA final** + **Footer** — con enlaces a Política de Privacidad y de Cookies
 
 ### Editor (`/editor`)
 **Split layout:**
@@ -71,7 +72,7 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 11. Referencias
 12. Afiliaciones
 13. Secciones personalizadas (título + contenido libre)
-14. **Diseño** — plantilla (20), color de acento, par tipográfico, espaciado, cabecera (centrada/izquierda/sidebar), visibilidad y orden de secciones
+14. **Diseño** — selector de **plantilla** (20, con preview real en miniatura). El modelo `ResumeSettings` admite además `accentColor`, `fontPairing`, `spacing` y `headerLayout`, y la visibilidad/orden de secciones se preserva al importar un CV por URL; hoy no hay UI para editarlos en el editor.
 
 **Panel derecho:**
 - Hoja A4 con la plantilla seleccionada
@@ -86,13 +87,13 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 ### Core
 1. **Live preview** — cada keystroke actualiza el preview al instante
 2. **20 plantillas** — `minimal, editorial, modern, classic, prussian, cascade, artisan, glacier, ember, obsidian, ivory, cedar, slate, sand, plum, meridian, carbon, aurora, versa, opus`
-3. **Personalización** — accent color, 4 pares tipográficos, 3 espaciados, layout de cabecera
+3. **Plantillas** — 20 diseños con accent propio; el modelo permite accent color, pares tipográficos y espaciados (definidos en `FONT_PAIRINGS`/`SPACING_MAP`), sin UI expuesta por ahora
 4. **Export PDF** — `html2canvas` + `jsPDF` (CDN en runtime), paginación real en multipágina
 5. **Vista ATS** — texto plano legible por sistemas de seguimiento de candidatos; desde ATS también se puede exportar PDF
 6. **Compartir por URL** — `?cv=<JSON comprimido con lz-string>`, descomprimido en server y client
 7. **Multi-CV** — crear, duplicar, renombrar, eliminar y seleccionar CVs (en memoria)
 8. **Validación** — errores y advertencias por campo; al importar un CV por URL se mergea la visibilidad/orden de secciones
-9. **Gestión de secciones** — visibilidad (mostrar/ocultar) y reorden (botones Subir/Bajar)
+9. **Visibilidad/orden de secciones** — viven en el modelo (`settings.sections.X` gatea cada sección en las plantillas; `sectionOrder` se usa en la vista ATS) y se mergean al importar un CV por URL; sin UI propia en el editor
 
 ### Interacciones
 - **Añadir item** (experiencia, educación, etc.): botón "+" que añade un item vacío
@@ -112,7 +113,7 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 
 ```typescript
 interface ResumeData {
-  personal: PersonalInfo;            // name, title, email, phone, location, website, linkedin, github
+  personal: PersonalInfo;            // name, title, email, phone, location, website, linkedin, github, portfolio
   summary: string;
   experience: ExperienceItem[];      // company, position, startDate, endDate, description
   education: EducationItem[];        // institution, degree, startDate, endDate
@@ -140,11 +141,11 @@ interface ResumeData {
 - `app/editor/editor-client.tsx` — Todo el editor en un único archivo client (formulario, preview, toolbar, modales de share y ATS)
 - `app/globals.css` — Estilos globales: botones neobrutalistas, editor, media queries responsive (<860px)
 - `components/templates/` — 20 componentes de plantilla + `helpers.tsx` (fuentes, orden de secciones, secciones personalizadas)
-- `components/ui/` — FormField, SectionAccordion, TemplateSelector, ExportButton
+- `components/ui/` — FormField, SectionAccordion
 - `lib/store.tsx` — Contexto React (`ResumeProvider`/`useResume`) + gestión multi-CV. `loadCVs()` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es no-op (sin persistencia, por diseño)
 - `lib/types.ts` — Tipos, `DEFAULT_RESUME`, `TEMPLATES`, `FONT_PAIRINGS`, `SPACING_MAP`
 
-**Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el switch `TemplateRenderer` en `editor-client.tsx`.
+**Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el mapa `TEMPLATE_COMPONENTS` (con `TemplateRenderer`) en `editor-client.tsx`.
 
 ---
 

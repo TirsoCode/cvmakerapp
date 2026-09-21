@@ -33,7 +33,7 @@ import OpusTemplate from "@/components/templates/Opus";
 
 // Mapa de todas las plantillas a su componente: lo usan el renderer del
 // preview y las miniaturas del selector de Diseño.
-const TEMPLATE_COMPONENTS: Record<TemplateId, React.ComponentType<{ data: any; style?: React.CSSProperties }>> = {
+const TEMPLATE_COMPONENTS: Record<TemplateId, React.ComponentType<{ data: ResumeData; style?: React.CSSProperties }>> = {
   minimal: MinimalTemplate,
   editorial: EditorialTemplate,
   modern: ModernTemplate,
@@ -56,7 +56,7 @@ const TEMPLATE_COMPONENTS: Record<TemplateId, React.ComponentType<{ data: any; s
   opus: OpusTemplate,
 };
 
-function TemplateRenderer({ data }: { data: any }) {
+function TemplateRenderer({ data }: { data: ResumeData }) {
   const Component = TEMPLATE_COMPONENTS[data.settings.template as TemplateId] || MinimalTemplate;
   return <Component data={data} style={{}} />;
 }

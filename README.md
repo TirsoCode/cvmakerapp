@@ -32,11 +32,9 @@ Abre [http://localhost:3000](http://localhost:3000)
 
 ## Features
 
-- 20 plantillas premium
+- 20 plantillas premium (selector de Diseño con preview real de cada una)
 - Editor en vivo: escribes a la izquierda y ves tu CV en A4 renderizado en tiempo real a la derecha
-- Personalización: color de acento, 4 pares tipográficos y 3 niveles de espaciado
 - 11 secciones editables (resumen, experiencia, educación, habilidades, idiomas, proyectos, certificaciones, premios, licencias, referencias, afiliaciones) + secciones personalizadas
-- Visibilidad y orden de secciones por CV
 - Vistas **Escritorio / Móvil / ATS** y zoom en el preview
 - Exporta a **PDF** e **Imprimir**
 - Comparte tu CV por **URL** (sin pasar por ningún servidor)
@@ -66,7 +64,7 @@ app/
   globals.css              Estilos globales (neobrutalismo, editor, responsive)
 components/
   templates/               Una componente por plantilla (20) + helpers compartidos
-  ui/                      FormField, SectionAccordion, TemplateSelector, ExportButton
+  ui/                      FormField, SectionAccordion
 lib/
   types.ts                 Modelo ResumeData, TEMPLATES, FONT_PAIRINGS, SPACING_MAP
   store.tsx                Contexto React (ResumeProvider / useResume) + gestión multi-CV

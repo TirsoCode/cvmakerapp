@@ -17,13 +17,13 @@ Generador de CV 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwin
 - `app/editor/page.tsx` — wrapper server: metadata dinámica y descompresión de `?cv=` para SEO.
 - `lib/types.ts` — modelo `ResumeData`, `DEFAULT_RESUME`, `TEMPLATES` (20 plantillas), `FONT_PAIRINGS`, `SPACING_MAP`.
 - `lib/store.tsx` — contexto React (`ResumeProvider` / `useResume`) + gestión multi-CV.
-- `components/templates/` — una componente por plantilla; `components/ui/` — FormField, SectionAccordion, TemplateSelector, ExportButton.
+- `components/templates/` — una componente por plantilla; `components/ui/` — FormField, SectionAccordion.
 
 ## Gotchas
 
 - **Sin persistencia intencionada**: `loadCVs()` en `lib/store.tsx` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es un no-op. Al recargar se resetea. SPEC.md y README ya lo documentan. No lo "arregles" sin que te lo pidan explícitamente.
-- **SPEC.md refleja la realidad actual** (20 plantillas, sin persistencia, reorden con "Subir/Bajar", sin dark mode). Si cambias el comportamiento de la app, actualízalo.
-- **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el switch `TemplateRenderer` en `editor-client.tsx`. La mini-preview de la landing (`TemplateThumbnail` en `app/page.tsx`) solo maneja 4 ids concretos.
+- **SPEC.md refleja la realidad actual** (20 plantillas, sin persistencia, sin UI de visibilidad/reorden de secciones, sin dark mode). Si cambias el comportamiento de la app, actualízalo.
+- **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el mapa `TEMPLATE_COMPONENTS` + `TemplateRenderer` en `editor-client.tsx`. Las miniaturas del selector de Diseño (`TemplateMini`) usan ese mismo mapa y no necesitan cambios extra.
 - **PDF export** carga `html2canvas` + `jsPDF` desde CDN en runtime (no están en package.json).
 - **Compartir CV** = URL `?cv=<JSON comprimido con lz-string>`; se descomprime en server y en client.
 - **Deploy**: producción en **Vercel** (`https://cvmakerapp.vercel.app`). Las URLs `*.vercel.app` en `app/layout.tsx`, `app/sitemap.ts` y scripts son correctas; no las cambies.
