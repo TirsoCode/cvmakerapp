@@ -1,9 +1,9 @@
 "use client";
-import { useRef, useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useState, useEffect, useMemo, memo } from "react";
 import { ResumeProvider, useResume, uid } from "@/lib/store";
 import {
-  TEMPLATES, FONT_PAIRINGS,
-  type ResumeData, type SectionKey,
+  TEMPLATES, FONT_PAIRINGS, DEFAULT_RESUME,
+  type ResumeData, type SectionKey, type TemplateId,
 } from "@/lib/types";
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
 import { getOrderedSections } from "@/components/templates/helpers";
@@ -31,30 +31,34 @@ import AuroraTemplate from "@/components/templates/Aurora";
 import VersaTemplate from "@/components/templates/Versa";
 import OpusTemplate from "@/components/templates/Opus";
 
+// Mapa de todas las plantillas a su componente: lo usan el renderer del
+// preview y las miniaturas del selector de Diseño.
+const TEMPLATE_COMPONENTS: Record<TemplateId, React.ComponentType<{ data: any; style?: React.CSSProperties }>> = {
+  minimal: MinimalTemplate,
+  editorial: EditorialTemplate,
+  modern: ModernTemplate,
+  classic: ClassicTemplate,
+  prussian: PrussianTemplate,
+  cascade: CascadeTemplate,
+  artisan: ArtisanTemplate,
+  glacier: GlacierTemplate,
+  ember: EmberTemplate,
+  obsidian: ObsidianTemplate,
+  ivory: IvoryTemplate,
+  cedar: CedarTemplate,
+  slate: SlateTemplate,
+  sand: SandTemplate,
+  plum: PlumTemplate,
+  meridian: MeridianTemplate,
+  carbon: CarbonTemplate,
+  aurora: AuroraTemplate,
+  versa: VersaTemplate,
+  opus: OpusTemplate,
+};
+
 function TemplateRenderer({ data }: { data: any }) {
-  const props = { data, style: {} as React.CSSProperties };
-  switch (data.settings.template) {
-    case "editorial": return <EditorialTemplate {...props} />;
-    case "modern": return <ModernTemplate {...props} />;
-    case "classic": return <ClassicTemplate {...props} />;
-    case "prussian": return <PrussianTemplate {...props} />;
-    case "cascade": return <CascadeTemplate {...props} />;
-    case "artisan": return <ArtisanTemplate {...props} />;
-    case "glacier": return <GlacierTemplate {...props} />;
-    case "ember": return <EmberTemplate {...props} />;
-    case "obsidian": return <ObsidianTemplate {...props} />;
-    case "ivory": return <IvoryTemplate {...props} />;
-    case "cedar": return <CedarTemplate {...props} />;
-    case "slate": return <SlateTemplate {...props} />;
-    case "sand": return <SandTemplate {...props} />;
-    case "plum": return <PlumTemplate {...props} />;
-    case "meridian": return <MeridianTemplate {...props} />;
-    case "carbon": return <CarbonTemplate {...props} />;
-    case "aurora": return <AuroraTemplate {...props} />;
-    case "versa": return <VersaTemplate {...props} />;
-    case "opus": return <OpusTemplate {...props} />;
-    default: return <MinimalTemplate {...props} />;
-  }
+  const Component = TEMPLATE_COMPONENTS[data.settings.template as TemplateId] || MinimalTemplate;
+  return <Component data={data} style={{}} />;
 }
 
 function ATSBlock({ label, children }: { label: string; children: React.ReactNode }) {
@@ -131,31 +135,64 @@ function ATSTemplate({ data }: { data: any }) {
   );
 }
 
-function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChange: (t: any) => void }) {
+// Ancho del render A4 real (794px = 210mm a 96dpi, igual que el medidor de páginas)
+const PREVIEW_RENDER_WIDTH = 794;
+// Ancho de cada miniatura en el selector de Diseño
+const THUMB_WIDTH = 178;
+
+// Renderiza una plantilla real a escala reducida para que se vea de verdad
+// cómo queda cada diseño, no una abreviatura.
+const TemplateMini = memo(function TemplateMini({ id, selected, onChange }: { id: TemplateId; selected: boolean; onChange: (t: TemplateId) => void }) {
+  const info = TEMPLATES.find((t) => t.id === id) ?? TEMPLATES[0];
+  const Component = TEMPLATE_COMPONENTS[id];
+  const previewData = useMemo(() => {
+    const d = DEFAULT_RESUME;
+    return {
+      ...d,
+      settings: {
+        ...d.settings,
+        template: id,
+        accentColor: info.accent,
+      },
+    };
+  }, [id, info.accent]);
+  const scale = THUMB_WIDTH / PREVIEW_RENDER_WIDTH;
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+    <button
+      onClick={() => onChange(id)}
+      title={info.description}
+      style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", fontFamily: "var(--font-instrument), sans-serif" }}
+    >
+      <div style={{
+        width: THUMB_WIDTH,
+        aspectRatio: "210 / 297",
+        borderRadius: 10,
+        overflow: "hidden",
+        position: "relative",
+        background: info.bg,
+        border: selected ? `2px solid ${info.accent}` : "1.5px solid #E4E2DC",
+        boxShadow: selected ? "3px 3px 0px 0px rgba(0,0,0,0.18)" : "1px 1px 0px 0px rgba(0,0,0,0.06)",
+        transition: "all 150ms ease",
+      }}>
+        <div style={{ width: PREVIEW_RENDER_WIDTH, position: "absolute", top: 0, left: 0, transform: `scale(${scale})`, transformOrigin: "top left", pointerEvents: "none" }}>
+          <Component data={previewData} style={{}} />
+        </div>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 6, padding: "0 2px" }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "#1A1918" }}>{info.name}</span>
+        {selected && (
+          <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: info.accent, borderRadius: 100, padding: "1px 7px" }}>✓</span>
+        )}
+      </div>
+    </button>
+  );
+});
+
+function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChange: (t: TemplateId) => void }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
       {TEMPLATES.map((t) => (
-        <button
-          key={t.id}
-          onClick={() => onChange(t.id)}
-          title={t.name}
-           style={{
-             background: t.bg,
-             border: selected === t.id ? `2px solid ${t.accent}` : "1px solid #E4E2DC",
-             borderRadius: 8,
-             padding: "8px 6px",
-             cursor: "pointer",
-             transition: "all 150ms ease",
-             boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.1)",
-           }}
-        >
-          <div style={{ width: "100%", height: 40, borderRadius: 4, background: selected === t.id ? `${t.accent}15` : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 4 }}>
-            <span style={{ fontSize: 8, fontWeight: 800, color: t.accent, fontFamily: "system-ui", letterSpacing: "-0.02em" }}>
-              {t.name.substring(0, 3).toUpperCase()}
-            </span>
-          </div>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: t.accent, margin: "0 auto" }} />
-        </button>
+        <TemplateMini key={t.id} id={t.id} selected={selected === t.id} onChange={onChange} />
       ))}
     </div>
   );
