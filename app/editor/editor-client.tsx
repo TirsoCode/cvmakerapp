@@ -277,7 +277,7 @@ function EditorInner() {
     updateLicenses, updateReferences, updateAffiliations,
     updateTemplate,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
-    cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
+    cvList, currentCvId, selectCv, duplicateCv, deleteCv, renameCv,
     validate,
   } = useResume();
 
@@ -424,7 +424,11 @@ function EditorInner() {
     return () => document.removeEventListener("mousedown", onMouseDown);
   }, [exportMenuOpen]);
 
-  // Restore CV from shared URL param ?cv=<JSON comprimido con lz-string>
+  // Feedback del CV compartido vía ?cv=<JSON comprimido con lz-string>.
+  // La importación en sí la hace ResumeProvider (el padre) en su efecto de
+  // hidratación: los efectos de los hijos corren antes que los del padre y,
+  // si el editor importara aquí, el CV por defecto lo pisaría al final.
+  // Este efecto solo informa del resultado y ya no toca el estado ni la URL.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get("cv");
@@ -433,8 +437,6 @@ function EditorInner() {
         const json = decompressFromEncodedURIComponent(encoded) || decodeURIComponent(encoded);
         const parsed = JSON.parse(json) as ResumeData;
         if (parsed && parsed.personal && parsed.settings) {
-          createNewCv(parsed);
-          window.history.replaceState({}, "", window.location.pathname);
           setToast("CV importado desde el enlace compartido");
         } else {
           // URL llega entera pero el contenido no es un CV válido

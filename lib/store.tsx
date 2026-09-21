@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
+import { decompressFromEncodedURIComponent } from "lz-string";
 import {
   type ResumeData, DEFAULT_RESUME, type TemplateId, type CustomSection,
   type SectionKey, type ValidationIssue, type ValidationSeverity,
@@ -144,27 +145,53 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<ResumeData>(DEFAULT_RESUME);
   const initialized = useRef(false);
 
-  // Hydrate from localStorage on mount
+  // Hydrate on mount. El CV compartido vía ?cv= se importa AQUÍ, en el
+  // provider, no en un hijo: los efectos de los hijos corren ANTES que los del
+  // padre, así que si el editor importara al final lo pisaría el CV por
+  // defecto y el enlace compartido mostraría siempre el CV inicial.
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const saved = loadCVs();
     if (saved.length > 0) {
+      // Persistencia (por diseño desactivada): cargar CV guardados.
       const migrated = saved.map((cv) => ({ ...cv, data: migrateData(cv.data) }));
       setCvList(migrated);
       setCurrentCvId(migrated[0].id);
       setData(migrated[0].data);
-    } else if (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("cv")) {
-      // Hay un CV compartido en la URL (?cv=...): el editor se encarga de
-      // importarlo (createNewCv). Si creáramos aquí el CV por defecto, el
-      // efecto de importación del editor (que corre antes, por ser un hijo)
-      // quedaría pisado y el enlace compartido mostraría siempre el CV inicial.
-      initialized.current = true;
-      return;
     } else {
-      const id = uid();
-      const entry: CVEntry = { id, name: "Mi CV", updatedAt: Date.now(), data: DEFAULT_RESUME };
-      setCvList([entry]);
-      setCurrentCvId(id);
-      setData(DEFAULT_RESUME);
+      const params = new URLSearchParams(window.location.search);
+      const encoded = params.get("cv");
+      let imported = false;
+      if (encoded) {
+        try {
+          const json = decompressFromEncodedURIComponent(encoded) || decodeURIComponent(encoded);
+          const parsed = JSON.parse(json) as ResumeData;
+          if (parsed && parsed.personal && parsed.settings) {
+            const migrated = migrateData(parsed);
+            const id = uid();
+            const entry: CVEntry = {
+              id,
+              name: migrated.personal.name ? `CV de ${migrated.personal.name}` : "CV compartido",
+              updatedAt: Date.now(),
+              data: migrated,
+            };
+            setCvList([entry]);
+            setCurrentCvId(id);
+            setData(migrated);
+            imported = true;
+          }
+        } catch {
+          // Payload corrupto o truncado: el editor muestra el aviso y aquí se
+          // cae al CV por defecto para que la app quede usable.
+        }
+      }
+      if (!imported) {
+        const id = uid();
+        const entry: CVEntry = { id, name: "Mi CV", updatedAt: Date.now(), data: DEFAULT_RESUME };
+        setCvList([entry]);
+        setCurrentCvId(id);
+        setData(DEFAULT_RESUME);
+      }
     }
     initialized.current = true;
   }, []);
