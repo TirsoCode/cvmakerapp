@@ -138,7 +138,7 @@ function ATSTemplate({ data }: { data: any }) {
 // Ancho del render A4 real (794px = 210mm a 96dpi, igual que el medidor de páginas)
 const PREVIEW_RENDER_WIDTH = 794;
 // Ancho de cada miniatura en el selector de Diseño
-const THUMB_WIDTH = 178;
+const THUMB_WIDTH = 108;
 
 // Renderiza una plantilla real a escala reducida para que se vea de verdad
 // cómo queda cada diseño, no una abreviatura.
@@ -178,10 +178,10 @@ const TemplateMini = memo(function TemplateMini({ id, selected, onChange }: { id
           <Component data={previewData} style={{}} />
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 6, padding: "0 2px" }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: "#1A1918" }}>{info.name}</span>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 4, padding: "0 1px" }}>
+        <span style={{ fontSize: 10, fontWeight: 700, color: "#1A1918" }}>{info.name}</span>
         {selected && (
-          <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: info.accent, borderRadius: 100, padding: "1px 7px" }}>✓</span>
+          <span style={{ fontSize: 9, fontWeight: 800, color: "#fff", background: info.accent, borderRadius: 100, padding: "0px 5px" }}>✓</span>
         )}
       </div>
     </button>
@@ -190,7 +190,7 @@ const TemplateMini = memo(function TemplateMini({ id, selected, onChange }: { id
 
 function TemplateSelectorGrid({ selected, onChange }: { selected: string; onChange: (t: TemplateId) => void }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+    <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, ${THUMB_WIDTH}px)`, gap: 8, justifyContent: "space-between" }}>
       {TEMPLATES.map((t) => (
         <TemplateMini key={t.id} id={t.id} selected={selected === t.id} onChange={onChange} />
       ))}
