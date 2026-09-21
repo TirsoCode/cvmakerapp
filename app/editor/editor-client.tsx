@@ -225,7 +225,6 @@ function EditorInner() {
     updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
     updateLicenses, updateReferences, updateAffiliations,
     updateTemplate, updateAccentColor,
-    resetData,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
     cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
     validate, pageEstimate,
@@ -578,7 +577,6 @@ function EditorInner() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button onClick={() => setPanelHidden(v => !v)} className="boton-neobrutalista-sm" style={{ padding: "5px 10px", fontSize: 11, fontWeight: 700, background: panelHidden ? "#1A1918" : "#fff", color: panelHidden ? "#fff" : "#1A1918" }} title="Ocultar panel">{panelHidden ? "Mostrar" : "Ocultar"}</button>
-            <button onClick={resetData} className="boton-neobrutalista-sm" style={{ padding: "4px 10px", fontSize: 10 }} title="Borrar todo">Restablecer</button>
           </div>
         </div>
 

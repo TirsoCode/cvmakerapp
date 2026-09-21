@@ -28,7 +28,6 @@ interface ResumeContextValue {
   updateAffiliations: (affiliations: ResumeData["affiliations"]) => void;
   updateTemplate: (t: TemplateId) => void;
   updateAccentColor: (c: string) => void;
-  resetData: () => void;
   customSections: CustomSection[];
   addCustomSection: (title: string) => void;
   updateCustomSection: (id: string, patch: Partial<CustomSection>) => void;
@@ -237,10 +236,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, accentColor } }));
   }, []);
 
-  const resetData = useCallback(() => {
-    setData(DEFAULT_RESUME);
-  }, []);
-
   // Custom sections
   const addCustomSection = useCallback((title: string) => {
     setData((d) => ({
@@ -335,7 +330,6 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       updateSkills, updateLanguages, updateProjects, updateCertifications, updateAwards,
       updateLicenses, updateReferences, updateAffiliations,
       updateTemplate, updateAccentColor,
-      resetData,
       customSections: data.customSections || [],
       addCustomSection, updateCustomSection, removeCustomSection,
       cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,

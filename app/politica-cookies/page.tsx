@@ -41,7 +41,7 @@ export default function CookiesPolicy() {
             },
             {
               title: "Cómo desactivar el almacenamiento local",
-              content: "Si deseas impedir que el navegador almacene datos del sitio, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador, o bien usar el botón \"Reset\" en el editor para eliminar los datos guardados."
+              content: "Si deseas impedir que el navegador almacene datos del sitio, puedes borrar los datos del sitio en la configuración de privacidad de tu navegador."
             },
             {
               title: "Cambios en esta política",
