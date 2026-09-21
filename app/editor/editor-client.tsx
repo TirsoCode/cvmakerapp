@@ -227,7 +227,7 @@ function EditorInner() {
     updateTemplate, updateAccentColor,
     customSections, addCustomSection, updateCustomSection, removeCustomSection,
     cvList, currentCvId, createNewCv, selectCv, duplicateCv, deleteCv, renameCv,
-    validate, pageEstimate,
+    validate,
   } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
@@ -245,6 +245,8 @@ function EditorInner() {
   const [shareUrl, setShareUrl] = useState("");
   const [validationIssues, setValidationIssues] = useState<ReturnType<typeof validate>>([]);
   const [toast, setToast] = useState("");
+  const [exportMenuOpen, setExportMenuOpen] = useState(false);
+  const exportMenuRef = useRef<HTMLDivElement>(null);
 
   const [activeSection, setActiveSection] = useState<string>("personal");
   const asideRef = useRef<HTMLElement>(null);
@@ -272,14 +274,14 @@ function EditorInner() {
   }, []);
 
   // Mide la altura real del CV renderizado (ancho A4, 794px = 210mm a 96dpi)
-  // para generar exactamente las hojas que necesite. Antes se usaba solo la
-  // heurística estimatePages() y el contenido que la superaba se cortaba en el
-  // preview y en el PDF exportado.
+  // para generar exactamente las hojas que necesita. Es la única fuente de
+  // verdad: la heurística estimatePages() sobrestimaba y provocaba una hoja en
+  // blanco al final del preview y del PDF.
   useEffect(() => {
     const el = probeRef.current;
     if (!el) return;
     const pxPerPage = (297 * 96) / 25.4; // ≈1122.5px por página A4
-    const pages = Math.max(1, Math.ceil((el.scrollHeight + 12) / pxPerPage));
+    const pages = Math.max(1, Math.ceil(el.scrollHeight / pxPerPage));
     setMeasuredPages(pages);
   }, [data, atsMode]);
 
@@ -340,9 +342,9 @@ function EditorInner() {
     }, 60);
   };
 
-  // Nº de hojas: suficiente para que el contenido nunca se corte (medición
-  // real) aunque la heurística estimatePages() subestime.
-  const totalPages = Math.max(pageEstimate, measuredPages);
+  // Nº de hojas = medición real del contenido. Se descarta el máximo con la
+  // heurística estimatePages(): sobrestimaba y generaba una hoja final en blanco.
+  const totalPages = measuredPages;
 
   const accentColor = data.settings.accentColor || "#C0392B";
   const issues = validate();
@@ -358,6 +360,18 @@ function EditorInner() {
     const t = setTimeout(() => setToast(""), 2800);
     return () => clearTimeout(t);
   }, [toast]);
+
+  // Cierra el menú de exportación al hacer clic fuera.
+  useEffect(() => {
+    if (!exportMenuOpen) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if (exportMenuRef.current && !exportMenuRef.current.contains(e.target as Node)) {
+        setExportMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [exportMenuOpen]);
 
   // Restore CV from shared URL param ?cv=<JSON comprimido con lz-string>
   useEffect(() => {
@@ -485,7 +499,10 @@ function EditorInner() {
     // Se comprime el JSON con lz-string para generar un enlace corto. Sin
     // compresión, un CV con muchas secciones supera el límite de caracteres y
     // WhatsApp/Telegram truncan la URL, rompiendo el enlace compartido.
-    const encoded = compressToEncodedURIComponent(JSON.stringify(data));
+    // IMPORTANTE: el alfabeto URI-safe de lz-string incluye "+", que en una
+    // query string se decodifica como espacio al abrir el enlace. Por eso se
+    // pasa por encodeURIComponent: el receptor recupera el string exacto.
+    const encoded = encodeURIComponent(compressToEncodedURIComponent(JSON.stringify(data)));
     setShareUrl(`${window.location.origin}/editor?cv=${encoded}`);
     setShowShareModal(true);
   }, [data]);
@@ -840,14 +857,11 @@ function EditorInner() {
               <button onClick={zoomOut} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, padding: "4px 9px", lineHeight: 1, color: "#1A1918", borderRadius: 4 }} title="Reducir (Ctrl/Cmd + rueda)">
                 −
               </button>
-              <span style={{ fontSize: 11, fontWeight: 700, minWidth: 36, textAlign: "center", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif" }}>
+              <button onClick={() => setZoom(1)} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 11, fontWeight: 700, minWidth: 36, textAlign: "center", color: "#1A1918", fontFamily: "var(--font-instrument), sans-serif", padding: 0 }} title="Restablecer zoom (clic)">
                 {Math.round(zoom * 100)}%
-              </span>
+              </button>
               <button onClick={zoomIn} style={{ border: "none", background: "none", cursor: "pointer", fontSize: 14, fontWeight: 700, padding: "4px 9px", lineHeight: 1, color: "#1A1918", borderRadius: 4 }} title="Ampliar (Ctrl/Cmd + rueda)">
                 +
-              </button>
-               <button onClick={() => setZoom(1)} style={{ border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700, padding: "3px 6px", borderRadius: 4, color: "#6B6860", background: "#FFFFFF", fontFamily: "var(--font-instrument), sans-serif" }} title="Restablecer zoom">
-                Restablecer
               </button>
             </span>
             <button onClick={() => setPreviewMode("desktop")} className={`boton-neobrutalista-sm${previewMode === "desktop" ? " boton-neobrutalista-primario" : ""}`} style={{ padding: "6px 12px", fontSize: 11 }}>
@@ -862,12 +876,21 @@ function EditorInner() {
             <button onClick={handleShare} className="boton-neobrutalista-sm" style={{ padding: "6px 12px", fontSize: 11 }} title="Compartir">
               Compartir
             </button>
-            <button onClick={handlePrint} className="boton-neobrutalista-sm" style={{ padding: "6px 12px", fontSize: 11 }} title="Imprimir">
-              Imprimir
-            </button>
-            <button onClick={handleExportPDF} disabled={isExporting} className="boton-neobrutalista boton-neobrutalista-primario" style={{ padding: "6px 12px", fontSize: 11 }}>
-              {isExporting ? "Exportando…" : "PDF"}
-            </button>
+            <div ref={exportMenuRef} style={{ position: "relative" }}>
+              <button onClick={() => setExportMenuOpen((v) => !v)} className="boton-neobrutalista boton-neobrutalista-primario" style={{ padding: "6px 12px", fontSize: 11 }}>
+                {isExporting ? "Exportando…" : "Exportar ▾"}
+              </button>
+              {exportMenuOpen && (
+                <div style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", minWidth: 190, background: "#FFFFFF", border: "1.5px solid #1A1918", borderRadius: 10, boxShadow: "4px 4px 0px 0px rgba(0,0,0,0.2)", padding: 6, zIndex: 60 }}>
+                  <button onClick={() => { setExportMenuOpen(false); handleExportPDF(); }} disabled={isExporting} style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", padding: "9px 10px", fontSize: 12, fontWeight: 600, color: "#1A1918", borderRadius: 6, textAlign: "left", fontFamily: "var(--font-instrument), sans-serif" }}>
+                    Exportar PDF
+                  </button>
+                  <button onClick={() => { setExportMenuOpen(false); handlePrint(); }} style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", padding: "9px 10px", fontSize: 12, fontWeight: 600, color: "#1A1918", borderRadius: 6, textAlign: "left", fontFamily: "var(--font-instrument), sans-serif" }}>
+                    Imprimir
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

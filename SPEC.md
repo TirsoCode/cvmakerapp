@@ -55,7 +55,7 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 ### Editor (`/editor`)
 **Split layout:**
 - **Panel izquierdo (400px, colapsable)**: formulario con todas las secciones, navegación sticky por secciones con contadores, y barra de validación (errores/advertencias).
-- **Panel derecho**: preview en vivo como hoja A4 con toolbar (zoom, vista **Escritorio/Móvil/ATS**, **Compartir**, **Imprimir**, **PDF**).
+- **Panel derecho**: preview en vivo como hoja A4 con toolbar (zoom, vista **Escritorio/Móvil/ATS**, **Compartir** y menú **Exportar ▾** con **PDF** e **Imprimir**). El zoom se restablece clicando en el porcentaje.
 
 **Secciones del formulario:**
 1. Datos personales (nombre, título, email, teléfono, ubicación, web, LinkedIn, GitHub)
