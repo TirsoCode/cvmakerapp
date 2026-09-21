@@ -54,8 +54,6 @@ Producción en **Vercel**: haz push a GitHub y conecta el repo en Vercel (detect
 git push origin main
 ```
 
-Como alternativa, el repo incluye [`netlify.toml`](netlify.toml) (Node 20 + `@netlify/plugin-nextjs`) por si prefieres Netlify.
-
 ## Estructura
 
 ```

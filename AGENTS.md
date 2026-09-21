@@ -26,7 +26,7 @@ Generador de CV 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwin
 - **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el switch `TemplateRenderer` en `editor-client.tsx`. La mini-preview de la landing (`TemplateThumbnail` en `app/page.tsx`) solo maneja 4 ids concretos.
 - **PDF export** carga `html2canvas` + `jsPDF` desde CDN en runtime (no están en package.json).
 - **Compartir CV** = URL `?cv=<JSON comprimido con lz-string>`; se descomprime en server y en client.
-- **Deploy**: producción en **Vercel** (`https://cvmakerapp.vercel.app`). `netlify.toml` (Netlify, Node 20, `@netlify/plugin-nextjs`) existe como alternativa pero no está activo. Las URLs `*.vercel.app` en `app/layout.tsx`, `app/sitemap.ts` y scripts son correctas; no las cambies.
+- **Deploy**: producción en **Vercel** (`https://cvmakerapp.vercel.app`). Las URLs `*.vercel.app` en `app/layout.tsx`, `app/sitemap.ts` y scripts son correctas; no las cambies.
 
 ## Estilo
 

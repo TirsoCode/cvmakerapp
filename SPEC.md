@@ -160,7 +160,6 @@ interface ResumeData {
 ## Deploy
 
 - **Producción:** Vercel → `https://cvmakerapp.vercel.app` (connector de Next.js)
-- **Alternativa:** `netlify.toml` (Netlify, Node 20, `@netlify/plugin-nextjs`) — configurado pero no activo
 - No se requieren variables de entorno: app 100 % estática en runtime
 
 ---
