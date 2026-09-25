@@ -72,6 +72,3 @@ lib/
   share.ts                 Empaquetado compacto de ?cv= (packCV/unpackCV) + tests (share.test.ts)
 ```
 
-## Repositorio
-
-<https://github.com/TirsoCode/cvmakerapp>
