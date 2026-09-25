@@ -8,6 +8,7 @@ import {
   Fraunces,
   DM_Sans,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -107,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`antialiased ${playfair.variable} ${instrument.variable} ${jetbrains.variable} ${sourceSerif.variable} ${spaceGrotesk.variable} ${fraunces.variable} ${dmSans.variable}`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
