@@ -209,7 +209,7 @@ function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
   const [editName, setEditName] = useState("");
 
   return (
-     <div style={{ minHeight: "100vh", background: "#FFFFFF", padding: "40px 24px" }}>
+     <div className="cv-dashboard" style={{ minHeight: "100vh", background: "radial-gradient(circle at 15% 0%, rgba(87,205,255,.13), transparent 26rem), radial-gradient(circle at 90% 20%, rgba(180,94,255,.12), transparent 30rem), #FBFBFE", padding: "40px 24px" }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -224,7 +224,7 @@ function Dashboard({ onOpenEditor }: { onOpenEditor: () => void }) {
         </div>
         <div style={{ display: "grid", gap: 12 }}>
           {cvList.map((cv) => (
-            <div key={cv.id} onClick={() => { selectCv(cv.id); onOpenEditor(); }} style={{
+            <div key={cv.id} className="cv-dashboard-card" onClick={() => { selectCv(cv.id); onOpenEditor(); }} style={{
               background: "#fff", border: "1px solid #E4E2DC", borderRadius: 12, padding: "16px 20px",
               cursor: "pointer", transition: "all 150ms", display: "flex", alignItems: "center", gap: 16,
             }}

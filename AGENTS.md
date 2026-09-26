@@ -12,9 +12,9 @@ Generador de CV 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwin
 
 ## Arquitectura
 
-- `app/page.tsx` — landing. Es un componente client pese a llamarse `page.tsx`; todo con estilos inline.
+- `app/page.tsx` — landing. Es un wrapper **server**: exporta metadata SEO (título, descripción, canonical, Open Graph/Twitter) y JSON-LD `WebSite`. El componente client real vive en `app/home-client.tsx` (estilos inline): su H1 incluye texto SEO real desde el HTML (`sr-only`) y el typewriter es decorativo (`aria-hidden`).
 - `app/editor/editor-client.tsx` (~1090 líneas) — TODO el editor en un único archivo client: formulario izquierdo, preview derecho, toolbar (zoom, Escritorio/Móvil/ATS, Compartir, Imprimir, MD, PDF), modal share y ATS.
-- `app/editor/page.tsx` — wrapper: metadata **estática** (build estático, sin servidor por petición) + render del editor client.
+- `app/editor/page.tsx` — wrapper: metadata **estática** (build estático, sin servidor por petición) + render del editor client. `/editor` es `noindex, follow` con canonical propio.
 - `lib/types.ts` — modelo `ResumeData`, `DEFAULT_RESUME`, `TEMPLATES` (20 plantillas), `FONT_PAIRINGS`, `SPACING_MAP`.
 - `lib/store.tsx` — contexto React (`ResumeProvider` / `useResume`) + gestión multi-CV.
 - `components/templates/` — una componente por plantilla; `components/ui/` — FormField, SectionAccordion.
@@ -28,6 +28,8 @@ Generador de CV 100 % cliente (Next.js 14 App Router, TypeScript strict, Tailwin
 - **Compartir CV** = URL `?cv=<JSON compactado y comprimido con lz-string>`; todo en el navegador (`lib/share.ts`, tests en `lib/share.test.ts`). Los enlaces antiguos (JSON completo) se siguen decodificando.
 - **Añadir un campo al modelo** toca `lib/types.ts` y el pack/unpack de `lib/share.ts` (`toCompact`/`fromCompact`), y conviene actualizar `lib/share.test.ts`.
 - **Build estático**: `next.config.mjs` tiene `output: "export"` + `images.unoptimized`. Consecuencia: la metadata de `/editor` es fija (nada de `searchParams` en `generateMetadata`); el título de la pestaña se personaliza en cliente al importar `?cv=`. Si se vuelve a un deploy con servidor, restaurar `generateMetadata(searchParams)`.
+- **SEO**: la única página indexable es la landing. `/editor`, `/politica-privacidad` y `/politica-cookies` son `noindex` vía metadata de cada página (no en `robots.txt`, para que los crawlers sigan sus enlaces); `app/robots.ts` y `app/sitemap.ts` (solo la landing) se generan en el build. Cada página lleva su `alternates.canonical`. Al añadir una ruta no indexable, repite el patrón: `robots: { index: false, follow: false }` + canonical, y no la metas en el sitemap. El JSON-LD de la home (`WebSite` + `SoftwareApplication` + `FAQPage`) se genera en `app/page.tsx`; el FAQ sale de `lib/faq.ts` (fuente única con `app/home-client.tsx`), así que las preguntas nunca se desincronizan del JSON-LD.
+- **Imagen OG**: `public/og.png` (1200×630) es la tarjeta de Open Graph/Twitter (`summary_large_image`) de layout, home y editor. Se regenera con `sh scripts/gen-og.sh` (ffmpeg + Liberation fonts); si cambias el titular o la paleta, actualiza y re-ejecuta el script.
 - **Deploy**: producción en **Vercel** (`https://cvmakerapp.vercel.app`). Las URLs `*.vercel.app` en `app/layout.tsx`, `app/sitemap.ts` y `public/google1f83d5ab4be3cd04.html` son correctas; no las cambies.
 
 ## Estilo

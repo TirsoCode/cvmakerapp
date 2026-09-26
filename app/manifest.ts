@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
     start_url: "/",
     display: "standalone",
-    background_color: "#FAFAF8",
-    theme_color: "#1A1918",
+    background_color: "#FFFFFF",
+    theme_color: "#FFFFFF",
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },

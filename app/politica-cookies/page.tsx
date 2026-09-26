@@ -1,3 +1,19 @@
+import type { Metadata } from "next";
+
+// Página legal: no aporta valor de indexación y duplicaría contenido interno.
+export const metadata: Metadata = {
+  title: "Política de Cookies",
+  description:
+    "Política de cookies de CVMakerApp: este sitio no utiliza cookies ni mecanismos de seguimiento. Todo ocurre en tu navegador.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: "https://cvmakerapp.vercel.app/politica-cookies",
+  },
+};
+
 export default function CookiesPolicy() {
   return (
     <main style={{ background: "#FAFAF8", minHeight: "100vh" }}>

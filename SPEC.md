@@ -12,46 +12,48 @@ Inspirado en Reactive Resume (live preview, múltiples plantillas, export a PDF)
 
 ## Diseño
 
-**Premium Editorial Minimalism** — bastantes blancos, tipografía jerárquica fuerte, accent color contenido (estilo revista, no SaaS genérico).
+**Premium mobile-first** — superficie blanca con halos muy suaves azul, cyan, violeta y rosa; tipografía grande y limpia; tarjetas flotantes con radios generosos, sombras suaves y profundidad. La estética mezcla la precisión editorial con la fluidez de Linear/Apple, sin sacrificar la lectura ni la exportación A4.
 
 ### Paleta
 ```
---bg:         #FAFAF8    (off-white cálido)
---bg-2:       #F3F2EE    (superficie secundaria)
---surface:    #FFFFFF    (cartas, paneles)
---border:     #E4E2DC    (bordes sutiles)
---border-2:   #CBC8C0    (bordes más fuertes)
---text:       #1A1918    (negro suave)
---text-2:     #6B6860    (gris medio)
---text-3:     #9C9890    (gris claro)
---accent:     #C0392B    (rojo editorial)
---accent-2:   #2563EB    (azul link)
+--bg:         #FFFFFF    (fondo principal)
+--bg-soft:    #F7F7FB    (superficies de editor)
+--surface:    #FFFFFF    (tarjetas y paneles translúcidos)
+--border:     rgba(25,25,55,.09)
+--text:       #171724    ( casi negro)
+--text-2:     #656579    (gris medio)
+--accent-blue:#287DE4
+--accent-cyan:#55D8FF    (halo/decoración)
+--accent:     #6659D8    (violeta principal)
+--accent-pink:#D166B4    (gradientes/decoración)
 ```
 
 ### Tipografía
-- **Headings**: `Playfair Display` (serif editorial)
-- **Body/UI**: `Instrument Sans` (sans geométrica)
+- **Landing/UI**: `Instrument Sans` (sans limpia, jerarquía amplia y tracking cerrado)
+- **CVs**: la plantilla seleccionada conserva sus familias y los pares tipográficos del modelo
 - **Mono**: `JetBrains Mono` (código, fechas)
-- Fallbacks: Georgia, system-ui, monospace
-- Además, el editor ofrece **4 pares tipográficos** (`FONT_PAIRINGS`): default, serif, mono y display.
+- Fallbacks: system-ui, Georgia, monospace
+- El editor ofrece **4 pares tipográficos** (`FONT_PAIRINGS`): default, serif, mono y display.
 
 ### Espaciado
 - Base unit: 4px
 - El editor permite elegir entre `compact` / `normal` / `relaxed` (`SPACING_MAP`).
 
 ### Motion
-- Fade-in sutil en secciones (~200ms), hover ~150ms, preview instantáneo (sin animación al teclear).
+- Transiciones de opacity, transform, scale y translate con curvas suaves (~150–300ms).
+- Movimiento flotante ambiental en la landing; se desactiva con `prefers-reduced-motion`.
+- El preview del CV sigue siendo instantáneo al teclear para no añadir fricción.
 
 ---
 
 ## Layout & estructura
 
 ### Landing (`/`)
-1. **Hero** — titular animado (typewriter con profesiones), subtítulo y CTA "Empezar ahora" → `/editor`
-2. **Cómo funciona** — 3 pasos (elige plantilla, rellena, descarga)
-3. **Comparativa** — CVMakerApp frente a otras herramientas
+1. **Hero mobile-first centrado** — eyebrow, titular con profesiones, CTA, señales de privacidad y mockup visual del editor con un CV real de ejemplo
+2. **Cómo funciona** — 3 tarjetas (elige diseño, escribe información, descarga/comparte)
+3. **Comparativa** — tarjeta responsive con CVMakerApp frente a otras herramientas
 4. **FAQ** — preguntas frecuentes (`<details>`)
-5. **CTA final** + **Footer** — con enlaces a Política de Privacidad y de Cookies
+5. **CTA final + Footer** — con enlaces a Política de Privacidad y de Cookies
 
 ### Editor (`/editor`)
 **Split layout:**
@@ -136,15 +138,20 @@ interface ResumeData {
 
 ## Arquitectura
 
-- `app/page.tsx` — Landing (client, estilos inline)
-- `app/editor/page.tsx` — Wrapper con metadata **estática** (build 100 % estático): la pestaña del navegador se personaliza en cliente al importar `?cv=`; si se vuelve a un deploy con servidor, restaurar `generateMetadata(searchParams)`
+- `app/page.tsx` — Wrapper server de la landing: metadata SEO (título, descripción, canonical, Open Graph/Twitter) y JSON-LD `@graph` (`WebSite` + `SoftwareApplication` + `FAQPage`)
+- `app/home-client.tsx` — Landing (client, estilos inline). H1 con texto SEO real desde el HTML (`sr-only`) + typewriter decorativo (`aria-hidden`)
+- `app/editor/page.tsx` — Wrapper con metadata **estática** (build 100 % estático): la pestaña del navegador se personaliza en cliente al importar `?cv=`; si se vuelve a un deploy con servidor, restaurar `generateMetadata(searchParams)`. `/editor` es `noindex, follow` y tiene canonical
 - `app/editor/editor-client.tsx` — Todo el editor en un único archivo client (formulario, preview, toolbar, modales de share y ATS)
 - `app/globals.css` — Estilos globales: botones neobrutalistas, editor, media queries responsive (<860px)
+- `app/robots.ts` — `robots.txt` generado en el build (permite rastreo; el `noindex` vive en cada página)
+- `app/sitemap.ts` — `sitemap.xml` con solo la landing (única página indexable; `/editor` y las legales son noindex)
 - `components/templates/` — 20 componentes de plantilla + `helpers.tsx` (fuentes, orden de secciones, secciones personalizadas)
 - `components/ui/` — FormField, SectionAccordion
 - `lib/store.tsx` — Contexto React (`ResumeProvider`/`useResume`) + gestión multi-CV. `loadCVs()` borra las claves de localStorage en cada mount y devuelve `[]`; `saveCVs()` es no-op (sin persistencia, por diseño)
 - `lib/types.ts` — Tipos, `DEFAULT_RESUME`, `TEMPLATES`, `FONT_PAIRINGS`, `SPACING_MAP`
 - `lib/share.ts` — Empaquetado compacto de `?cv=` (`packCV`/`unpackCV`, compat legacy); tests en `lib/share.test.ts` (`npm test`)
+- `lib/faq.ts` — FAQ de la landing, fuente única compartida por `app/home-client.tsx` (render) y el JSON-LD `FAQPage` de `app/page.tsx`
+- `remotion/src/` — composición promocional autocontenida para Instagram (1080×1920, 15 s, 30 fps). Es una fuente de vídeo offline: no entra en el bundle de Next.js ni cambia el runtime estático
 
 **Añadir una plantilla** toca 3 sitios: `TEMPLATES` en `lib/types.ts`, la componente en `components/templates/`, y el mapa `TEMPLATE_COMPONENTS` (con `TemplateRenderer`) en `editor-client.tsx`.
 

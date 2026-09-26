@@ -12,14 +12,14 @@ interface SectionAccordionProps {
   children: React.ReactNode;
 }
 
-export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#C0392B", style, sectionId, active = false, children }: SectionAccordionProps) {
+export default function SectionAccordion({ title, count, defaultOpen = true, accentColor = "#6659D8", style, sectionId, active = false, children }: SectionAccordionProps) {
   return (
     <div
       id={sectionId}
       style={{
-        borderBottom: "1px solid #E4E2DC",
+        borderBottom: "1px solid rgba(25, 25, 55, 0.07)",
         scrollMarginTop: 70,
-        background: active ? "#FAF7F5" : "transparent",
+        background: active ? "rgba(238, 237, 255, 0.58)" : "transparent",
         transition: "background 200ms ease",
         ...style,
       }}
@@ -29,7 +29,7 @@ export default function SectionAccordion({ title, count, defaultOpen = true, acc
           display: "flex",
           alignItems: "center",
           width: "100%",
-          padding: "6px 8px",
+          padding: "10px 10px",
           textAlign: "left" as const,
           gap: 10,
         }}

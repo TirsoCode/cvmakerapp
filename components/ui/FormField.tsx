@@ -25,20 +25,20 @@ export default function FormField({ label, value, onChange, placeholder, type = 
           rows={3}
           style={{
             width: "100%",
-            padding: "10px 12px",
+            padding: "11px 13px",
             fontSize: 13,
             fontFamily: "var(--font-instrument), sans-serif",
             color: "#1A1918",
-            background: "#F3F2EE",
-            border: "1px solid #E4E2DC",
-            borderRadius: 8,
+            background: "rgba(248, 248, 252, 0.88)",
+            border: "1px solid rgba(25, 25, 55, 0.1)",
+            borderRadius: 10,
             resize: "vertical",
             outline: "none",
             boxSizing: "border-box",
             lineHeight: 1.55,
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = "#1A1918"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(26,25,24,0.06)"; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = "#E4E2DC"; e.currentTarget.style.boxShadow = "none"; }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = "#6B63D8"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(91, 83, 201, 0.1)"; e.currentTarget.style.background = "#FFFFFF"; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(25, 25, 55, 0.1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248, 248, 252, 0.88)"; }}
         />
       ) : (
         <input
@@ -48,18 +48,18 @@ export default function FormField({ label, value, onChange, placeholder, type = 
           placeholder={placeholder}
           style={{
             width: "100%",
-            padding: "10px 12px",
+            padding: "11px 13px",
             fontSize: 13,
             fontFamily: "var(--font-instrument), sans-serif",
             color: "#1A1918",
-            background: "#F3F2EE",
-            border: "1px solid #E4E2DC",
-            borderRadius: 8,
+            background: "rgba(248, 248, 252, 0.88)",
+            border: "1px solid rgba(25, 25, 55, 0.1)",
+            borderRadius: 10,
             outline: "none",
             boxSizing: "border-box",
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = "#1A1918"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(26,25,24,0.06)"; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = "#E4E2DC"; e.currentTarget.style.boxShadow = "none"; }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = "#6B63D8"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(91, 83, 201, 0.1)"; e.currentTarget.style.background = "#FFFFFF"; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(25, 25, 55, 0.1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248, 248, 252, 0.88)"; }}
         />
       )}
       {hint && <p style={{ fontSize: 10, color: "#9C9890", margin: "4px 0 0", fontFamily: "var(--font-instrument), sans-serif" }}>{hint}</p>}

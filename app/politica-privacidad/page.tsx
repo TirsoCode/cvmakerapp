@@ -1,3 +1,19 @@
+import type { Metadata } from "next";
+
+// Página legal: no aporta valor de indexación y duplicaría contenido interno.
+export const metadata: Metadata = {
+  title: "Política de Privacidad",
+  description:
+    "Política de privacidad de CVMakerApp: sin recopilación de datos, sin cookies de seguimiento ni analíticas. Todo se procesa en tu navegador.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: "https://cvmakerapp.vercel.app/politica-privacidad",
+  },
+};
+
 export default function PrivacyPolicy() {
   return (
     <main style={{ background: "#FAFAF8", minHeight: "100vh" }}>

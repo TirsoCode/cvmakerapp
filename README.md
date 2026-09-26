@@ -23,6 +23,8 @@ Abre [http://localhost:3000](http://localhost:3000)
 | `npm run typecheck` | `tsc --noEmit` (verificación rápida) |
 | `npm run test` | Tests de `lib/share.ts` (node test runner + tsx) |
 | `npm run lint` | ESLint (`next lint`, con `eslint-config-next`) |
+| `npm run video:studio` | Abre Remotion Studio para editar el vídeo vertical de Instagram |
+| `npm run video:render` | Renderiza el Reel 1080×1920 en `remotion/output/` |
 
 ## Stack
 
@@ -57,12 +59,15 @@ git push origin main
 
 ```
 app/
-  page.tsx                 Landing (client, estilos inline)
+  page.tsx                 Wrapper server: metadata SEO, canonical y JSON-LD de la landing
+  home-client.tsx          Landing premium mobile-first + mockup visual del editor
   editor/
-    page.tsx               Wrapper server: metadata + descompresión de ?cv= para SEO
+    page.tsx               Wrapper server: metadata estática (noindex, follow) + canonical
     editor-client.tsx      Todo el editor en un único archivo client
-  layout.tsx               Root layout + metadata
-  globals.css              Estilos globales (neobrutalismo, editor, responsive)
+  layout.tsx               Root layout + metadata global
+  globals.css              Estilos globales premium, editor y responsive
+  robots.ts                robots.txt generado en build
+  sitemap.ts               sitemap.xml (solo la landing indexable)
 components/
   templates/               Una componente por plantilla (20) + helpers compartidos
   ui/                      FormField, SectionAccordion
@@ -70,5 +75,8 @@ lib/
   types.ts                 Modelo ResumeData, TEMPLATES, FONT_PAIRINGS, SPACING_MAP
   store.tsx                Contexto React (ResumeProvider / useResume) + gestión multi-CV
   share.ts                 Empaquetado compacto de ?cv= (packCV/unpackCV) + tests (share.test.ts)
+remotion/
+  src/CvMakerInstagram.tsx Composición vertical 1080×1920 para Instagram
+  output/                  MP4 generado localmente (ignorado por git)
 ```
 

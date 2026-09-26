@@ -63,30 +63,41 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cvmakerapp.vercel.app"),
   title: {
-    default: "CVMakerApp — Crea currículums profesionales en minutos",
-    template: "%s",
+    default: "Crea tu CV gratis en minutos | CVMakerApp",
+    template: "%s | CVMakerApp",
   },
-  description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
+  description:
+    "Crea tu currículum profesional gratis en minutos. Sin registro, sin marca de agua: 20 plantillas, vista previa en vivo y exportación a PDF.",
   applicationName: "CVMakerApp",
-  keywords: ["currículum", "CV", "crear CV gratis", "PDF"],
+  keywords: [
+    "currículum",
+    "CV",
+    "crear CV gratis",
+    "hacer currículum online",
+    "plantillas de CV",
+    "CV profesional",
+    "descargar CV en PDF",
+  ],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "CVMakerApp — Crea currículums profesionales en minutos",
-    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
+    title: "Crea tu CV gratis en minutos | CVMakerApp",
+    description:
+      "Crea tu currículum profesional gratis en minutos. Sin registro, sin marca de agua: 20 plantillas y exportación a PDF.",
     type: "website",
     locale: "es_ES",
     siteName: "CVMakerApp",
     url: "https://cvmakerapp.vercel.app",
-    images: [{ url: "/logo.png", width: 512, height: 512, alt: "CVMakerApp" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "CVMakerApp — Crea tu currículum gratis en minutos" }],
   },
   twitter: {
-    card: "summary",
-    title: "CVMakerApp — Crea currículums profesionales en minutos",
-    description: "Generador de currículums sin registro, sin límite, en minutos. Exporta a PDF.",
-    images: ["/logo.png"],
+    card: "summary_large_image",
+    title: "Crea tu CV gratis en minutos | CVMakerApp",
+    description:
+      "Crea tu currículum profesional gratis en minutos. Sin registro, sin marca de agua: 20 plantillas y exportación a PDF.",
+    images: ["/og.png"],
   },
   icons: {
     icon: [
@@ -98,7 +109,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1A1918",
+  themeColor: "#F8F9FD",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

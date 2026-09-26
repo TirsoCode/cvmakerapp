@@ -8,16 +8,20 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test lib/share.test.ts"
+    "test": "node --import tsx --test lib/share.test.ts",
+    "video:studio": "remotion studio remotion/src/index.ts",
+    "video:render": "remotion render remotion/src/index.ts CvMakerInstagram remotion/output/cvmaker-instagram.mp4 --codec=h264 --pixel-format=yuv420p"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.527",
     "@vercel/analytics": "^2.0.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "lz-string": "^1.5.0",
     "next": "14.2.29",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.527"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
