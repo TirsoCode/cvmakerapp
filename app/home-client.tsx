@@ -278,8 +278,7 @@ export default function HomeClient() {
         <div className="footer-brand"><span className="brand-symbol">C</span><strong>CVMakerApp</strong></div>
         <p>© {new Date().getFullYear()} CVMakerApp · Currículums profesionales en minutos.</p>
         <div className="footer-contact">
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <a href={REPO_URL} target="_blank" rel="noopener noreferrer">Código fuente</a>
+          <a href={REPO_URL} target="_blank" rel="noopener noreferrer">Código fuente en GitHub</a>
         </div>
         <div className="footer-links">
           <Link href="/acerca-de">Sobre mí</Link>
@@ -302,10 +301,9 @@ const TESTIMONIALS = [
   { quote: "[TESTIMONIAL PENDIENTE]", author: "[TESTIMONIAL PENDIENTE]", role: "Puesto · Empresa" },
 ];
 
-// TODO CONTACTO: sustituye este email por el buzón real de contacto antes de
-// publicar (aparece en el footer de la landing y en /acerca-de).
-const CONTACT_EMAIL = "hola@cvmakerapp.com";
-
+// Vía de contacto: el repositorio de GitHub (issues y README). No hay email
+// de contacto a propósito: la web no recoge datos, así que publicarlo solo
+// añadiría spam. Quien quiera escribir, usa el repo.
 const REPO_URL = "https://github.com/TirsoCode/cvmakerapp";
 
 const COMPARISON = [

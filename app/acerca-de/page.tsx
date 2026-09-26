@@ -16,9 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-// TODO CONTACTO: mismo email que el footer de la landing (app/home-client.tsx).
-// Si lo cambias en uno, cámbialo en el otro.
-const CONTACT_EMAIL = "hola@cvmakerapp.com";
+// Vía de contacto: el repositorio de GitHub. No se publica email a
+// propósito (la web no recoge datos y solo atraería spam).
 const REPO_URL = "https://github.com/TirsoCode/cvmakerapp";
 
 const SERIF = "var(--font-playfair), serif";
@@ -53,7 +52,7 @@ const SECTIONS: { title: string; content: string }[] = [
   {
     title: "Contacto",
     content:
-      "Puedes escribir a hola@cvmakerapp.com para cualquier duda, o abrir una incidencia en el repositorio de GitHub, que suele ser la vía más rápida. Las correcciones y las sugerencias de nuevas plantillas son bienvenidas.",
+      "La vía de contacto es el repositorio de GitHub: abre una incidencia y la respondo. También valen las correcciones y las sugerencias de nuevas plantillas, que son la mejor forma de mejorar la herramienta.",
   },
 ];
 
@@ -82,8 +81,8 @@ export default function AboutPage() {
           ))}
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            <a href={`mailto:${CONTACT_EMAIL}`} style={{ fontSize: 13, fontWeight: 600, color: "#C0392B", textDecoration: "none" }}>{CONTACT_EMAIL}</a>
-            <a href={REPO_URL} style={{ fontSize: 13, fontWeight: 600, color: "#6B6860", textDecoration: "none" }}>Repositorio de GitHub</a>
+            <a href={REPO_URL} style={{ fontSize: 13, fontWeight: 600, color: "#C0392B", textDecoration: "none" }}>Repositorio de GitHub</a>
+            <a href="/editor" style={{ fontSize: 13, fontWeight: 600, color: "#6B6860", textDecoration: "none" }}>Crear mi CV</a>
           </div>
         </div>
       </div>
